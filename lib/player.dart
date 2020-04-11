@@ -3,13 +3,6 @@ import 'package:rxdart/rxdart.dart';
 
 import 'audio_service.dart';
 
-abstract class PlayerBase {
-  /// Properties
-
-  /// Methods
-
-}
-
 void _audioPlayerTaskEntrypoint() async {
   AudioServiceBackground.run(() => AudioServiceTask());
 }
