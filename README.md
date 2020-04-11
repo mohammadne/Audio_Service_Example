@@ -1,6 +1,6 @@
 # audio_service_example
 
-this example , is another example for audio_service package [audio_service](https://github.com/mohammadne/Audio_Service_Example) 
+this example , is another example for audio_service package [audio_service](https://github.com/ryanheise/audio_service) 
 
 [This example](https://github.com/mohammadne/Audio_Service_Example) demonstrates how to play an audio file in the background.
 
