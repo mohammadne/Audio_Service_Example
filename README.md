@@ -1,8 +1,16 @@
-# audio_service_example
+# just_audio_Service
 
-this example , is another example for audio_service package [audio_service](https://github.com/ryanheise/audio_service) 
+A new Flutter project.
 
-[This example](https://github.com/mohammadne/Audio_Service_Example) demonstrates how to play an audio file in the background.
+## Getting Started
 
-in this example you can see that the audio code and UI code is decoupled and you can implement your own state_manegment or architecture techniques .
-simply use this audio file into your BLoCs classes and use that player as a service.
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+
+For help getting started with Flutter, view our
+[online documentation](https://flutter.dev/docs), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
