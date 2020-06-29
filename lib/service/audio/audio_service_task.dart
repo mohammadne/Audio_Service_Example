@@ -1,11 +1,20 @@
 part of 'player_service.dart';
 
 class AudioPlayerTask extends BackgroundAudioTask {
-  PlayerBase player = JustAudio();
+  PlayerBase _player = JustAudio();
 
   /// Initialise your audio task
   @override
-  Future<void> onStart(Map<String, dynamic> params) async {}
+  Future<void> onStart(Map<String, dynamic> params) async {
+    _player.playerBaseStateStream.listen((state) {
+      switch (state) {
+        case PlayerBaseState.completed:
+          
+          break;
+        default:
+      }
+    });
+  }
 
   /// Handle a request to stop audio and finish the task
   @override

@@ -1,7 +1,7 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 
-import 'player_page.dart';
+import 'ui/player_page.dart';
 
 void main() => runApp(new MyApp());
 
