@@ -4,7 +4,6 @@ import 'package:audio_service/audio_service.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:hive/hive.dart';
 
-
 import 'player/just_audio.dart';
 import 'player/player_base.dart';
 
@@ -30,10 +29,10 @@ abstract class PlayerService {
         androidEnableQueue: true,
       );
 
+  static Stream get s => Hive.box('name').watch();
+
   static final BehaviorSubject<PlayBackState> _playBackState =
       BehaviorSubject.seeded(PlayBackState.Order);
-
-  
 
   // static Stream<bool> get isFirstMediaItem =>
   //     Rx.combineLatest2<List<MediaItem>, MediaItem, bool>(

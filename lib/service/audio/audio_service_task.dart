@@ -2,24 +2,19 @@ part of 'player_service.dart';
 
 class AudioPlayerTask extends BackgroundAudioTask {
   PlayerBase _player = JustAudio();
+  var box;
 
   /// Initialise your audio task
   @override
   Future<void> onStart(Map<String, dynamic> params) async {
+    box = await Hive.openBox('name');
     _player.playerBaseStateStream.listen((state) {
       switch (state) {
         case PlayerBaseState.completed:
-          
           break;
         default:
       }
     });
-  }
-
-  /// Handle a request to stop audio and finish the task
-  @override
-  Future<void> onStop() async {
-    super.onStop();
   }
 
   /// Handle a request to play audio
@@ -29,6 +24,12 @@ class AudioPlayerTask extends BackgroundAudioTask {
   /// Handle a request to pause audio
   @override
   void onPause() {}
+
+  /// Handle a request to stop audio and finish the task
+  @override
+  Future<void> onStop() async {
+    super.onStop();
+  }
 
   /// Handle a request to skip to the next queue item
   @override
@@ -80,6 +81,9 @@ class AudioPlayerTask extends BackgroundAudioTask {
 
   @override
   Future onCustomAction(String name, arguments) async {}
+
+  @override
+  void onClose() {}
 }
 
 MediaControl playControl = MediaControl(
