@@ -31,6 +31,25 @@ class JustAudio implements AudioPlayerBase {
   Future dispose() => _audioPlayer.dispose();
 
   @override
+  Stream<AudioPlayerBaseState> get audioPlayerBaseStateStream =>
+      _audioPlayer.playbackStateStream.map((state) {
+        switch (state) {
+          case AudioPlaybackState.stopped:
+            return AudioPlayerBaseState.stopped;
+          case AudioPlaybackState.paused:
+            return AudioPlayerBaseState.paused;
+          case AudioPlaybackState.playing:
+            return AudioPlayerBaseState.playing;
+          case AudioPlaybackState.connecting:
+            return AudioPlayerBaseState.connecting;
+          case AudioPlaybackState.completed:
+            return AudioPlayerBaseState.completed;
+          default:
+            return AudioPlayerBaseState.none;
+        }
+      });
+
+  @override
   Stream<Duration> get positionStream =>
       _audioPlayer.playbackEventStream.map((event) => event.position);
 
@@ -39,34 +58,17 @@ class JustAudio implements AudioPlayerBase {
       _audioPlayer.bufferedPositionStream;
 
   @override
-  Stream<Duration> get durationStream => _audioPlayer.durationStream;
+  Stream<bool> get isBufferingStream => _audioPlayer.bufferingStream;
 
   @override
-  Stream<AudioPlayerBaseState> get audioPlayerBaseStateStream =>
-      _audioPlayer.playbackEventStream.map((event) {
-        if (event.buffering)
-          return AudioPlayerBaseState.buffering;
-        else {
-          switch (event.state) {
-            case AudioPlaybackState.stopped:
-              return AudioPlayerBaseState.stopped;
-            case AudioPlaybackState.paused:
-              return AudioPlayerBaseState.paused;
-            case AudioPlaybackState.playing:
-              return AudioPlayerBaseState.playing;
-            case AudioPlaybackState.connecting:
-              return AudioPlayerBaseState.connecting;
-            case AudioPlaybackState.completed:
-              return AudioPlayerBaseState.completed;
-            default:
-              return AudioPlayerBaseState.none;
-          }
-        }
-      });
+  Stream<Duration> get durationStream => _audioPlayer.durationStream;
 
   @override
   Stream<double> get speedStream =>
       _audioPlayer.playbackEventStream.map((event) => event.speed);
+
+  @override
+  Stream<Duration> get volumeStream => throw UnimplementedError();
 
   @override
   double get volume => _audioPlayer.volume;
@@ -76,6 +78,9 @@ class JustAudio implements AudioPlayerBase {
 
   @override
   Duration get bufferedPosition => _audioPlayer.playbackEvent.bufferedPosition;
+
+  @override
+  bool get isBuffering => _audioPlayer.buffering;
 
   @override
   Duration get duration => _audioPlayer.playbackEvent.duration;
