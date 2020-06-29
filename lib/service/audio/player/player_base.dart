@@ -1,4 +1,4 @@
-abstract class AudioPlayerBase {
+abstract class PlayerBase {
   /// functions
   Future<Duration> setUrl(String uri);
   Future play();
@@ -10,7 +10,7 @@ abstract class AudioPlayerBase {
   Future setVolume(double volume);
 
   /// streams
-  Stream<AudioPlayerBaseState> get audioPlayerBaseStateStream;
+  Stream<PlayerBaseState> get playerBaseStateStream;
   Stream<Duration> get bufferedPositionStream;
   Stream<bool> get isBufferingStream;
   Stream<Duration> get positionStream;
@@ -27,7 +27,7 @@ abstract class AudioPlayerBase {
   double get speed;
 }
 
-enum AudioPlayerBaseState {
+enum PlayerBaseState {
   none,
   connecting,
   playing,

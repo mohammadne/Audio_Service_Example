@@ -40,11 +40,11 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.ryanheise.audioservice.AudioService">
+        <receiver android:name="com.ryanheise.audioservice.MediaButtonReceiver" >
             <intent-filter>
-                <action android:name="android.media.browse.MediaBrowserService" />
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
-        </service>
+        </receiver> 
 
         <receiver android:name="androidx.media.session.MediaButtonReceiver" >
             <intent-filter>

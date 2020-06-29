@@ -1,8 +1,8 @@
 import 'package:just_audio/just_audio.dart';
 
-import 'audio_player_base.dart';
+import 'player_base.dart';
 
-class JustAudio implements AudioPlayerBase {
+class JustAudio implements PlayerBase {
   JustAudio() : _audioPlayer = AudioPlayer();
   final AudioPlayer _audioPlayer;
 
@@ -31,21 +31,21 @@ class JustAudio implements AudioPlayerBase {
   Future dispose() => _audioPlayer.dispose();
 
   @override
-  Stream<AudioPlayerBaseState> get audioPlayerBaseStateStream =>
+  Stream<PlayerBaseState> get playerBaseStateStream =>
       _audioPlayer.playbackStateStream.map((state) {
         switch (state) {
           case AudioPlaybackState.stopped:
-            return AudioPlayerBaseState.stopped;
+            return PlayerBaseState.stopped;
           case AudioPlaybackState.paused:
-            return AudioPlayerBaseState.paused;
+            return PlayerBaseState.paused;
           case AudioPlaybackState.playing:
-            return AudioPlayerBaseState.playing;
+            return PlayerBaseState.playing;
           case AudioPlaybackState.connecting:
-            return AudioPlayerBaseState.connecting;
+            return PlayerBaseState.connecting;
           case AudioPlaybackState.completed:
-            return AudioPlayerBaseState.completed;
+            return PlayerBaseState.completed;
           default:
-            return AudioPlayerBaseState.none;
+            return PlayerBaseState.none;
         }
       });
 
