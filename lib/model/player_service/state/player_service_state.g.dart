@@ -24,7 +24,6 @@ _$_PlayerServiceState _$_$_PlayerServiceStateFromJson(
     bufferedPosition: json['bufferedPosition'] == null
         ? null
         : Duration(microseconds: json['bufferedPosition'] as int),
-    genre: json['genre'] as String,
   );
 }
 
@@ -37,5 +36,4 @@ Map<String, dynamic> _$_$_PlayerServiceStateToJson(
       'position': instance.position?.inMicroseconds,
       'updateTime': instance.updateTime?.inMicroseconds,
       'bufferedPosition': instance.bufferedPosition?.inMicroseconds,
-      'genre': instance.genre,
     };

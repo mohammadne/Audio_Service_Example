@@ -21,8 +21,7 @@ class _$PlayerServiceStateTearOff {
       @required double speed,
       @required Duration position,
       @required Duration updateTime,
-      @required Duration bufferedPosition,
-      String genre}) {
+      @required Duration bufferedPosition}) {
     return _PlayerServiceState(
       processingState: processingState,
       playing: playing,
@@ -30,7 +29,6 @@ class _$PlayerServiceStateTearOff {
       position: position,
       updateTime: updateTime,
       bufferedPosition: bufferedPosition,
-      genre: genre,
     );
   }
 }
@@ -45,7 +43,6 @@ mixin _$PlayerServiceState {
   Duration get position;
   Duration get updateTime;
   Duration get bufferedPosition;
-  String get genre;
 
   Map<String, dynamic> toJson();
   $PlayerServiceStateCopyWith<PlayerServiceState> get copyWith;
@@ -61,8 +58,7 @@ abstract class $PlayerServiceStateCopyWith<$Res> {
       double speed,
       Duration position,
       Duration updateTime,
-      Duration bufferedPosition,
-      String genre});
+      Duration bufferedPosition});
 
   $PlayerServiceProcessingStateCopyWith<$Res> get processingState;
 }
@@ -83,7 +79,6 @@ class _$PlayerServiceStateCopyWithImpl<$Res>
     Object position = freezed,
     Object updateTime = freezed,
     Object bufferedPosition = freezed,
-    Object genre = freezed,
   }) {
     return _then(_value.copyWith(
       processingState: processingState == freezed
@@ -97,7 +92,6 @@ class _$PlayerServiceStateCopyWithImpl<$Res>
       bufferedPosition: bufferedPosition == freezed
           ? _value.bufferedPosition
           : bufferedPosition as Duration,
-      genre: genre == freezed ? _value.genre : genre as String,
     ));
   }
 
@@ -125,8 +119,7 @@ abstract class _$PlayerServiceStateCopyWith<$Res>
       double speed,
       Duration position,
       Duration updateTime,
-      Duration bufferedPosition,
-      String genre});
+      Duration bufferedPosition});
 
   @override
   $PlayerServiceProcessingStateCopyWith<$Res> get processingState;
@@ -150,7 +143,6 @@ class __$PlayerServiceStateCopyWithImpl<$Res>
     Object position = freezed,
     Object updateTime = freezed,
     Object bufferedPosition = freezed,
-    Object genre = freezed,
   }) {
     return _then(_PlayerServiceState(
       processingState: processingState == freezed
@@ -164,7 +156,6 @@ class __$PlayerServiceStateCopyWithImpl<$Res>
       bufferedPosition: bufferedPosition == freezed
           ? _value.bufferedPosition
           : bufferedPosition as Duration,
-      genre: genre == freezed ? _value.genre : genre as String,
     ));
   }
 }
@@ -177,8 +168,7 @@ class _$_PlayerServiceState implements _PlayerServiceState {
       @required this.speed,
       @required this.position,
       @required this.updateTime,
-      @required this.bufferedPosition,
-      this.genre})
+      @required this.bufferedPosition})
       : assert(processingState != null),
         assert(playing != null),
         assert(speed != null),
@@ -201,12 +191,10 @@ class _$_PlayerServiceState implements _PlayerServiceState {
   final Duration updateTime;
   @override
   final Duration bufferedPosition;
-  @override
-  final String genre;
 
   @override
   String toString() {
-    return 'PlayerServiceState(processingState: $processingState, playing: $playing, speed: $speed, position: $position, updateTime: $updateTime, bufferedPosition: $bufferedPosition, genre: $genre)';
+    return 'PlayerServiceState(processingState: $processingState, playing: $playing, speed: $speed, position: $position, updateTime: $updateTime, bufferedPosition: $bufferedPosition)';
   }
 
   @override
@@ -229,9 +217,7 @@ class _$_PlayerServiceState implements _PlayerServiceState {
                     .equals(other.updateTime, updateTime)) &&
             (identical(other.bufferedPosition, bufferedPosition) ||
                 const DeepCollectionEquality()
-                    .equals(other.bufferedPosition, bufferedPosition)) &&
-            (identical(other.genre, genre) ||
-                const DeepCollectionEquality().equals(other.genre, genre)));
+                    .equals(other.bufferedPosition, bufferedPosition)));
   }
 
   @override
@@ -242,8 +228,7 @@ class _$_PlayerServiceState implements _PlayerServiceState {
       const DeepCollectionEquality().hash(speed) ^
       const DeepCollectionEquality().hash(position) ^
       const DeepCollectionEquality().hash(updateTime) ^
-      const DeepCollectionEquality().hash(bufferedPosition) ^
-      const DeepCollectionEquality().hash(genre);
+      const DeepCollectionEquality().hash(bufferedPosition);
 
   @override
   _$PlayerServiceStateCopyWith<_PlayerServiceState> get copyWith =>
@@ -262,8 +247,7 @@ abstract class _PlayerServiceState implements PlayerServiceState {
       @required double speed,
       @required Duration position,
       @required Duration updateTime,
-      @required Duration bufferedPosition,
-      String genre}) = _$_PlayerServiceState;
+      @required Duration bufferedPosition}) = _$_PlayerServiceState;
 
   factory _PlayerServiceState.fromJson(Map<String, dynamic> json) =
       _$_PlayerServiceState.fromJson;
@@ -280,8 +264,6 @@ abstract class _PlayerServiceState implements PlayerServiceState {
   Duration get updateTime;
   @override
   Duration get bufferedPosition;
-  @override
-  String get genre;
   @override
   _$PlayerServiceStateCopyWith<_PlayerServiceState> get copyWith;
 }

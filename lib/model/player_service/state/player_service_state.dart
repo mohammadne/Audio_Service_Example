@@ -13,7 +13,6 @@ abstract class PlayerServiceState with _$PlayerServiceState {
     @required Duration position,
     @required Duration updateTime,
     @required Duration bufferedPosition,
-    String genre,
   }) = _PlayerServiceState;
 
   factory PlayerServiceState.fromJson(Map<String, dynamic> json) =>
