@@ -16,20 +16,20 @@ class _$PlayerServiceStateTearOff {
   const _$PlayerServiceStateTearOff();
 
   _PlayerServiceState call(
-      {@required String id,
-      @required String album,
-      @required String artist,
-      @required String title,
-      @required String artUri,
-      @required Duration duration,
+      {@required PlayerServiceProcessingState processingState,
+      @required bool playing,
+      @required double speed,
+      @required Duration position,
+      @required Duration updateTime,
+      @required Duration bufferedPosition,
       String genre}) {
     return _PlayerServiceState(
-      id: id,
-      album: album,
-      artist: artist,
-      title: title,
-      artUri: artUri,
-      duration: duration,
+      processingState: processingState,
+      playing: playing,
+      speed: speed,
+      position: position,
+      updateTime: updateTime,
+      bufferedPosition: bufferedPosition,
       genre: genre,
     );
   }
@@ -39,12 +39,12 @@ class _$PlayerServiceStateTearOff {
 const $PlayerServiceState = _$PlayerServiceStateTearOff();
 
 mixin _$PlayerServiceState {
-  String get id;
-  String get album;
-  String get artist;
-  String get title;
-  String get artUri;
-  Duration get duration;
+  PlayerServiceProcessingState get processingState;
+  bool get playing;
+  double get speed;
+  Duration get position;
+  Duration get updateTime;
+  Duration get bufferedPosition;
   String get genre;
 
   Map<String, dynamic> toJson();
@@ -56,13 +56,15 @@ abstract class $PlayerServiceStateCopyWith<$Res> {
           PlayerServiceState value, $Res Function(PlayerServiceState) then) =
       _$PlayerServiceStateCopyWithImpl<$Res>;
   $Res call(
-      {String id,
-      String album,
-      String artist,
-      String title,
-      String artUri,
-      Duration duration,
+      {PlayerServiceProcessingState processingState,
+      bool playing,
+      double speed,
+      Duration position,
+      Duration updateTime,
+      Duration bufferedPosition,
       String genre});
+
+  $PlayerServiceProcessingStateCopyWith<$Res> get processingState;
 }
 
 class _$PlayerServiceStateCopyWithImpl<$Res>
@@ -75,23 +77,39 @@ class _$PlayerServiceStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object id = freezed,
-    Object album = freezed,
-    Object artist = freezed,
-    Object title = freezed,
-    Object artUri = freezed,
-    Object duration = freezed,
+    Object processingState = freezed,
+    Object playing = freezed,
+    Object speed = freezed,
+    Object position = freezed,
+    Object updateTime = freezed,
+    Object bufferedPosition = freezed,
     Object genre = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as String,
-      album: album == freezed ? _value.album : album as String,
-      artist: artist == freezed ? _value.artist : artist as String,
-      title: title == freezed ? _value.title : title as String,
-      artUri: artUri == freezed ? _value.artUri : artUri as String,
-      duration: duration == freezed ? _value.duration : duration as Duration,
+      processingState: processingState == freezed
+          ? _value.processingState
+          : processingState as PlayerServiceProcessingState,
+      playing: playing == freezed ? _value.playing : playing as bool,
+      speed: speed == freezed ? _value.speed : speed as double,
+      position: position == freezed ? _value.position : position as Duration,
+      updateTime:
+          updateTime == freezed ? _value.updateTime : updateTime as Duration,
+      bufferedPosition: bufferedPosition == freezed
+          ? _value.bufferedPosition
+          : bufferedPosition as Duration,
       genre: genre == freezed ? _value.genre : genre as String,
     ));
+  }
+
+  @override
+  $PlayerServiceProcessingStateCopyWith<$Res> get processingState {
+    if (_value.processingState == null) {
+      return null;
+    }
+    return $PlayerServiceProcessingStateCopyWith<$Res>(_value.processingState,
+        (value) {
+      return _then(_value.copyWith(processingState: value));
+    });
   }
 }
 
@@ -102,13 +120,16 @@ abstract class _$PlayerServiceStateCopyWith<$Res>
       __$PlayerServiceStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String id,
-      String album,
-      String artist,
-      String title,
-      String artUri,
-      Duration duration,
+      {PlayerServiceProcessingState processingState,
+      bool playing,
+      double speed,
+      Duration position,
+      Duration updateTime,
+      Duration bufferedPosition,
       String genre});
+
+  @override
+  $PlayerServiceProcessingStateCopyWith<$Res> get processingState;
 }
 
 class __$PlayerServiceStateCopyWithImpl<$Res>
@@ -123,21 +144,26 @@ class __$PlayerServiceStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object id = freezed,
-    Object album = freezed,
-    Object artist = freezed,
-    Object title = freezed,
-    Object artUri = freezed,
-    Object duration = freezed,
+    Object processingState = freezed,
+    Object playing = freezed,
+    Object speed = freezed,
+    Object position = freezed,
+    Object updateTime = freezed,
+    Object bufferedPosition = freezed,
     Object genre = freezed,
   }) {
     return _then(_PlayerServiceState(
-      id: id == freezed ? _value.id : id as String,
-      album: album == freezed ? _value.album : album as String,
-      artist: artist == freezed ? _value.artist : artist as String,
-      title: title == freezed ? _value.title : title as String,
-      artUri: artUri == freezed ? _value.artUri : artUri as String,
-      duration: duration == freezed ? _value.duration : duration as Duration,
+      processingState: processingState == freezed
+          ? _value.processingState
+          : processingState as PlayerServiceProcessingState,
+      playing: playing == freezed ? _value.playing : playing as bool,
+      speed: speed == freezed ? _value.speed : speed as double,
+      position: position == freezed ? _value.position : position as Duration,
+      updateTime:
+          updateTime == freezed ? _value.updateTime : updateTime as Duration,
+      bufferedPosition: bufferedPosition == freezed
+          ? _value.bufferedPosition
+          : bufferedPosition as Duration,
       genre: genre == freezed ? _value.genre : genre as String,
     ));
   }
@@ -146,60 +172,64 @@ class __$PlayerServiceStateCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_PlayerServiceState implements _PlayerServiceState {
   const _$_PlayerServiceState(
-      {@required this.id,
-      @required this.album,
-      @required this.artist,
-      @required this.title,
-      @required this.artUri,
-      @required this.duration,
+      {@required this.processingState,
+      @required this.playing,
+      @required this.speed,
+      @required this.position,
+      @required this.updateTime,
+      @required this.bufferedPosition,
       this.genre})
-      : assert(id != null),
-        assert(album != null),
-        assert(artist != null),
-        assert(title != null),
-        assert(artUri != null),
-        assert(duration != null);
+      : assert(processingState != null),
+        assert(playing != null),
+        assert(speed != null),
+        assert(position != null),
+        assert(updateTime != null),
+        assert(bufferedPosition != null);
 
   factory _$_PlayerServiceState.fromJson(Map<String, dynamic> json) =>
       _$_$_PlayerServiceStateFromJson(json);
 
   @override
-  final String id;
+  final PlayerServiceProcessingState processingState;
   @override
-  final String album;
+  final bool playing;
   @override
-  final String artist;
+  final double speed;
   @override
-  final String title;
+  final Duration position;
   @override
-  final String artUri;
+  final Duration updateTime;
   @override
-  final Duration duration;
+  final Duration bufferedPosition;
   @override
   final String genre;
 
   @override
   String toString() {
-    return 'PlayerServiceState(id: $id, album: $album, artist: $artist, title: $title, artUri: $artUri, duration: $duration, genre: $genre)';
+    return 'PlayerServiceState(processingState: $processingState, playing: $playing, speed: $speed, position: $position, updateTime: $updateTime, bufferedPosition: $bufferedPosition, genre: $genre)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _PlayerServiceState &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.album, album) ||
-                const DeepCollectionEquality().equals(other.album, album)) &&
-            (identical(other.artist, artist) ||
-                const DeepCollectionEquality().equals(other.artist, artist)) &&
-            (identical(other.title, title) ||
-                const DeepCollectionEquality().equals(other.title, title)) &&
-            (identical(other.artUri, artUri) ||
-                const DeepCollectionEquality().equals(other.artUri, artUri)) &&
-            (identical(other.duration, duration) ||
+            (identical(other.processingState, processingState) ||
                 const DeepCollectionEquality()
-                    .equals(other.duration, duration)) &&
+                    .equals(other.processingState, processingState)) &&
+            (identical(other.playing, playing) ||
+                const DeepCollectionEquality()
+                    .equals(other.playing, playing)) &&
+            (identical(other.speed, speed) ||
+                const DeepCollectionEquality().equals(other.speed, speed)) &&
+            (identical(other.position, position) ||
+                const DeepCollectionEquality()
+                    .equals(other.position, position)) &&
+            (identical(other.updateTime, updateTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.updateTime, updateTime)) &&
+            (identical(other.bufferedPosition, bufferedPosition) ||
+                const DeepCollectionEquality()
+                    .equals(other.bufferedPosition, bufferedPosition)) &&
             (identical(other.genre, genre) ||
                 const DeepCollectionEquality().equals(other.genre, genre)));
   }
@@ -207,12 +237,12 @@ class _$_PlayerServiceState implements _PlayerServiceState {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(album) ^
-      const DeepCollectionEquality().hash(artist) ^
-      const DeepCollectionEquality().hash(title) ^
-      const DeepCollectionEquality().hash(artUri) ^
-      const DeepCollectionEquality().hash(duration) ^
+      const DeepCollectionEquality().hash(processingState) ^
+      const DeepCollectionEquality().hash(playing) ^
+      const DeepCollectionEquality().hash(speed) ^
+      const DeepCollectionEquality().hash(position) ^
+      const DeepCollectionEquality().hash(updateTime) ^
+      const DeepCollectionEquality().hash(bufferedPosition) ^
       const DeepCollectionEquality().hash(genre);
 
   @override
@@ -227,29 +257,29 @@ class _$_PlayerServiceState implements _PlayerServiceState {
 
 abstract class _PlayerServiceState implements PlayerServiceState {
   const factory _PlayerServiceState(
-      {@required String id,
-      @required String album,
-      @required String artist,
-      @required String title,
-      @required String artUri,
-      @required Duration duration,
+      {@required PlayerServiceProcessingState processingState,
+      @required bool playing,
+      @required double speed,
+      @required Duration position,
+      @required Duration updateTime,
+      @required Duration bufferedPosition,
       String genre}) = _$_PlayerServiceState;
 
   factory _PlayerServiceState.fromJson(Map<String, dynamic> json) =
       _$_PlayerServiceState.fromJson;
 
   @override
-  String get id;
+  PlayerServiceProcessingState get processingState;
   @override
-  String get album;
+  bool get playing;
   @override
-  String get artist;
+  double get speed;
   @override
-  String get title;
+  Duration get position;
   @override
-  String get artUri;
+  Duration get updateTime;
   @override
-  Duration get duration;
+  Duration get bufferedPosition;
   @override
   String get genre;
   @override

@@ -9,14 +9,21 @@ part of 'player_service_state.dart';
 _$_PlayerServiceState _$_$_PlayerServiceStateFromJson(
     Map<String, dynamic> json) {
   return _$_PlayerServiceState(
-    id: json['id'] as String,
-    album: json['album'] as String,
-    artist: json['artist'] as String,
-    title: json['title'] as String,
-    artUri: json['artUri'] as String,
-    duration: json['duration'] == null
+    processingState: json['processingState'] == null
         ? null
-        : Duration(microseconds: json['duration'] as int),
+        : PlayerServiceProcessingState.fromJson(
+            json['processingState'] as Map<String, dynamic>),
+    playing: json['playing'] as bool,
+    speed: (json['speed'] as num)?.toDouble(),
+    position: json['position'] == null
+        ? null
+        : Duration(microseconds: json['position'] as int),
+    updateTime: json['updateTime'] == null
+        ? null
+        : Duration(microseconds: json['updateTime'] as int),
+    bufferedPosition: json['bufferedPosition'] == null
+        ? null
+        : Duration(microseconds: json['bufferedPosition'] as int),
     genre: json['genre'] as String,
   );
 }
@@ -24,11 +31,11 @@ _$_PlayerServiceState _$_$_PlayerServiceStateFromJson(
 Map<String, dynamic> _$_$_PlayerServiceStateToJson(
         _$_PlayerServiceState instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'album': instance.album,
-      'artist': instance.artist,
-      'title': instance.title,
-      'artUri': instance.artUri,
-      'duration': instance.duration?.inMicroseconds,
+      'processingState': instance.processingState,
+      'playing': instance.playing,
+      'speed': instance.speed,
+      'position': instance.position?.inMicroseconds,
+      'updateTime': instance.updateTime?.inMicroseconds,
+      'bufferedPosition': instance.bufferedPosition?.inMicroseconds,
       'genre': instance.genre,
     };
