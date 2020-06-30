@@ -13,8 +13,8 @@ PlayerServiceProcessingState _$PlayerServiceProcessingStateFromJson(
   switch (json['runtimeType'] as String) {
     case 'none':
       return _None.fromJson(json);
-    case 'connecting':
-      return _Connecting.fromJson(json);
+    case 'waiting':
+      return _Waiting.fromJson(json);
     case 'ready':
       return _Ready.fromJson(json);
     case 'buffering':
@@ -23,12 +23,6 @@ PlayerServiceProcessingState _$PlayerServiceProcessingStateFromJson(
       return _FastForwarding.fromJson(json);
     case 'rewinding':
       return _Rewinding.fromJson(json);
-    case 'skippingToPrevious':
-      return _SkippingToPrevious.fromJson(json);
-    case 'skippingToNext':
-      return _SkippingToNext.fromJson(json);
-    case 'skippingToQueueItem':
-      return _SkippingToQueueItem.fromJson(json);
     case 'completed':
       return _Completed.fromJson(json);
     case 'stopped':
@@ -48,8 +42,8 @@ class _$PlayerServiceProcessingStateTearOff {
     return const _None();
   }
 
-  _Connecting connecting() {
-    return const _Connecting();
+  _Waiting waiting() {
+    return const _Waiting();
   }
 
   _Ready ready() {
@@ -66,18 +60,6 @@ class _$PlayerServiceProcessingStateTearOff {
 
   _Rewinding rewinding() {
     return const _Rewinding();
-  }
-
-  _SkippingToPrevious skippingToPrevious() {
-    return const _SkippingToPrevious();
-  }
-
-  _SkippingToNext skippingToNext() {
-    return const _SkippingToNext();
-  }
-
-  _SkippingToQueueItem skippingToQueueItem() {
-    return const _SkippingToQueueItem();
   }
 
   _Completed completed() {
@@ -100,14 +82,11 @@ mixin _$PlayerServiceProcessingState {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result none(),
-    @required Result connecting(),
+    @required Result waiting(),
     @required Result ready(),
     @required Result buffering(),
     @required Result fastForwarding(),
     @required Result rewinding(),
-    @required Result skippingToPrevious(),
-    @required Result skippingToNext(),
-    @required Result skippingToQueueItem(),
     @required Result completed(),
     @required Result stopped(),
     @required Result error(),
@@ -115,14 +94,11 @@ mixin _$PlayerServiceProcessingState {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result none(),
-    Result connecting(),
+    Result waiting(),
     Result ready(),
     Result buffering(),
     Result fastForwarding(),
     Result rewinding(),
-    Result skippingToPrevious(),
-    Result skippingToNext(),
-    Result skippingToQueueItem(),
     Result completed(),
     Result stopped(),
     Result error(),
@@ -131,14 +107,11 @@ mixin _$PlayerServiceProcessingState {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result none(_None value),
-    @required Result connecting(_Connecting value),
+    @required Result waiting(_Waiting value),
     @required Result ready(_Ready value),
     @required Result buffering(_Buffering value),
     @required Result fastForwarding(_FastForwarding value),
     @required Result rewinding(_Rewinding value),
-    @required Result skippingToPrevious(_SkippingToPrevious value),
-    @required Result skippingToNext(_SkippingToNext value),
-    @required Result skippingToQueueItem(_SkippingToQueueItem value),
     @required Result completed(_Completed value),
     @required Result stopped(_Stopped value),
     @required Result error(_Error value),
@@ -146,14 +119,11 @@ mixin _$PlayerServiceProcessingState {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result none(_None value),
-    Result connecting(_Connecting value),
+    Result waiting(_Waiting value),
     Result ready(_Ready value),
     Result buffering(_Buffering value),
     Result fastForwarding(_FastForwarding value),
     Result rewinding(_Rewinding value),
-    Result skippingToPrevious(_SkippingToPrevious value),
-    Result skippingToNext(_SkippingToNext value),
-    Result skippingToQueueItem(_SkippingToQueueItem value),
     Result completed(_Completed value),
     Result stopped(_Stopped value),
     Result error(_Error value),
@@ -217,27 +187,21 @@ class _$_None implements _None {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result none(),
-    @required Result connecting(),
+    @required Result waiting(),
     @required Result ready(),
     @required Result buffering(),
     @required Result fastForwarding(),
     @required Result rewinding(),
-    @required Result skippingToPrevious(),
-    @required Result skippingToNext(),
-    @required Result skippingToQueueItem(),
     @required Result completed(),
     @required Result stopped(),
     @required Result error(),
   }) {
     assert(none != null);
-    assert(connecting != null);
+    assert(waiting != null);
     assert(ready != null);
     assert(buffering != null);
     assert(fastForwarding != null);
     assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
     assert(completed != null);
     assert(stopped != null);
     assert(error != null);
@@ -248,14 +212,11 @@ class _$_None implements _None {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result none(),
-    Result connecting(),
+    Result waiting(),
     Result ready(),
     Result buffering(),
     Result fastForwarding(),
     Result rewinding(),
-    Result skippingToPrevious(),
-    Result skippingToNext(),
-    Result skippingToQueueItem(),
     Result completed(),
     Result stopped(),
     Result error(),
@@ -272,27 +233,21 @@ class _$_None implements _None {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result none(_None value),
-    @required Result connecting(_Connecting value),
+    @required Result waiting(_Waiting value),
     @required Result ready(_Ready value),
     @required Result buffering(_Buffering value),
     @required Result fastForwarding(_FastForwarding value),
     @required Result rewinding(_Rewinding value),
-    @required Result skippingToPrevious(_SkippingToPrevious value),
-    @required Result skippingToNext(_SkippingToNext value),
-    @required Result skippingToQueueItem(_SkippingToQueueItem value),
     @required Result completed(_Completed value),
     @required Result stopped(_Stopped value),
     @required Result error(_Error value),
   }) {
     assert(none != null);
-    assert(connecting != null);
+    assert(waiting != null);
     assert(ready != null);
     assert(buffering != null);
     assert(fastForwarding != null);
     assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
     assert(completed != null);
     assert(stopped != null);
     assert(error != null);
@@ -303,14 +258,11 @@ class _$_None implements _None {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result none(_None value),
-    Result connecting(_Connecting value),
+    Result waiting(_Waiting value),
     Result ready(_Ready value),
     Result buffering(_Buffering value),
     Result fastForwarding(_FastForwarding value),
     Result rewinding(_Rewinding value),
-    Result skippingToPrevious(_SkippingToPrevious value),
-    Result skippingToNext(_SkippingToNext value),
-    Result skippingToQueueItem(_SkippingToQueueItem value),
     Result completed(_Completed value),
     Result stopped(_Stopped value),
     Result error(_Error value),
@@ -335,38 +287,36 @@ abstract class _None implements PlayerServiceProcessingState {
   factory _None.fromJson(Map<String, dynamic> json) = _$_None.fromJson;
 }
 
-abstract class _$ConnectingCopyWith<$Res> {
-  factory _$ConnectingCopyWith(
-          _Connecting value, $Res Function(_Connecting) then) =
-      __$ConnectingCopyWithImpl<$Res>;
+abstract class _$WaitingCopyWith<$Res> {
+  factory _$WaitingCopyWith(_Waiting value, $Res Function(_Waiting) then) =
+      __$WaitingCopyWithImpl<$Res>;
 }
 
-class __$ConnectingCopyWithImpl<$Res>
+class __$WaitingCopyWithImpl<$Res>
     extends _$PlayerServiceProcessingStateCopyWithImpl<$Res>
-    implements _$ConnectingCopyWith<$Res> {
-  __$ConnectingCopyWithImpl(
-      _Connecting _value, $Res Function(_Connecting) _then)
-      : super(_value, (v) => _then(v as _Connecting));
+    implements _$WaitingCopyWith<$Res> {
+  __$WaitingCopyWithImpl(_Waiting _value, $Res Function(_Waiting) _then)
+      : super(_value, (v) => _then(v as _Waiting));
 
   @override
-  _Connecting get _value => super._value as _Connecting;
+  _Waiting get _value => super._value as _Waiting;
 }
 
 @JsonSerializable()
-class _$_Connecting implements _Connecting {
-  const _$_Connecting();
+class _$_Waiting implements _Waiting {
+  const _$_Waiting();
 
-  factory _$_Connecting.fromJson(Map<String, dynamic> json) =>
-      _$_$_ConnectingFromJson(json);
+  factory _$_Waiting.fromJson(Map<String, dynamic> json) =>
+      _$_$_WaitingFromJson(json);
 
   @override
   String toString() {
-    return 'PlayerServiceProcessingState.connecting()';
+    return 'PlayerServiceProcessingState.waiting()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Connecting);
+    return identical(this, other) || (other is _Waiting);
   }
 
   @override
@@ -376,53 +326,44 @@ class _$_Connecting implements _Connecting {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result none(),
-    @required Result connecting(),
+    @required Result waiting(),
     @required Result ready(),
     @required Result buffering(),
     @required Result fastForwarding(),
     @required Result rewinding(),
-    @required Result skippingToPrevious(),
-    @required Result skippingToNext(),
-    @required Result skippingToQueueItem(),
     @required Result completed(),
     @required Result stopped(),
     @required Result error(),
   }) {
     assert(none != null);
-    assert(connecting != null);
+    assert(waiting != null);
     assert(ready != null);
     assert(buffering != null);
     assert(fastForwarding != null);
     assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
     assert(completed != null);
     assert(stopped != null);
     assert(error != null);
-    return connecting();
+    return waiting();
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result none(),
-    Result connecting(),
+    Result waiting(),
     Result ready(),
     Result buffering(),
     Result fastForwarding(),
     Result rewinding(),
-    Result skippingToPrevious(),
-    Result skippingToNext(),
-    Result skippingToQueueItem(),
     Result completed(),
     Result stopped(),
     Result error(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (connecting != null) {
-      return connecting();
+    if (waiting != null) {
+      return waiting();
     }
     return orElse();
   }
@@ -431,68 +372,58 @@ class _$_Connecting implements _Connecting {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result none(_None value),
-    @required Result connecting(_Connecting value),
+    @required Result waiting(_Waiting value),
     @required Result ready(_Ready value),
     @required Result buffering(_Buffering value),
     @required Result fastForwarding(_FastForwarding value),
     @required Result rewinding(_Rewinding value),
-    @required Result skippingToPrevious(_SkippingToPrevious value),
-    @required Result skippingToNext(_SkippingToNext value),
-    @required Result skippingToQueueItem(_SkippingToQueueItem value),
     @required Result completed(_Completed value),
     @required Result stopped(_Stopped value),
     @required Result error(_Error value),
   }) {
     assert(none != null);
-    assert(connecting != null);
+    assert(waiting != null);
     assert(ready != null);
     assert(buffering != null);
     assert(fastForwarding != null);
     assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
     assert(completed != null);
     assert(stopped != null);
     assert(error != null);
-    return connecting(this);
+    return waiting(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result none(_None value),
-    Result connecting(_Connecting value),
+    Result waiting(_Waiting value),
     Result ready(_Ready value),
     Result buffering(_Buffering value),
     Result fastForwarding(_FastForwarding value),
     Result rewinding(_Rewinding value),
-    Result skippingToPrevious(_SkippingToPrevious value),
-    Result skippingToNext(_SkippingToNext value),
-    Result skippingToQueueItem(_SkippingToQueueItem value),
     Result completed(_Completed value),
     Result stopped(_Stopped value),
     Result error(_Error value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (connecting != null) {
-      return connecting(this);
+    if (waiting != null) {
+      return waiting(this);
     }
     return orElse();
   }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_ConnectingToJson(this)..['runtimeType'] = 'connecting';
+    return _$_$_WaitingToJson(this)..['runtimeType'] = 'waiting';
   }
 }
 
-abstract class _Connecting implements PlayerServiceProcessingState {
-  const factory _Connecting() = _$_Connecting;
+abstract class _Waiting implements PlayerServiceProcessingState {
+  const factory _Waiting() = _$_Waiting;
 
-  factory _Connecting.fromJson(Map<String, dynamic> json) =
-      _$_Connecting.fromJson;
+  factory _Waiting.fromJson(Map<String, dynamic> json) = _$_Waiting.fromJson;
 }
 
 abstract class _$ReadyCopyWith<$Res> {
@@ -534,27 +465,21 @@ class _$_Ready implements _Ready {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result none(),
-    @required Result connecting(),
+    @required Result waiting(),
     @required Result ready(),
     @required Result buffering(),
     @required Result fastForwarding(),
     @required Result rewinding(),
-    @required Result skippingToPrevious(),
-    @required Result skippingToNext(),
-    @required Result skippingToQueueItem(),
     @required Result completed(),
     @required Result stopped(),
     @required Result error(),
   }) {
     assert(none != null);
-    assert(connecting != null);
+    assert(waiting != null);
     assert(ready != null);
     assert(buffering != null);
     assert(fastForwarding != null);
     assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
     assert(completed != null);
     assert(stopped != null);
     assert(error != null);
@@ -565,14 +490,11 @@ class _$_Ready implements _Ready {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result none(),
-    Result connecting(),
+    Result waiting(),
     Result ready(),
     Result buffering(),
     Result fastForwarding(),
     Result rewinding(),
-    Result skippingToPrevious(),
-    Result skippingToNext(),
-    Result skippingToQueueItem(),
     Result completed(),
     Result stopped(),
     Result error(),
@@ -589,27 +511,21 @@ class _$_Ready implements _Ready {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result none(_None value),
-    @required Result connecting(_Connecting value),
+    @required Result waiting(_Waiting value),
     @required Result ready(_Ready value),
     @required Result buffering(_Buffering value),
     @required Result fastForwarding(_FastForwarding value),
     @required Result rewinding(_Rewinding value),
-    @required Result skippingToPrevious(_SkippingToPrevious value),
-    @required Result skippingToNext(_SkippingToNext value),
-    @required Result skippingToQueueItem(_SkippingToQueueItem value),
     @required Result completed(_Completed value),
     @required Result stopped(_Stopped value),
     @required Result error(_Error value),
   }) {
     assert(none != null);
-    assert(connecting != null);
+    assert(waiting != null);
     assert(ready != null);
     assert(buffering != null);
     assert(fastForwarding != null);
     assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
     assert(completed != null);
     assert(stopped != null);
     assert(error != null);
@@ -620,14 +536,11 @@ class _$_Ready implements _Ready {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result none(_None value),
-    Result connecting(_Connecting value),
+    Result waiting(_Waiting value),
     Result ready(_Ready value),
     Result buffering(_Buffering value),
     Result fastForwarding(_FastForwarding value),
     Result rewinding(_Rewinding value),
-    Result skippingToPrevious(_SkippingToPrevious value),
-    Result skippingToNext(_SkippingToNext value),
-    Result skippingToQueueItem(_SkippingToQueueItem value),
     Result completed(_Completed value),
     Result stopped(_Stopped value),
     Result error(_Error value),
@@ -692,27 +605,21 @@ class _$_Buffering implements _Buffering {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result none(),
-    @required Result connecting(),
+    @required Result waiting(),
     @required Result ready(),
     @required Result buffering(),
     @required Result fastForwarding(),
     @required Result rewinding(),
-    @required Result skippingToPrevious(),
-    @required Result skippingToNext(),
-    @required Result skippingToQueueItem(),
     @required Result completed(),
     @required Result stopped(),
     @required Result error(),
   }) {
     assert(none != null);
-    assert(connecting != null);
+    assert(waiting != null);
     assert(ready != null);
     assert(buffering != null);
     assert(fastForwarding != null);
     assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
     assert(completed != null);
     assert(stopped != null);
     assert(error != null);
@@ -723,14 +630,11 @@ class _$_Buffering implements _Buffering {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result none(),
-    Result connecting(),
+    Result waiting(),
     Result ready(),
     Result buffering(),
     Result fastForwarding(),
     Result rewinding(),
-    Result skippingToPrevious(),
-    Result skippingToNext(),
-    Result skippingToQueueItem(),
     Result completed(),
     Result stopped(),
     Result error(),
@@ -747,27 +651,21 @@ class _$_Buffering implements _Buffering {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result none(_None value),
-    @required Result connecting(_Connecting value),
+    @required Result waiting(_Waiting value),
     @required Result ready(_Ready value),
     @required Result buffering(_Buffering value),
     @required Result fastForwarding(_FastForwarding value),
     @required Result rewinding(_Rewinding value),
-    @required Result skippingToPrevious(_SkippingToPrevious value),
-    @required Result skippingToNext(_SkippingToNext value),
-    @required Result skippingToQueueItem(_SkippingToQueueItem value),
     @required Result completed(_Completed value),
     @required Result stopped(_Stopped value),
     @required Result error(_Error value),
   }) {
     assert(none != null);
-    assert(connecting != null);
+    assert(waiting != null);
     assert(ready != null);
     assert(buffering != null);
     assert(fastForwarding != null);
     assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
     assert(completed != null);
     assert(stopped != null);
     assert(error != null);
@@ -778,14 +676,11 @@ class _$_Buffering implements _Buffering {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result none(_None value),
-    Result connecting(_Connecting value),
+    Result waiting(_Waiting value),
     Result ready(_Ready value),
     Result buffering(_Buffering value),
     Result fastForwarding(_FastForwarding value),
     Result rewinding(_Rewinding value),
-    Result skippingToPrevious(_SkippingToPrevious value),
-    Result skippingToNext(_SkippingToNext value),
-    Result skippingToQueueItem(_SkippingToQueueItem value),
     Result completed(_Completed value),
     Result stopped(_Stopped value),
     Result error(_Error value),
@@ -852,27 +747,21 @@ class _$_FastForwarding implements _FastForwarding {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result none(),
-    @required Result connecting(),
+    @required Result waiting(),
     @required Result ready(),
     @required Result buffering(),
     @required Result fastForwarding(),
     @required Result rewinding(),
-    @required Result skippingToPrevious(),
-    @required Result skippingToNext(),
-    @required Result skippingToQueueItem(),
     @required Result completed(),
     @required Result stopped(),
     @required Result error(),
   }) {
     assert(none != null);
-    assert(connecting != null);
+    assert(waiting != null);
     assert(ready != null);
     assert(buffering != null);
     assert(fastForwarding != null);
     assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
     assert(completed != null);
     assert(stopped != null);
     assert(error != null);
@@ -883,14 +772,11 @@ class _$_FastForwarding implements _FastForwarding {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result none(),
-    Result connecting(),
+    Result waiting(),
     Result ready(),
     Result buffering(),
     Result fastForwarding(),
     Result rewinding(),
-    Result skippingToPrevious(),
-    Result skippingToNext(),
-    Result skippingToQueueItem(),
     Result completed(),
     Result stopped(),
     Result error(),
@@ -907,27 +793,21 @@ class _$_FastForwarding implements _FastForwarding {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result none(_None value),
-    @required Result connecting(_Connecting value),
+    @required Result waiting(_Waiting value),
     @required Result ready(_Ready value),
     @required Result buffering(_Buffering value),
     @required Result fastForwarding(_FastForwarding value),
     @required Result rewinding(_Rewinding value),
-    @required Result skippingToPrevious(_SkippingToPrevious value),
-    @required Result skippingToNext(_SkippingToNext value),
-    @required Result skippingToQueueItem(_SkippingToQueueItem value),
     @required Result completed(_Completed value),
     @required Result stopped(_Stopped value),
     @required Result error(_Error value),
   }) {
     assert(none != null);
-    assert(connecting != null);
+    assert(waiting != null);
     assert(ready != null);
     assert(buffering != null);
     assert(fastForwarding != null);
     assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
     assert(completed != null);
     assert(stopped != null);
     assert(error != null);
@@ -938,14 +818,11 @@ class _$_FastForwarding implements _FastForwarding {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result none(_None value),
-    Result connecting(_Connecting value),
+    Result waiting(_Waiting value),
     Result ready(_Ready value),
     Result buffering(_Buffering value),
     Result fastForwarding(_FastForwarding value),
     Result rewinding(_Rewinding value),
-    Result skippingToPrevious(_SkippingToPrevious value),
-    Result skippingToNext(_SkippingToNext value),
-    Result skippingToQueueItem(_SkippingToQueueItem value),
     Result completed(_Completed value),
     Result stopped(_Stopped value),
     Result error(_Error value),
@@ -1011,27 +888,21 @@ class _$_Rewinding implements _Rewinding {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result none(),
-    @required Result connecting(),
+    @required Result waiting(),
     @required Result ready(),
     @required Result buffering(),
     @required Result fastForwarding(),
     @required Result rewinding(),
-    @required Result skippingToPrevious(),
-    @required Result skippingToNext(),
-    @required Result skippingToQueueItem(),
     @required Result completed(),
     @required Result stopped(),
     @required Result error(),
   }) {
     assert(none != null);
-    assert(connecting != null);
+    assert(waiting != null);
     assert(ready != null);
     assert(buffering != null);
     assert(fastForwarding != null);
     assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
     assert(completed != null);
     assert(stopped != null);
     assert(error != null);
@@ -1042,14 +913,11 @@ class _$_Rewinding implements _Rewinding {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result none(),
-    Result connecting(),
+    Result waiting(),
     Result ready(),
     Result buffering(),
     Result fastForwarding(),
     Result rewinding(),
-    Result skippingToPrevious(),
-    Result skippingToNext(),
-    Result skippingToQueueItem(),
     Result completed(),
     Result stopped(),
     Result error(),
@@ -1066,27 +934,21 @@ class _$_Rewinding implements _Rewinding {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result none(_None value),
-    @required Result connecting(_Connecting value),
+    @required Result waiting(_Waiting value),
     @required Result ready(_Ready value),
     @required Result buffering(_Buffering value),
     @required Result fastForwarding(_FastForwarding value),
     @required Result rewinding(_Rewinding value),
-    @required Result skippingToPrevious(_SkippingToPrevious value),
-    @required Result skippingToNext(_SkippingToNext value),
-    @required Result skippingToQueueItem(_SkippingToQueueItem value),
     @required Result completed(_Completed value),
     @required Result stopped(_Stopped value),
     @required Result error(_Error value),
   }) {
     assert(none != null);
-    assert(connecting != null);
+    assert(waiting != null);
     assert(ready != null);
     assert(buffering != null);
     assert(fastForwarding != null);
     assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
     assert(completed != null);
     assert(stopped != null);
     assert(error != null);
@@ -1097,14 +959,11 @@ class _$_Rewinding implements _Rewinding {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result none(_None value),
-    Result connecting(_Connecting value),
+    Result waiting(_Waiting value),
     Result ready(_Ready value),
     Result buffering(_Buffering value),
     Result fastForwarding(_FastForwarding value),
     Result rewinding(_Rewinding value),
-    Result skippingToPrevious(_SkippingToPrevious value),
-    Result skippingToNext(_SkippingToNext value),
-    Result skippingToQueueItem(_SkippingToQueueItem value),
     Result completed(_Completed value),
     Result stopped(_Stopped value),
     Result error(_Error value),
@@ -1128,488 +987,6 @@ abstract class _Rewinding implements PlayerServiceProcessingState {
 
   factory _Rewinding.fromJson(Map<String, dynamic> json) =
       _$_Rewinding.fromJson;
-}
-
-abstract class _$SkippingToPreviousCopyWith<$Res> {
-  factory _$SkippingToPreviousCopyWith(
-          _SkippingToPrevious value, $Res Function(_SkippingToPrevious) then) =
-      __$SkippingToPreviousCopyWithImpl<$Res>;
-}
-
-class __$SkippingToPreviousCopyWithImpl<$Res>
-    extends _$PlayerServiceProcessingStateCopyWithImpl<$Res>
-    implements _$SkippingToPreviousCopyWith<$Res> {
-  __$SkippingToPreviousCopyWithImpl(
-      _SkippingToPrevious _value, $Res Function(_SkippingToPrevious) _then)
-      : super(_value, (v) => _then(v as _SkippingToPrevious));
-
-  @override
-  _SkippingToPrevious get _value => super._value as _SkippingToPrevious;
-}
-
-@JsonSerializable()
-class _$_SkippingToPrevious implements _SkippingToPrevious {
-  const _$_SkippingToPrevious();
-
-  factory _$_SkippingToPrevious.fromJson(Map<String, dynamic> json) =>
-      _$_$_SkippingToPreviousFromJson(json);
-
-  @override
-  String toString() {
-    return 'PlayerServiceProcessingState.skippingToPrevious()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _SkippingToPrevious);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result none(),
-    @required Result connecting(),
-    @required Result ready(),
-    @required Result buffering(),
-    @required Result fastForwarding(),
-    @required Result rewinding(),
-    @required Result skippingToPrevious(),
-    @required Result skippingToNext(),
-    @required Result skippingToQueueItem(),
-    @required Result completed(),
-    @required Result stopped(),
-    @required Result error(),
-  }) {
-    assert(none != null);
-    assert(connecting != null);
-    assert(ready != null);
-    assert(buffering != null);
-    assert(fastForwarding != null);
-    assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
-    assert(completed != null);
-    assert(stopped != null);
-    assert(error != null);
-    return skippingToPrevious();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result none(),
-    Result connecting(),
-    Result ready(),
-    Result buffering(),
-    Result fastForwarding(),
-    Result rewinding(),
-    Result skippingToPrevious(),
-    Result skippingToNext(),
-    Result skippingToQueueItem(),
-    Result completed(),
-    Result stopped(),
-    Result error(),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (skippingToPrevious != null) {
-      return skippingToPrevious();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result none(_None value),
-    @required Result connecting(_Connecting value),
-    @required Result ready(_Ready value),
-    @required Result buffering(_Buffering value),
-    @required Result fastForwarding(_FastForwarding value),
-    @required Result rewinding(_Rewinding value),
-    @required Result skippingToPrevious(_SkippingToPrevious value),
-    @required Result skippingToNext(_SkippingToNext value),
-    @required Result skippingToQueueItem(_SkippingToQueueItem value),
-    @required Result completed(_Completed value),
-    @required Result stopped(_Stopped value),
-    @required Result error(_Error value),
-  }) {
-    assert(none != null);
-    assert(connecting != null);
-    assert(ready != null);
-    assert(buffering != null);
-    assert(fastForwarding != null);
-    assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
-    assert(completed != null);
-    assert(stopped != null);
-    assert(error != null);
-    return skippingToPrevious(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result none(_None value),
-    Result connecting(_Connecting value),
-    Result ready(_Ready value),
-    Result buffering(_Buffering value),
-    Result fastForwarding(_FastForwarding value),
-    Result rewinding(_Rewinding value),
-    Result skippingToPrevious(_SkippingToPrevious value),
-    Result skippingToNext(_SkippingToNext value),
-    Result skippingToQueueItem(_SkippingToQueueItem value),
-    Result completed(_Completed value),
-    Result stopped(_Stopped value),
-    Result error(_Error value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (skippingToPrevious != null) {
-      return skippingToPrevious(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$_$_SkippingToPreviousToJson(this)
-      ..['runtimeType'] = 'skippingToPrevious';
-  }
-}
-
-abstract class _SkippingToPrevious implements PlayerServiceProcessingState {
-  const factory _SkippingToPrevious() = _$_SkippingToPrevious;
-
-  factory _SkippingToPrevious.fromJson(Map<String, dynamic> json) =
-      _$_SkippingToPrevious.fromJson;
-}
-
-abstract class _$SkippingToNextCopyWith<$Res> {
-  factory _$SkippingToNextCopyWith(
-          _SkippingToNext value, $Res Function(_SkippingToNext) then) =
-      __$SkippingToNextCopyWithImpl<$Res>;
-}
-
-class __$SkippingToNextCopyWithImpl<$Res>
-    extends _$PlayerServiceProcessingStateCopyWithImpl<$Res>
-    implements _$SkippingToNextCopyWith<$Res> {
-  __$SkippingToNextCopyWithImpl(
-      _SkippingToNext _value, $Res Function(_SkippingToNext) _then)
-      : super(_value, (v) => _then(v as _SkippingToNext));
-
-  @override
-  _SkippingToNext get _value => super._value as _SkippingToNext;
-}
-
-@JsonSerializable()
-class _$_SkippingToNext implements _SkippingToNext {
-  const _$_SkippingToNext();
-
-  factory _$_SkippingToNext.fromJson(Map<String, dynamic> json) =>
-      _$_$_SkippingToNextFromJson(json);
-
-  @override
-  String toString() {
-    return 'PlayerServiceProcessingState.skippingToNext()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _SkippingToNext);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result none(),
-    @required Result connecting(),
-    @required Result ready(),
-    @required Result buffering(),
-    @required Result fastForwarding(),
-    @required Result rewinding(),
-    @required Result skippingToPrevious(),
-    @required Result skippingToNext(),
-    @required Result skippingToQueueItem(),
-    @required Result completed(),
-    @required Result stopped(),
-    @required Result error(),
-  }) {
-    assert(none != null);
-    assert(connecting != null);
-    assert(ready != null);
-    assert(buffering != null);
-    assert(fastForwarding != null);
-    assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
-    assert(completed != null);
-    assert(stopped != null);
-    assert(error != null);
-    return skippingToNext();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result none(),
-    Result connecting(),
-    Result ready(),
-    Result buffering(),
-    Result fastForwarding(),
-    Result rewinding(),
-    Result skippingToPrevious(),
-    Result skippingToNext(),
-    Result skippingToQueueItem(),
-    Result completed(),
-    Result stopped(),
-    Result error(),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (skippingToNext != null) {
-      return skippingToNext();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result none(_None value),
-    @required Result connecting(_Connecting value),
-    @required Result ready(_Ready value),
-    @required Result buffering(_Buffering value),
-    @required Result fastForwarding(_FastForwarding value),
-    @required Result rewinding(_Rewinding value),
-    @required Result skippingToPrevious(_SkippingToPrevious value),
-    @required Result skippingToNext(_SkippingToNext value),
-    @required Result skippingToQueueItem(_SkippingToQueueItem value),
-    @required Result completed(_Completed value),
-    @required Result stopped(_Stopped value),
-    @required Result error(_Error value),
-  }) {
-    assert(none != null);
-    assert(connecting != null);
-    assert(ready != null);
-    assert(buffering != null);
-    assert(fastForwarding != null);
-    assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
-    assert(completed != null);
-    assert(stopped != null);
-    assert(error != null);
-    return skippingToNext(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result none(_None value),
-    Result connecting(_Connecting value),
-    Result ready(_Ready value),
-    Result buffering(_Buffering value),
-    Result fastForwarding(_FastForwarding value),
-    Result rewinding(_Rewinding value),
-    Result skippingToPrevious(_SkippingToPrevious value),
-    Result skippingToNext(_SkippingToNext value),
-    Result skippingToQueueItem(_SkippingToQueueItem value),
-    Result completed(_Completed value),
-    Result stopped(_Stopped value),
-    Result error(_Error value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (skippingToNext != null) {
-      return skippingToNext(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$_$_SkippingToNextToJson(this)..['runtimeType'] = 'skippingToNext';
-  }
-}
-
-abstract class _SkippingToNext implements PlayerServiceProcessingState {
-  const factory _SkippingToNext() = _$_SkippingToNext;
-
-  factory _SkippingToNext.fromJson(Map<String, dynamic> json) =
-      _$_SkippingToNext.fromJson;
-}
-
-abstract class _$SkippingToQueueItemCopyWith<$Res> {
-  factory _$SkippingToQueueItemCopyWith(_SkippingToQueueItem value,
-          $Res Function(_SkippingToQueueItem) then) =
-      __$SkippingToQueueItemCopyWithImpl<$Res>;
-}
-
-class __$SkippingToQueueItemCopyWithImpl<$Res>
-    extends _$PlayerServiceProcessingStateCopyWithImpl<$Res>
-    implements _$SkippingToQueueItemCopyWith<$Res> {
-  __$SkippingToQueueItemCopyWithImpl(
-      _SkippingToQueueItem _value, $Res Function(_SkippingToQueueItem) _then)
-      : super(_value, (v) => _then(v as _SkippingToQueueItem));
-
-  @override
-  _SkippingToQueueItem get _value => super._value as _SkippingToQueueItem;
-}
-
-@JsonSerializable()
-class _$_SkippingToQueueItem implements _SkippingToQueueItem {
-  const _$_SkippingToQueueItem();
-
-  factory _$_SkippingToQueueItem.fromJson(Map<String, dynamic> json) =>
-      _$_$_SkippingToQueueItemFromJson(json);
-
-  @override
-  String toString() {
-    return 'PlayerServiceProcessingState.skippingToQueueItem()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _SkippingToQueueItem);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result none(),
-    @required Result connecting(),
-    @required Result ready(),
-    @required Result buffering(),
-    @required Result fastForwarding(),
-    @required Result rewinding(),
-    @required Result skippingToPrevious(),
-    @required Result skippingToNext(),
-    @required Result skippingToQueueItem(),
-    @required Result completed(),
-    @required Result stopped(),
-    @required Result error(),
-  }) {
-    assert(none != null);
-    assert(connecting != null);
-    assert(ready != null);
-    assert(buffering != null);
-    assert(fastForwarding != null);
-    assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
-    assert(completed != null);
-    assert(stopped != null);
-    assert(error != null);
-    return skippingToQueueItem();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result none(),
-    Result connecting(),
-    Result ready(),
-    Result buffering(),
-    Result fastForwarding(),
-    Result rewinding(),
-    Result skippingToPrevious(),
-    Result skippingToNext(),
-    Result skippingToQueueItem(),
-    Result completed(),
-    Result stopped(),
-    Result error(),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (skippingToQueueItem != null) {
-      return skippingToQueueItem();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result none(_None value),
-    @required Result connecting(_Connecting value),
-    @required Result ready(_Ready value),
-    @required Result buffering(_Buffering value),
-    @required Result fastForwarding(_FastForwarding value),
-    @required Result rewinding(_Rewinding value),
-    @required Result skippingToPrevious(_SkippingToPrevious value),
-    @required Result skippingToNext(_SkippingToNext value),
-    @required Result skippingToQueueItem(_SkippingToQueueItem value),
-    @required Result completed(_Completed value),
-    @required Result stopped(_Stopped value),
-    @required Result error(_Error value),
-  }) {
-    assert(none != null);
-    assert(connecting != null);
-    assert(ready != null);
-    assert(buffering != null);
-    assert(fastForwarding != null);
-    assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
-    assert(completed != null);
-    assert(stopped != null);
-    assert(error != null);
-    return skippingToQueueItem(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result none(_None value),
-    Result connecting(_Connecting value),
-    Result ready(_Ready value),
-    Result buffering(_Buffering value),
-    Result fastForwarding(_FastForwarding value),
-    Result rewinding(_Rewinding value),
-    Result skippingToPrevious(_SkippingToPrevious value),
-    Result skippingToNext(_SkippingToNext value),
-    Result skippingToQueueItem(_SkippingToQueueItem value),
-    Result completed(_Completed value),
-    Result stopped(_Stopped value),
-    Result error(_Error value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (skippingToQueueItem != null) {
-      return skippingToQueueItem(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$_$_SkippingToQueueItemToJson(this)
-      ..['runtimeType'] = 'skippingToQueueItem';
-  }
-}
-
-abstract class _SkippingToQueueItem implements PlayerServiceProcessingState {
-  const factory _SkippingToQueueItem() = _$_SkippingToQueueItem;
-
-  factory _SkippingToQueueItem.fromJson(Map<String, dynamic> json) =
-      _$_SkippingToQueueItem.fromJson;
 }
 
 abstract class _$CompletedCopyWith<$Res> {
@@ -1652,27 +1029,21 @@ class _$_Completed implements _Completed {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result none(),
-    @required Result connecting(),
+    @required Result waiting(),
     @required Result ready(),
     @required Result buffering(),
     @required Result fastForwarding(),
     @required Result rewinding(),
-    @required Result skippingToPrevious(),
-    @required Result skippingToNext(),
-    @required Result skippingToQueueItem(),
     @required Result completed(),
     @required Result stopped(),
     @required Result error(),
   }) {
     assert(none != null);
-    assert(connecting != null);
+    assert(waiting != null);
     assert(ready != null);
     assert(buffering != null);
     assert(fastForwarding != null);
     assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
     assert(completed != null);
     assert(stopped != null);
     assert(error != null);
@@ -1683,14 +1054,11 @@ class _$_Completed implements _Completed {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result none(),
-    Result connecting(),
+    Result waiting(),
     Result ready(),
     Result buffering(),
     Result fastForwarding(),
     Result rewinding(),
-    Result skippingToPrevious(),
-    Result skippingToNext(),
-    Result skippingToQueueItem(),
     Result completed(),
     Result stopped(),
     Result error(),
@@ -1707,27 +1075,21 @@ class _$_Completed implements _Completed {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result none(_None value),
-    @required Result connecting(_Connecting value),
+    @required Result waiting(_Waiting value),
     @required Result ready(_Ready value),
     @required Result buffering(_Buffering value),
     @required Result fastForwarding(_FastForwarding value),
     @required Result rewinding(_Rewinding value),
-    @required Result skippingToPrevious(_SkippingToPrevious value),
-    @required Result skippingToNext(_SkippingToNext value),
-    @required Result skippingToQueueItem(_SkippingToQueueItem value),
     @required Result completed(_Completed value),
     @required Result stopped(_Stopped value),
     @required Result error(_Error value),
   }) {
     assert(none != null);
-    assert(connecting != null);
+    assert(waiting != null);
     assert(ready != null);
     assert(buffering != null);
     assert(fastForwarding != null);
     assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
     assert(completed != null);
     assert(stopped != null);
     assert(error != null);
@@ -1738,14 +1100,11 @@ class _$_Completed implements _Completed {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result none(_None value),
-    Result connecting(_Connecting value),
+    Result waiting(_Waiting value),
     Result ready(_Ready value),
     Result buffering(_Buffering value),
     Result fastForwarding(_FastForwarding value),
     Result rewinding(_Rewinding value),
-    Result skippingToPrevious(_SkippingToPrevious value),
-    Result skippingToNext(_SkippingToNext value),
-    Result skippingToQueueItem(_SkippingToQueueItem value),
     Result completed(_Completed value),
     Result stopped(_Stopped value),
     Result error(_Error value),
@@ -1810,27 +1169,21 @@ class _$_Stopped implements _Stopped {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result none(),
-    @required Result connecting(),
+    @required Result waiting(),
     @required Result ready(),
     @required Result buffering(),
     @required Result fastForwarding(),
     @required Result rewinding(),
-    @required Result skippingToPrevious(),
-    @required Result skippingToNext(),
-    @required Result skippingToQueueItem(),
     @required Result completed(),
     @required Result stopped(),
     @required Result error(),
   }) {
     assert(none != null);
-    assert(connecting != null);
+    assert(waiting != null);
     assert(ready != null);
     assert(buffering != null);
     assert(fastForwarding != null);
     assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
     assert(completed != null);
     assert(stopped != null);
     assert(error != null);
@@ -1841,14 +1194,11 @@ class _$_Stopped implements _Stopped {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result none(),
-    Result connecting(),
+    Result waiting(),
     Result ready(),
     Result buffering(),
     Result fastForwarding(),
     Result rewinding(),
-    Result skippingToPrevious(),
-    Result skippingToNext(),
-    Result skippingToQueueItem(),
     Result completed(),
     Result stopped(),
     Result error(),
@@ -1865,27 +1215,21 @@ class _$_Stopped implements _Stopped {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result none(_None value),
-    @required Result connecting(_Connecting value),
+    @required Result waiting(_Waiting value),
     @required Result ready(_Ready value),
     @required Result buffering(_Buffering value),
     @required Result fastForwarding(_FastForwarding value),
     @required Result rewinding(_Rewinding value),
-    @required Result skippingToPrevious(_SkippingToPrevious value),
-    @required Result skippingToNext(_SkippingToNext value),
-    @required Result skippingToQueueItem(_SkippingToQueueItem value),
     @required Result completed(_Completed value),
     @required Result stopped(_Stopped value),
     @required Result error(_Error value),
   }) {
     assert(none != null);
-    assert(connecting != null);
+    assert(waiting != null);
     assert(ready != null);
     assert(buffering != null);
     assert(fastForwarding != null);
     assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
     assert(completed != null);
     assert(stopped != null);
     assert(error != null);
@@ -1896,14 +1240,11 @@ class _$_Stopped implements _Stopped {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result none(_None value),
-    Result connecting(_Connecting value),
+    Result waiting(_Waiting value),
     Result ready(_Ready value),
     Result buffering(_Buffering value),
     Result fastForwarding(_FastForwarding value),
     Result rewinding(_Rewinding value),
-    Result skippingToPrevious(_SkippingToPrevious value),
-    Result skippingToNext(_SkippingToNext value),
-    Result skippingToQueueItem(_SkippingToQueueItem value),
     Result completed(_Completed value),
     Result stopped(_Stopped value),
     Result error(_Error value),
@@ -1967,27 +1308,21 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result none(),
-    @required Result connecting(),
+    @required Result waiting(),
     @required Result ready(),
     @required Result buffering(),
     @required Result fastForwarding(),
     @required Result rewinding(),
-    @required Result skippingToPrevious(),
-    @required Result skippingToNext(),
-    @required Result skippingToQueueItem(),
     @required Result completed(),
     @required Result stopped(),
     @required Result error(),
   }) {
     assert(none != null);
-    assert(connecting != null);
+    assert(waiting != null);
     assert(ready != null);
     assert(buffering != null);
     assert(fastForwarding != null);
     assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
     assert(completed != null);
     assert(stopped != null);
     assert(error != null);
@@ -1998,14 +1333,11 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result none(),
-    Result connecting(),
+    Result waiting(),
     Result ready(),
     Result buffering(),
     Result fastForwarding(),
     Result rewinding(),
-    Result skippingToPrevious(),
-    Result skippingToNext(),
-    Result skippingToQueueItem(),
     Result completed(),
     Result stopped(),
     Result error(),
@@ -2022,27 +1354,21 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result none(_None value),
-    @required Result connecting(_Connecting value),
+    @required Result waiting(_Waiting value),
     @required Result ready(_Ready value),
     @required Result buffering(_Buffering value),
     @required Result fastForwarding(_FastForwarding value),
     @required Result rewinding(_Rewinding value),
-    @required Result skippingToPrevious(_SkippingToPrevious value),
-    @required Result skippingToNext(_SkippingToNext value),
-    @required Result skippingToQueueItem(_SkippingToQueueItem value),
     @required Result completed(_Completed value),
     @required Result stopped(_Stopped value),
     @required Result error(_Error value),
   }) {
     assert(none != null);
-    assert(connecting != null);
+    assert(waiting != null);
     assert(ready != null);
     assert(buffering != null);
     assert(fastForwarding != null);
     assert(rewinding != null);
-    assert(skippingToPrevious != null);
-    assert(skippingToNext != null);
-    assert(skippingToQueueItem != null);
     assert(completed != null);
     assert(stopped != null);
     assert(error != null);
@@ -2053,14 +1379,11 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result none(_None value),
-    Result connecting(_Connecting value),
+    Result waiting(_Waiting value),
     Result ready(_Ready value),
     Result buffering(_Buffering value),
     Result fastForwarding(_FastForwarding value),
     Result rewinding(_Rewinding value),
-    Result skippingToPrevious(_SkippingToPrevious value),
-    Result skippingToNext(_SkippingToNext value),
-    Result skippingToQueueItem(_SkippingToQueueItem value),
     Result completed(_Completed value),
     Result stopped(_Stopped value),
     Result error(_Error value),

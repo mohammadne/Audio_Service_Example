@@ -12,11 +12,11 @@ _$_None _$_$_NoneFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_NoneToJson(_$_None instance) => <String, dynamic>{};
 
-_$_Connecting _$_$_ConnectingFromJson(Map<String, dynamic> json) {
-  return _$_Connecting();
+_$_Waiting _$_$_WaitingFromJson(Map<String, dynamic> json) {
+  return _$_Waiting();
 }
 
-Map<String, dynamic> _$_$_ConnectingToJson(_$_Connecting instance) =>
+Map<String, dynamic> _$_$_WaitingToJson(_$_Waiting instance) =>
     <String, dynamic>{};
 
 _$_Ready _$_$_ReadyFromJson(Map<String, dynamic> json) {
@@ -44,31 +44,6 @@ _$_Rewinding _$_$_RewindingFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$_$_RewindingToJson(_$_Rewinding instance) =>
-    <String, dynamic>{};
-
-_$_SkippingToPrevious _$_$_SkippingToPreviousFromJson(
-    Map<String, dynamic> json) {
-  return _$_SkippingToPrevious();
-}
-
-Map<String, dynamic> _$_$_SkippingToPreviousToJson(
-        _$_SkippingToPrevious instance) =>
-    <String, dynamic>{};
-
-_$_SkippingToNext _$_$_SkippingToNextFromJson(Map<String, dynamic> json) {
-  return _$_SkippingToNext();
-}
-
-Map<String, dynamic> _$_$_SkippingToNextToJson(_$_SkippingToNext instance) =>
-    <String, dynamic>{};
-
-_$_SkippingToQueueItem _$_$_SkippingToQueueItemFromJson(
-    Map<String, dynamic> json) {
-  return _$_SkippingToQueueItem();
-}
-
-Map<String, dynamic> _$_$_SkippingToQueueItemToJson(
-        _$_SkippingToQueueItem instance) =>
     <String, dynamic>{};
 
 _$_Completed _$_$_CompletedFromJson(Map<String, dynamic> json) {

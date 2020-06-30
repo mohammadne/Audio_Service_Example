@@ -2,7 +2,6 @@ part of 'player_service.dart';
 
 class AudioPlayerTask extends BackgroundAudioTask {
   PlayerBase _player = JustAudio();
-  var box;
 
   /// Initialise your audio task
   @override
@@ -10,39 +9,123 @@ class AudioPlayerTask extends BackgroundAudioTask {
     _player.playerStateStream.listen((state) {
       state.maybeWhen(
         completed: () => _handlePlayerCompletion(),
+        playing: () => _setState(
+          isPlaying: true,
+          processingState: _player.isBuffering
+              ? AudioProcessingState.buffering
+              : AudioProcessingState.ready,
+        ),
+        paused: () => _setState(
+          isPlaying: false,
+          processingState: _player.isBuffering
+              ? AudioProcessingState.buffering
+              : AudioProcessingState.ready,
+        ),
+        stopped: () => _setState(
+          isPlaying: false,
+          processingState: AudioProcessingState.stopped,
+        ),
+        connecting: () => _setState(
+          isPlaying: false,
+          processingState: AudioProcessingState.connecting,
+        ),
         orElse: () {},
       );
     });
   }
 
   _handlePlayerCompletion() => PlayerService.playBackState.when(
-        order: () {},
-        repeatAll: () {},
-        repeatOne: () {},
-        shuffle: () {},
+        order: () {
+          if (PlayerService.isLastPlayerItem) {
+            onPause();
+          } else {
+            _skip(1);
+          }
+        },
+        repeatAll: () {
+          if (PlayerService.isLastPlayerItem) {
+            onSkipToQueueItem(PlayerService.playerItems.first.id);
+          } else {
+            _skip(1);
+          }
+        },
+        repeatOne: () async {
+          await onStop();
+          onPlay();
+        },
+        shuffle: () {
+          int random = Random().nextInt(PlayerService.playerItemsLength);
+          onSkipToQueueItem(PlayerService.playerItems[random].id);
+        },
       );
 
-  /// Handle a request to play audio
   @override
-  void onPlay() {}
+  void onPlay() {
+    _player.play();
+  }
 
-  /// Handle a request to pause audio
   @override
-  void onPause() {}
+  void onPause() {
+    _player.pause();
+  }
 
   /// Handle a request to stop audio and finish the task
   @override
   Future<void> onStop() async {
-    super.onStop();
+    await _player.stop();
+    await super.onStop();
   }
 
-  /// Handle a request to skip to the next queue item
   @override
-  void onSkipToNext() {}
+  void onClose() {
+    onStop();
+  }
 
-  /// Handle a request to skip to the previous queue item
   @override
-  void onSkipToPrevious() {}
+  void onSkipToNext() {
+    PlayerService.playBackState.maybeWhen(
+      shuffle: () {
+        int random = Random().nextInt(PlayerService.playerItemsLength);
+        onSkipToQueueItem(PlayerService.playerItems[random].id);
+      },
+      orElse: () {
+        if (PlayerService.isLastPlayerItem) {
+          onSkipToQueueItem(PlayerService.playerItems.first.id);
+        } else {
+          _skip(1);
+        }
+      },
+    );
+  }
+
+  @override
+  void onSkipToPrevious() {
+    PlayerService.playBackState.maybeWhen(
+      shuffle: () {
+        int random = Random().nextInt(PlayerService.playerItemsLength);
+        onSkipToQueueItem(PlayerService.playerItems[random].id);
+      },
+      orElse: () {
+        if (PlayerService.isFirstPlayerItem) {
+          onSkipToQueueItem(PlayerService.playerItems.last.id);
+        } else {
+          _skip(-1);
+        }
+      },
+    );
+  }
+
+  @override
+  void onSkipToQueueItem(String mediaId) {}
+
+  Future<void> _skip(int offset) async {
+    final pos = PlayerService.playerItemIndex + offset;
+    await _player.stop();
+    MediaItem mediaItem = AudioService.queue[pos];
+    AudioServiceBackground.setMediaItem(mediaItem);
+    await _player.setUrl(mediaItem.id);
+    onPlay();
+  }
 
   @override
   void onAddQueueItem(MediaItem mediaItem) {}
@@ -51,44 +134,111 @@ class AudioPlayerTask extends BackgroundAudioTask {
   void onAddQueueItemAt(MediaItem mediaItem, int index) {}
 
   @override
-  void onFastForward() {}
+  void onFastForward() {
+    _seekRelative(fastForwardInterval);
+  }
 
   @override
-  void onRewind() {}
+  void onRewind() {
+    _seekRelative(-rewindInterval);
+  }
 
-  /// Handle the end of an audio interruption.
-  @override
-  void onAudioFocusGained(AudioInterruption interruption) {}
-
-  /// Handle a phone call or other interruption
-  @override
-  void onAudioFocusLost(AudioInterruption interruption) {}
-
-  @override
-  void onAudioBecomingNoisy() {}
-
-  @override
-  void onPlayFromMediaId(String mediaId) {}
-
-  /// Handle a request to seek to a position
-  @override
-  void onSeekTo(Duration position) {}
+  Future<void> _seekRelative(Duration offset) async {
+    final pos = _player.position + offset;
+    final mediaItem = AudioService.currentMediaItem;
+    if (pos < Duration.zero) _player.seek(Duration.zero);
+    if (pos > mediaItem.duration) _player.seek(mediaItem.duration);
+    await _player.seek(pos);
+  }
 
   @override
-  void onSetSpeed(double speed) {}
+  void onAudioFocusLost(AudioInterruption interruption) {
+    onPause();
+  }
 
   @override
-  void onSkipToQueueItem(String mediaId) {}
+  void onAudioFocusGained(AudioInterruption interruption) {
+    onPlay();
+  }
+
+  @override
+  void onAudioBecomingNoisy() {
+    onPause();
+  }
+
+  @override
+  void onPlayFromMediaId(String mediaId) {
+    final currIndex = PlayerService.playerItemIndex;
+    final reqIndex = AudioService.queue.indexWhere(
+      (mediaItem) => mediaItem.id == mediaId,
+    );
+    _skip(reqIndex - currIndex);
+  }
+
+  @override
+  void onSeekTo(Duration position) {
+    _player.seek(position);
+  }
+
+  @override
+  void onSetSpeed(double speed) {
+    _player.setSpeed(speed);
+  }
 
   /// Handle a headset button click (play/pause, skip next/prev)
   @override
-  void onClick(MediaButton button) {}
+  void onClick(MediaButton button) {
+    switch (button) {
+      case MediaButton.next:
+        onSkipToNext();
+        break;
+      case MediaButton.previous:
+        onSkipToPrevious();
+        break;
+      case MediaButton.media:
+        if (AudioServiceBackground.state.playing)
+          onPause();
+        else
+          onPlay();
+        break;
+    }
+  }
 
   @override
   Future onCustomAction(String name, arguments) async {}
 
-  @override
-  void onClose() {}
+  Future<void> _setState({
+    @required bool isPlaying,
+    AudioProcessingState processingState,
+  }) async =>
+      await AudioServiceBackground.setState(
+        controls: getControls(isPlaying),
+        systemActions: [MediaAction.seekTo],
+        processingState:
+            processingState ?? AudioServiceBackground.state.processingState,
+        playing: isPlaying,
+        position: _player.position,
+        bufferedPosition: _player.bufferedPosition,
+        speed: _player.speed,
+      );
+
+  List<MediaControl> getControls(bool isPlaying) {
+    if (isPlaying) {
+      return [
+        stopControl,
+        skipToPreviousControl,
+        pauseControl,
+        skipToNextControl,
+      ];
+    } else {
+      return [
+        stopControl,
+        skipToPreviousControl,
+        playControl,
+        skipToNextControl,
+      ];
+    }
+  }
 }
 
 MediaControl playControl = MediaControl(
