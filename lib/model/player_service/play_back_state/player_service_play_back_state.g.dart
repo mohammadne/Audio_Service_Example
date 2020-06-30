@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'play_back_state.dart';
+part of 'player_service_play_back_state.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

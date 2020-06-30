@@ -7,15 +7,20 @@ class AudioPlayerTask extends BackgroundAudioTask {
   /// Initialise your audio task
   @override
   Future<void> onStart(Map<String, dynamic> params) async {
-    box = await Hive.openBox('name');
-    _player.playerBaseStateStream.listen((state) {
-      switch (state) {
-        case PlayerBaseState.completed:
-          break;
-        default:
-      }
+    _player.playerStateStream.listen((state) {
+      state.maybeWhen(
+        completed: () => _handlePlayerCompletion(),
+        orElse: () {},
+      );
     });
   }
+
+  _handlePlayerCompletion() => PlayerService.playBackState.when(
+        order: () {},
+        repeatAll: () {},
+        repeatOne: () {},
+        shuffle: () {},
+      );
 
   /// Handle a request to play audio
   @override

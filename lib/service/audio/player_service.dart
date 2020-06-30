@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:audio_service/audio_service.dart';
-import 'package:just_audio_Service/model/play_back_state/play_back_state.dart';
+import 'package:just_audio_Service/model/player_service/item/player_service_item.dart';
+import 'package:just_audio_Service/model/player_service/play_back_state/player_service_play_back_state.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:hive/hive.dart';
 
@@ -14,13 +15,6 @@ void _audioPlayerTaskEntrypoint() async {
   AudioServiceBackground.run(() => AudioPlayerTask());
 }
 
-enum PlayBackState {
-  Order,
-  RepeatAll,
-  RepeatOne,
-  Shuffle,
-}
-
 abstract class PlayerService {
   static Future<bool> start() => AudioService.start(
         backgroundTaskEntrypoint: _audioPlayerTaskEntrypoint,
@@ -30,52 +24,66 @@ abstract class PlayerService {
         androidEnableQueue: true,
       );
 
-  static Stream<PlayBackState> get playBackStateStream =>
-      Hive.box<PlayBackState>('play_back_state').watch()
-          as Stream<PlayBackState>;
+  static Future<void> play() => AudioService.play();
+  static Future<void> pause() => AudioService.pause();
+  static Future<void> stop() => AudioService.stop();
+  static Future<void> skipToNext() => AudioService.skipToNext();
+  static Future<void> skipToPrevious() => AudioService.skipToPrevious();
+  static Future<void> setSpeed(double speed) => AudioService.setSpeed(speed);
 
-  static Stream<MediaItem> get mediaItemStream =>
-      AudioService.currentMediaItemStream;
+  static PlayerServicePlayBackState get playBackState =>
+      Hive.box('player_service_play_back_state').get(0);
 
-  // static Stream<bool> get isFirstMediaItem =>
-  //     Rx.combineLatest2<List<MediaItem>, MediaItem, bool>(
-  //       queueStream,
-  //       mediaItemStream,
-  //       (queue, mediaItem) => mediaItem == queue.first,
-  //     );
+  static PlayerServiceItem _mediaItemToPlayerItem(MediaItem mediaItem) =>
+      PlayerServiceItem(
+          id: mediaItem.id,
+          artUri: mediaItem.artUri,
+          title: mediaItem.artist,
+          album: mediaItem.album,
+          artist: mediaItem.artist,
+          duration: mediaItem.duration);
 
-  // static Stream<bool> get isLastMediaItem =>
-  //     Rx.combineLatest2<List<MediaItem>, MediaItem, bool>(
-  //       queueStream,
-  //       mediaItemStream,
-  //       (queue, mediaItem) => mediaItem == queue.last,
-  //     );
+  static List<PlayerServiceItem> _mediaItemsToPlayerItems(
+          List<MediaItem> mediaItems) =>
+      mediaItems.map(_mediaItemToPlayerItem);
+
+  static Stream<PlayerServiceItem> get playerItemStream =>
+      AudioService.currentMediaItemStream.map(_mediaItemToPlayerItem);
+
+  static Stream<List<PlayerServiceItem>> get playerItemsStream =>
+      AudioService.queueStream.map(_mediaItemsToPlayerItems);
+
+  static Stream<bool> get isFirstPlayerItem =>
+      Rx.combineLatest2<List<PlayerServiceItem>, PlayerServiceItem, bool>(
+        playerItemsStream,
+        playerItemStream,
+        (items, item) => item == items.first,
+      );
+
+  static Stream<bool> get isLastPlayerItem =>
+      Rx.combineLatest2<List<PlayerServiceItem>, PlayerServiceItem, bool>(
+        playerItemsStream,
+        playerItemStream,
+        (items, item) => item == items.last,
+      );
+
+  static Stream<PlaybackState> get playbackStateStream =>
+      AudioService.playbackStateStream;
 }
-//   static Future<void> play() => AudioService.play();
-//   static Future<void> pause() => AudioService.pause();
-//   static Future<void> stop() => AudioService.stop();
-//   static Future<void> skipToNext() => AudioService.skipToNext();
-//   static Future<void> skipToPrevious() => AudioService.skipToPrevious();
-//   static Future<void> setSpeed(double speed) => AudioService.setSpeed(speed);
 
-//   static Stream<List<MediaItem>> get queueStream => AudioService.queueStream;
+// static Stream<BasicPlaybackState> get basicPlaybackStateStream {
+//   return playbackStateStream
+//       .map((state) => state?.basicState ?? BasicPlaybackState.none);
+// }
 
-//   static Stream<PlaybackState> get playbackStateStream =>
-//       AudioService.playbackStateStream;
-
-//   // static Stream<BasicPlaybackState> get basicPlaybackStateStream {
-//   //   return playbackStateStream
-//   //       .map((state) => state?.basicState ?? BasicPlaybackState.none);
-//   // }
-
-//   // static Stream<PositionIndicator> get positionIndicator =>
-//   //     Rx.combineLatest2<PlaybackState, MediaItem, PositionIndicator>(
-//   //       playbackStateStream,
-//   //       mediaItemStream,
-//   //       (playbackState, mediaItem) => PositionIndicator(
-//   //         position: playbackState.position,
-//   //         speed: playbackState.speed,
-//   //         bufferedPosition: null,
-//   //         duration: mediaItem.duration,
-//   //       ),
-//   //     );
+// static Stream<PositionIndicator> get positionIndicator =>
+//     Rx.combineLatest2<PlaybackState, MediaItem, PositionIndicator>(
+//       playbackStateStream,
+//       mediaItemStream,
+//       (playbackState, mediaItem) => PositionIndicator(
+//         position: playbackState.position,
+//         speed: playbackState.speed,
+//         bufferedPosition: null,
+//         duration: mediaItem.duration,
+//       ),
+//     );

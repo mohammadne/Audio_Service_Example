@@ -1,3 +1,5 @@
+import 'package:just_audio_Service/model/player/state/player_state.dart';
+
 abstract class PlayerBase {
   /// functions
   Future<Duration> setUrl(String uri);
@@ -10,7 +12,7 @@ abstract class PlayerBase {
   Future setVolume(double volume);
 
   /// streams
-  Stream<PlayerBaseState> get playerBaseStateStream;
+  Stream<PlayerState> get playerStateStream;
   Stream<Duration> get bufferedPositionStream;
   Stream<bool> get isBufferingStream;
   Stream<Duration> get positionStream;
@@ -27,11 +29,4 @@ abstract class PlayerBase {
   double get speed;
 }
 
-enum PlayerBaseState {
-  none,
-  connecting,
-  playing,
-  paused,
-  completed,
-  stopped,
-}
+

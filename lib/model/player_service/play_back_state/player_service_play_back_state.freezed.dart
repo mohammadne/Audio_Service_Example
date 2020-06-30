@@ -1,14 +1,15 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
 
-part of 'play_back_state.dart';
+part of 'player_service_play_back_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
-PlayBackState _$PlayBackStateFromJson(Map<String, dynamic> json) {
+PlayerServicePlayBackState _$PlayerServicePlayBackStateFromJson(
+    Map<String, dynamic> json) {
   switch (json['runtimeType'] as String) {
     case 'order':
       return Order.fromJson(json);
@@ -24,8 +25,8 @@ PlayBackState _$PlayBackStateFromJson(Map<String, dynamic> json) {
   }
 }
 
-class _$PlayBackStateTearOff {
-  const _$PlayBackStateTearOff();
+class _$PlayerServicePlayBackStateTearOff {
+  const _$PlayerServicePlayBackStateTearOff();
 
   Order order() {
     return const Order();
@@ -45,9 +46,9 @@ class _$PlayBackStateTearOff {
 }
 
 // ignore: unused_element
-const $PlayBackState = _$PlayBackStateTearOff();
+const $PlayerServicePlayBackState = _$PlayerServicePlayBackStateTearOff();
 
-mixin _$PlayBackState {
+mixin _$PlayerServicePlayBackState {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result order(),
@@ -81,19 +82,19 @@ mixin _$PlayBackState {
   Map<String, dynamic> toJson();
 }
 
-abstract class $PlayBackStateCopyWith<$Res> {
-  factory $PlayBackStateCopyWith(
-          PlayBackState value, $Res Function(PlayBackState) then) =
-      _$PlayBackStateCopyWithImpl<$Res>;
+abstract class $PlayerServicePlayBackStateCopyWith<$Res> {
+  factory $PlayerServicePlayBackStateCopyWith(PlayerServicePlayBackState value,
+          $Res Function(PlayerServicePlayBackState) then) =
+      _$PlayerServicePlayBackStateCopyWithImpl<$Res>;
 }
 
-class _$PlayBackStateCopyWithImpl<$Res>
-    implements $PlayBackStateCopyWith<$Res> {
-  _$PlayBackStateCopyWithImpl(this._value, this._then);
+class _$PlayerServicePlayBackStateCopyWithImpl<$Res>
+    implements $PlayerServicePlayBackStateCopyWith<$Res> {
+  _$PlayerServicePlayBackStateCopyWithImpl(this._value, this._then);
 
-  final PlayBackState _value;
+  final PlayerServicePlayBackState _value;
   // ignore: unused_field
-  final $Res Function(PlayBackState) _then;
+  final $Res Function(PlayerServicePlayBackState) _then;
 }
 
 abstract class $OrderCopyWith<$Res> {
@@ -101,7 +102,8 @@ abstract class $OrderCopyWith<$Res> {
       _$OrderCopyWithImpl<$Res>;
 }
 
-class _$OrderCopyWithImpl<$Res> extends _$PlayBackStateCopyWithImpl<$Res>
+class _$OrderCopyWithImpl<$Res>
+    extends _$PlayerServicePlayBackStateCopyWithImpl<$Res>
     implements $OrderCopyWith<$Res> {
   _$OrderCopyWithImpl(Order _value, $Res Function(Order) _then)
       : super(_value, (v) => _then(v as Order));
@@ -119,7 +121,7 @@ class _$Order implements Order {
 
   @override
   String toString() {
-    return 'PlayBackState.order()';
+    return 'PlayerServicePlayBackState.order()';
   }
 
   @override
@@ -198,7 +200,7 @@ class _$Order implements Order {
   }
 }
 
-abstract class Order implements PlayBackState {
+abstract class Order implements PlayerServicePlayBackState {
   const factory Order() = _$Order;
 
   factory Order.fromJson(Map<String, dynamic> json) = _$Order.fromJson;
@@ -209,7 +211,8 @@ abstract class $RepeatAllCopyWith<$Res> {
       _$RepeatAllCopyWithImpl<$Res>;
 }
 
-class _$RepeatAllCopyWithImpl<$Res> extends _$PlayBackStateCopyWithImpl<$Res>
+class _$RepeatAllCopyWithImpl<$Res>
+    extends _$PlayerServicePlayBackStateCopyWithImpl<$Res>
     implements $RepeatAllCopyWith<$Res> {
   _$RepeatAllCopyWithImpl(RepeatAll _value, $Res Function(RepeatAll) _then)
       : super(_value, (v) => _then(v as RepeatAll));
@@ -227,7 +230,7 @@ class _$RepeatAll implements RepeatAll {
 
   @override
   String toString() {
-    return 'PlayBackState.repeatAll()';
+    return 'PlayerServicePlayBackState.repeatAll()';
   }
 
   @override
@@ -306,7 +309,7 @@ class _$RepeatAll implements RepeatAll {
   }
 }
 
-abstract class RepeatAll implements PlayBackState {
+abstract class RepeatAll implements PlayerServicePlayBackState {
   const factory RepeatAll() = _$RepeatAll;
 
   factory RepeatAll.fromJson(Map<String, dynamic> json) = _$RepeatAll.fromJson;
@@ -317,7 +320,8 @@ abstract class $RepeatOneCopyWith<$Res> {
       _$RepeatOneCopyWithImpl<$Res>;
 }
 
-class _$RepeatOneCopyWithImpl<$Res> extends _$PlayBackStateCopyWithImpl<$Res>
+class _$RepeatOneCopyWithImpl<$Res>
+    extends _$PlayerServicePlayBackStateCopyWithImpl<$Res>
     implements $RepeatOneCopyWith<$Res> {
   _$RepeatOneCopyWithImpl(RepeatOne _value, $Res Function(RepeatOne) _then)
       : super(_value, (v) => _then(v as RepeatOne));
@@ -335,7 +339,7 @@ class _$RepeatOne implements RepeatOne {
 
   @override
   String toString() {
-    return 'PlayBackState.repeatOne()';
+    return 'PlayerServicePlayBackState.repeatOne()';
   }
 
   @override
@@ -414,7 +418,7 @@ class _$RepeatOne implements RepeatOne {
   }
 }
 
-abstract class RepeatOne implements PlayBackState {
+abstract class RepeatOne implements PlayerServicePlayBackState {
   const factory RepeatOne() = _$RepeatOne;
 
   factory RepeatOne.fromJson(Map<String, dynamic> json) = _$RepeatOne.fromJson;
@@ -425,7 +429,8 @@ abstract class $ShuffleCopyWith<$Res> {
       _$ShuffleCopyWithImpl<$Res>;
 }
 
-class _$ShuffleCopyWithImpl<$Res> extends _$PlayBackStateCopyWithImpl<$Res>
+class _$ShuffleCopyWithImpl<$Res>
+    extends _$PlayerServicePlayBackStateCopyWithImpl<$Res>
     implements $ShuffleCopyWith<$Res> {
   _$ShuffleCopyWithImpl(Shuffle _value, $Res Function(Shuffle) _then)
       : super(_value, (v) => _then(v as Shuffle));
@@ -443,7 +448,7 @@ class _$Shuffle implements Shuffle {
 
   @override
   String toString() {
-    return 'PlayBackState.shuffle()';
+    return 'PlayerServicePlayBackState.shuffle()';
   }
 
   @override
@@ -522,7 +527,7 @@ class _$Shuffle implements Shuffle {
   }
 }
 
-abstract class Shuffle implements PlayBackState {
+abstract class Shuffle implements PlayerServicePlayBackState {
   const factory Shuffle() = _$Shuffle;
 
   factory Shuffle.fromJson(Map<String, dynamic> json) = _$Shuffle.fromJson;
