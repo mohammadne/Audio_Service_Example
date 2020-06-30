@@ -3,7 +3,6 @@ part of 'player_service.dart';
 class AudioPlayerTask extends BackgroundAudioTask {
   PlayerBase _player = JustAudio();
 
-  /// Initialise your audio task
   @override
   Future<void> onStart(Map<String, dynamic> params) async {
     _player.playerStateStream.listen((state) {
@@ -69,7 +68,6 @@ class AudioPlayerTask extends BackgroundAudioTask {
     _player.pause();
   }
 
-  /// Handle a request to stop audio and finish the task
   @override
   Future<void> onStop() async {
     await _player.stop();
@@ -185,7 +183,6 @@ class AudioPlayerTask extends BackgroundAudioTask {
     _player.setSpeed(speed);
   }
 
-  /// Handle a headset button click (play/pause, skip next/prev)
   @override
   void onClick(MediaButton button) {
     switch (button) {
@@ -212,7 +209,7 @@ class AudioPlayerTask extends BackgroundAudioTask {
     AudioProcessingState processingState,
   }) async =>
       await AudioServiceBackground.setState(
-        controls: getControls(isPlaying),
+        controls: _getControls(isPlaying),
         systemActions: [MediaAction.seekTo],
         processingState:
             processingState ?? AudioServiceBackground.state.processingState,
@@ -222,7 +219,7 @@ class AudioPlayerTask extends BackgroundAudioTask {
         speed: _player.speed,
       );
 
-  List<MediaControl> getControls(bool isPlaying) {
+  List<MediaControl> _getControls(bool isPlaying) {
     if (isPlaying) {
       return [
         stopControl,
