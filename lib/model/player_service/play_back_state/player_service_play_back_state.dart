@@ -1,15 +1,16 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hive/hive.dart';
 
-part 'player_service_play_back_state.freezed.dart';
 part 'player_service_play_back_state.g.dart';
 
-@freezed
-abstract class PlayerServicePlayBackState with _$PlayerServicePlayBackState {
-  const factory PlayerServicePlayBackState.order() = Order;
-  const factory PlayerServicePlayBackState.repeatAll() = RepeatAll;
-  const factory PlayerServicePlayBackState.repeatOne() = RepeatOne;
-  const factory PlayerServicePlayBackState.shuffle() = Shuffle;
-
-  factory PlayerServicePlayBackState.fromJson(Map<String, dynamic> json) =>
-      _$PlayerServicePlayBackStateFromJson(json);
+@HiveType(typeId: 0)
+enum PlayerServicePlayBackState {
+  @HiveField(0)
+  order,
+  @HiveField(1)
+  repeatAll,
+  @HiveField(2)
+  repeatOne,
+  @HiveField(3)
+  shuffle,
 }

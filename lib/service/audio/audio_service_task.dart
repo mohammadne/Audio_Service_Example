@@ -5,8 +5,9 @@ class AudioPlayerTask extends BackgroundAudioTask {
 
   @override
   Future<void> onStart(Map<String, dynamic> params) async {
+    await _hiveInitial();
     _player.playerStateStream.listen((state) {
-      state.maybeWhen(
+      state.when(
         completed: () => _handlePlayerCompletion(),
         playing: () => _setState(
           isPlaying: true,
@@ -28,35 +29,53 @@ class AudioPlayerTask extends BackgroundAudioTask {
           isPlaying: false,
           processingState: AudioProcessingState.connecting,
         ),
-        orElse: () {},
+        none: () => _setState(
+          isPlaying: false,
+          processingState: AudioProcessingState.none,
+        ),
       );
     });
   }
 
-  _handlePlayerCompletion() => PlayerService.playBackState.when(
-        order: () {
-          if (PlayerService.isLastPlayerItem) {
-            onPause();
-          } else {
-            _skip(1);
-          }
-        },
-        repeatAll: () {
-          if (PlayerService.isLastPlayerItem) {
-            onSkipToQueueItem(PlayerService.playerItems.first.id);
-          } else {
-            _skip(1);
-          }
-        },
-        repeatOne: () async {
-          await onStop();
-          onPlay();
-        },
-        shuffle: () {
-          int random = Random().nextInt(PlayerService.playerItemsLength);
-          onSkipToQueueItem(PlayerService.playerItems[random].id);
-        },
-      );
+  _hiveInitial() async {
+    final appDocDir = await path_provider.getApplicationDocumentsDirectory();
+    Hive.init(appDocDir.path);
+    Hive.registerAdapter<PlayerServicePlayBackState>(
+      PlayerServicePlayBackStateAdapter(),
+    );
+    final playBackBox = await Hive.openBox<PlayerServicePlayBackState>(
+      'player_service_play_back_state',
+    );
+    if (playBackBox.isEmpty)
+      await playBackBox.put(0, PlayerServicePlayBackState.order);
+  }
+
+  _handlePlayerCompletion() async {
+    switch (PlayerService.playBackState) {
+      case PlayerServicePlayBackState.order:
+        if (PlayerService.isLastPlayerItem) {
+          onPause();
+        } else {
+          _skip(1);
+        }
+        break;
+      case PlayerServicePlayBackState.repeatAll:
+        if (PlayerService.isLastPlayerItem) {
+          onSkipToQueueItem(PlayerService.playerItems.first.id);
+        } else {
+          _skip(1);
+        }
+        break;
+      case PlayerServicePlayBackState.repeatOne:
+        await onStop();
+        onPlay();
+        break;
+      case PlayerServicePlayBackState.shuffle:
+        int random = Random().nextInt(PlayerService.playerItemsLength);
+        onSkipToQueueItem(PlayerService.playerItems[random].id);
+        break;
+    }
+  }
 
   @override
   void onPlay() {
@@ -81,36 +100,34 @@ class AudioPlayerTask extends BackgroundAudioTask {
 
   @override
   void onSkipToNext() {
-    PlayerService.playBackState.maybeWhen(
-      shuffle: () {
+    switch (PlayerService.playBackState) {
+      case PlayerServicePlayBackState.shuffle:
         int random = Random().nextInt(PlayerService.playerItemsLength);
         onSkipToQueueItem(PlayerService.playerItems[random].id);
-      },
-      orElse: () {
+        break;
+      default:
         if (PlayerService.isLastPlayerItem) {
           onSkipToQueueItem(PlayerService.playerItems.first.id);
         } else {
           _skip(1);
         }
-      },
-    );
+    }
   }
 
   @override
   void onSkipToPrevious() {
-    PlayerService.playBackState.maybeWhen(
-      shuffle: () {
+    switch (PlayerService.playBackState) {
+      case PlayerServicePlayBackState.shuffle:
         int random = Random().nextInt(PlayerService.playerItemsLength);
         onSkipToQueueItem(PlayerService.playerItems[random].id);
-      },
-      orElse: () {
+        break;
+      default:
         if (PlayerService.isFirstPlayerItem) {
           onSkipToQueueItem(PlayerService.playerItems.last.id);
         } else {
           _skip(-1);
         }
-      },
-    );
+    }
   }
 
   @override

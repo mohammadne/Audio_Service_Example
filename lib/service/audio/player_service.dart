@@ -3,10 +3,11 @@ import 'dart:math';
 
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:just_audio_Service/model/player_service/item/player_service_item.dart';
-import 'package:just_audio_Service/model/player_service/play_back_state/player_service_play_back_state.dart';
 import 'package:just_audio_Service/model/player_service/processing_state/player_service_processing_state.dart';
+import 'package:just_audio_Service/model/player_service/play_back_state/player_service_play_back_state.dart';
 import 'package:just_audio_Service/model/player_service/state/player_service_state.dart';
+import 'package:just_audio_Service/model/player_service/item/player_service_item.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:rxdart/rxdart.dart';
 import 'package:hive/hive.dart';
 
@@ -33,10 +34,12 @@ abstract class PlayerService {
   static Future<void> stop() => AudioService.stop();
   static Future<void> skipToNext() => AudioService.skipToNext();
   static Future<void> skipToPrevious() => AudioService.skipToPrevious();
+  static Future<void> seek(Duration position) => AudioService.seekTo(position);
   static Future<void> setSpeed(double speed) => AudioService.setSpeed(speed);
 
   static PlayerServicePlayBackState get playBackState =>
-      Hive.box('player_service_play_back_state').get(0);
+      Hive.box<PlayerServicePlayBackState>('player_service_play_back_state')
+          .get(0);
 
   static Stream<PlayerServiceState> get playerServiceStream =>
       AudioService.playbackStateStream.map(_playbackStateToPlayerServiceState);
