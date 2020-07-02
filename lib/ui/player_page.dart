@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio_Service/model/audio/custom/isolate_transfer/isolate_transfer.dart';
 import 'package:just_audio_Service/model/audio/custom/items_state/items_state.dart';
@@ -34,19 +33,16 @@ class PlayerPage extends StatelessWidget {
                   ),
                   RaisedButton(
                     child: Text('Send test to back ground'),
-                    onPressed: () {
-                      AudioService.customAction(
-                        '',
-                        IsolateTransfer(
-                          itemsState: ItemsState.download,
-                          playBackOrderState: PlayBackOrderState.shuffle,
-                        ).toJson(),
-                      );
-                    },
+                    onPressed: () => AudioServiceEntrypoint.sendIsolateEvent(
+                      IsolateTransfer(
+                        itemsState: ItemsState.download,
+                        playBackOrderState: PlayBackOrderState.shuffle,
+                      ),
+                    ),
                   ),
                   StreamBuilder(
-                    stream: AudioService.customEventStream,
-                    builder: (context, snapshot) {
+                    stream: AudioServiceEntrypoint.isolateEventStream,
+                    builder: (_, snapshot) {
                       return Text("custom event: ${snapshot.data}");
                     },
                   ),
@@ -69,7 +65,8 @@ class PlayerPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           StreamBuilder<bool>(
-                            stream: AudioServiceEntrypoint.isFirstPlayerItemStream,
+                            stream:
+                                AudioServiceEntrypoint.isFirstAudioItemStream,
                             builder: (_, isFirst) => IconButton(
                               icon: Icon(Icons.skip_previous),
                               iconSize: 64.0,
@@ -79,12 +76,14 @@ class PlayerPage extends StatelessWidget {
                             ),
                           ),
                           StreamBuilder<bool>(
-                            stream: AudioServiceEntrypoint.isLastPlayerItemStream,
+                            stream:
+                                AudioServiceEntrypoint.isLastAudioItemStream,
                             builder: (_, isLast) => IconButton(
                               icon: Icon(Icons.skip_next),
                               iconSize: 64.0,
-                              onPressed:
-                                  isLast.data ? null : AudioServiceEntrypoint.skipToNext,
+                              onPressed: isLast.data
+                                  ? null
+                                  : AudioServiceEntrypoint.skipToNext,
                             ),
                           ),
                         ],
@@ -112,7 +111,7 @@ class PlayerPage extends StatelessWidget {
                         ],
                       ),
                       StreamBuilder<AudioItem>(
-                        stream: AudioServiceEntrypoint.playerItemStream,
+                        stream: AudioServiceEntrypoint.audioItemStream,
                         builder: (_, item) => PositionIndicator(
                           state,
                           item.data,
@@ -171,7 +170,8 @@ class PositionIndicator extends StatelessWidget {
                   dragPositionSubject.add(value);
                 },
                 onChangeEnd: (value) {
-                  AudioServiceEntrypoint.seek(Duration(milliseconds: value.toInt()));
+                  AudioServiceEntrypoint.seek(
+                      Duration(milliseconds: value.toInt()));
                   // Due to a delay in platform channel communication, there is
                   // a brief moment after releasing the Slider thumb before the
                   // new position is broadcast from the platform side. This
