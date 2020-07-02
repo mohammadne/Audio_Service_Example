@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:just_audio_Service/fake_api_bloc/fake_api_bloc.dart';
 import 'package:just_audio_Service/model/audio/custom/isolate_transfer/isolate_transfer.dart';
 import 'package:just_audio_Service/model/audio/custom/items_state/items_state.dart';
 import 'package:just_audio_Service/model/audio/custom/play_back_order_state/play_back_order_state.dart';
@@ -17,121 +19,146 @@ class PlayerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: StreamBuilder<AudioServiceState>(
-          stream: AudioServiceEntrypoint.playerServiceStream,
-          builder: (_, stateSnap) {
-            final state = stateSnap.data;
-            final processingState =
-                state?.processingState ?? AudioServiceProcessingState.none();
-            if (processingState == AudioServiceProcessingState.none())
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  RaisedButton(
-                    child: Text('Start background'),
-                    onPressed: AudioServiceEntrypoint.start,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                RaisedButton(
+                  child: Text('Play playlist 1'),
+                  onPressed: () => BlocProvider.of<FakeApiBloc>(context).add(
+                    PlayPlayList1(),
                   ),
-                  RaisedButton(
-                    child: Text('Send test to back ground'),
-                    onPressed: () => AudioServiceEntrypoint.sendIsolateEvent(
-                      IsolateTransfer(
-                        itemsState: ItemsState.download,
-                        playBackOrderState: PlayBackOrderState.shuffle,
-                      ),
-                    ),
+                ),
+                RaisedButton(
+                  child: Text('Play playlist 2'),
+                  onPressed: () => BlocProvider.of<FakeApiBloc>(context).add(
+                    PlayPlayList2(),
                   ),
-                  StreamBuilder<IsolateTransfer>(
-                    stream: AudioServiceEntrypoint.isolateEventStream,
-                    builder: (_, snapshot) {
-                      IsolateTransfer isolateTransfer = snapshot.data;
-                      return Text("custom event: $isolateTransfer");
-                    },
-                  ),
-                ],
-              );
-            return StreamBuilder<List<AudioItem>>(
-              stream: AudioServiceEntrypoint.playerItemsStream,
-              builder: (_, itemsSnap) {
-                final items = itemsSnap.data;
-                if (items == null) {
-                  return Center(child: Text('Null items'));
-                } else if (items.isEmpty) {
-                  return Center(child: Text('Empty items'));
-                } else {
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            StreamBuilder<AudioServiceState>(
+              stream: AudioServiceEntrypoint.playerServiceStream,
+              builder: (_, stateSnap) {
+                final state = stateSnap.data;
+                final processingState = state?.processingState ??
+                    AudioServiceProcessingState.none();
+                if (processingState == AudioServiceProcessingState.none())
                   return Column(
-                    mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          StreamBuilder<bool>(
-                            stream:
-                                AudioServiceEntrypoint.isFirstAudioItemStream,
-                            builder: (_, isFirst) => IconButton(
-                              icon: Icon(Icons.skip_previous),
-                              iconSize: 64.0,
-                              onPressed: isFirst.data
-                                  ? null
-                                  : AudioServiceEntrypoint.skipToPrevious,
-                            ),
-                          ),
-                          StreamBuilder<bool>(
-                            stream:
-                                AudioServiceEntrypoint.isLastAudioItemStream,
-                            builder: (_, isLast) => IconButton(
-                              icon: Icon(Icons.skip_next),
-                              iconSize: 64.0,
-                              onPressed: isLast.data
-                                  ? null
-                                  : AudioServiceEntrypoint.skipToNext,
-                            ),
-                          ),
-                        ],
+                    children: <Widget>[
+                      RaisedButton(
+                        child: Text('Start background'),
+                        onPressed: AudioServiceEntrypoint.start,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          if (state.playing)
-                            IconButton(
-                              icon: Icon(Icons.pause),
-                              iconSize: 64.0,
-                              onPressed: AudioServiceEntrypoint.pause,
-                            )
-                          else
-                            IconButton(
-                              icon: Icon(Icons.play_arrow),
-                              iconSize: 64.0,
-                              onPressed: AudioServiceEntrypoint.play,
-                            ),
-                          IconButton(
-                            icon: Icon(Icons.stop),
-                            iconSize: 64.0,
-                            onPressed: AudioServiceEntrypoint.stop,
-                          ),
-                        ],
-                      ),
-                      StreamBuilder<AudioItem>(
-                        stream: AudioServiceEntrypoint.audioItemStream,
-                        builder: (_, item) => PositionIndicator(
-                          state,
-                          item.data,
-                          _dragPositionSubject,
-                        ),
-                      ),
-                      Text(
-                        "Processing state: " +
-                            "$processingState".replaceAll(
-                              RegExp(r'^.*\.'),
-                              '',
-                            ),
+                      StreamBuilder<IsolateTransfer>(
+                        stream: AudioServiceEntrypoint.isolateEventStream,
+                        builder: (_, snapshot) {
+                          IsolateTransfer isolateTransfer = snapshot.data;
+                          return Text("custom event: $isolateTransfer");
+                        },
                       ),
                     ],
                   );
-                }
+                return StreamBuilder<List<AudioItem>>(
+                  stream: AudioServiceEntrypoint.audioItemsStream,
+                  builder: (_, itemsSnap) {
+                    final items = itemsSnap.data;
+                    if (items == null) {
+                      return Center(child: Text('Null items'));
+                    } else if (items.isEmpty) {
+                      return Center(child: Text('Empty items'));
+                    } else {
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              StreamBuilder<bool>(
+                                stream: AudioServiceEntrypoint
+                                    .isFirstAudioItemStream,
+                                builder: (_, isFirst) => IconButton(
+                                  icon: Icon(Icons.skip_previous),
+                                  iconSize: 64.0,
+                                  onPressed: isFirst.data
+                                      ? null
+                                      : AudioServiceEntrypoint.skipToPrevious,
+                                ),
+                              ),
+                              StreamBuilder<bool>(
+                                stream: AudioServiceEntrypoint
+                                    .isLastAudioItemStream,
+                                builder: (_, isLast) => IconButton(
+                                  icon: Icon(Icons.skip_next),
+                                  iconSize: 64.0,
+                                  onPressed: isLast.data
+                                      ? null
+                                      : AudioServiceEntrypoint.skipToNext,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              if (state.playing)
+                                IconButton(
+                                  icon: Icon(Icons.pause),
+                                  iconSize: 64.0,
+                                  onPressed: AudioServiceEntrypoint.pause,
+                                )
+                              else
+                                IconButton(
+                                  icon: Icon(Icons.play_arrow),
+                                  iconSize: 64.0,
+                                  onPressed: AudioServiceEntrypoint.play,
+                                ),
+                              IconButton(
+                                icon: Icon(Icons.stop),
+                                iconSize: 64.0,
+                                onPressed: AudioServiceEntrypoint.stop,
+                              ),
+                            ],
+                          ),
+                          StreamBuilder<AudioItem>(
+                            stream: AudioServiceEntrypoint.audioItemStream,
+                            builder: (_, item) => PositionIndicator(
+                              state,
+                              item.data,
+                              _dragPositionSubject,
+                            ),
+                          ),
+                          Text(
+                            "Processing state: " +
+                                "$processingState".replaceAll(
+                                  RegExp(r'^.*\.'),
+                                  '',
+                                ),
+                          ),
+                        ],
+                      );
+                    }
+                  },
+                );
               },
-            );
-          },
+            ),
+            StreamBuilder<List<AudioItem>>(
+              stream: AudioServiceEntrypoint.audioItemsStream,
+              builder: (_, snap) {
+                final data = snap.data;
+                return ListView.builder(
+                  itemBuilder: (_, index) {
+                    return Text(data[index].id);
+                  },
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

@@ -3,14 +3,7 @@ part of 'audio_service_entrypoint.dart';
 abstract class _AudioServiceIsolateTaskUtil {
   // Methods
   static sendIsolateEvent(IsolateTransfer isolateTransfer) =>
-      AudioServiceBackground.sendCustomEvent(
-        isolateTransfer,
-      );
-
-  //State
-  static PlaybackState get playbackState => AudioService.playbackState;
-  static AudioProcessingState get processingState =>
-      AudioService.playbackState.processingState;
+      AudioServiceBackground.sendCustomEvent(isolateTransfer);
 
   // Media Item
   static int get mediaItemIndex => queue.indexWhere(

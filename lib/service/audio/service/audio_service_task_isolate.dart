@@ -6,43 +6,43 @@ class AudioServiceTaskIsolate extends BackgroundAudioTask {
 
   @override
   Future<void> onStart(Map<String, dynamic> params) async {
+    await _hiveInitial();
     _player = JustAudio();
-    _AudioServiceIsolateTaskUtil.sendIsolateEvent(
-      IsolateTransfer(
-        itemsState: ItemsState.download,
-        playBackOrderState: PlayBackOrderState.shuffle,
-      ),
-    );
-    // await _hiveInitial();
-    // _player.playerStateStream.listen((state) {
-    //   state.when(
-    //     completed: () => _handlePlayerCompletion(),
-    //     playing: () => _setState(
-    //       isPlaying: true,
-    //       processingState: _player.isBuffering
-    //           ? AudioProcessingState.buffering
-    //           : AudioProcessingState.ready,
-    //     ),
-    //     paused: () => _setState(
-    //       isPlaying: false,
-    //       processingState: _player.isBuffering
-    //           ? AudioProcessingState.buffering
-    //           : AudioProcessingState.ready,
-    //     ),
-    //     stopped: () => _setState(
-    //       isPlaying: false,
-    //       processingState: AudioProcessingState.stopped,
-    //     ),
-    //     connecting: () => _setState(
-    //       isPlaying: false,
-    //       processingState: AudioProcessingState.connecting,
-    //     ),
-    //     none: () => _setState(
-    //       isPlaying: false,
-    //       processingState: AudioProcessingState.none,
-    //     ),
-    //   );
-    // });
+    // _AudioServiceIsolateTaskUtil.sendIsolateEvent(
+    //   IsolateTransfer(
+    //     itemsState: ItemsState.download,
+    //     playBackOrderState: PlayBackOrderState.shuffle,
+    //   ),
+    // );
+    _player.playerStateStream.listen((state) {
+      state.when(
+        completed: () => _handlePlayerCompletion(),
+        playing: () => _setState(
+          isPlaying: true,
+          processingState: _player.isBuffering
+              ? AudioProcessingState.buffering
+              : AudioProcessingState.ready,
+        ),
+        paused: () => _setState(
+          isPlaying: false,
+          processingState: _player.isBuffering
+              ? AudioProcessingState.buffering
+              : AudioProcessingState.ready,
+        ),
+        stopped: () => _setState(
+          isPlaying: false,
+          processingState: AudioProcessingState.stopped,
+        ),
+        connecting: () => _setState(
+          isPlaying: false,
+          processingState: AudioProcessingState.connecting,
+        ),
+        none: () => _setState(
+          isPlaying: false,
+          processingState: AudioProcessingState.none,
+        ),
+      );
+    });
   }
 
   _hiveInitial() async {
@@ -102,6 +102,7 @@ class AudioServiceTaskIsolate extends BackgroundAudioTask {
   @override
   void onClose() {
     onStop();
+    Hive.close();
   }
 
   @override

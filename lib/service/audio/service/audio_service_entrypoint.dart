@@ -40,6 +40,14 @@ abstract class AudioServiceEntrypoint {
   static Future<void> skipToPrevious() => AudioService.skipToPrevious();
   static Future<void> seek(Duration position) => AudioService.seekTo(position);
   static Future<void> setSpeed(double speed) => AudioService.setSpeed(speed);
+
+  static Future<void> setQueue(List<AudioItem> audioItems) =>
+      AudioService.addQueueItems(
+        audioItems.map(
+          (AudioItem audioItem) => _audioItemToMediaItem(audioItem),
+        ),
+      );
+
   static Future<void> sendIsolateEvent(IsolateTransfer isolateTransfer) =>
       AudioService.customAction(
         'customAction',
@@ -55,32 +63,32 @@ abstract class AudioServiceEntrypoint {
 
   // AudioItem
   static Stream<AudioItem> get audioItemStream =>
-      AudioService.currentMediaItemStream.map(_mediaItemToPlayerItem);
+      AudioService.currentMediaItemStream.map(_mediaItemToAudioItem);
 
   static Stream<bool> get isFirstAudioItemStream =>
       Rx.combineLatest2<List<AudioItem>, AudioItem, bool>(
-        playerItemsStream,
+        audioItemsStream,
         audioItemStream,
         (items, item) => item == items.first,
       );
 
   static Stream<bool> get isLastAudioItemStream =>
       Rx.combineLatest2<List<AudioItem>, AudioItem, bool>(
-        playerItemsStream,
+        audioItemsStream,
         audioItemStream,
         (items, item) => item == items.last,
       );
 
   // AudioItems
-  static Stream<List<AudioItem>> get playerItemsStream =>
+  static Stream<List<AudioItem>> get audioItemsStream =>
       AudioService.queueStream.map((List<MediaItem> mediaItems) =>
-          mediaItems.map(_mediaItemToPlayerItem));
+          mediaItems.map(_mediaItemToAudioItem));
 
   // Utils
   static AudioServiceState _playbackStateToPlayerServiceState(
           PlaybackState playbackState) =>
       AudioServiceState(
-        processingState: _audioProcessingStateToPlayerServiceProcessingState(
+        processingState: _audioProcessingStateToAudioServiceProcessingState(
           playbackState.processingState,
         ),
         playing: playbackState.playing,
@@ -90,7 +98,7 @@ abstract class AudioServiceEntrypoint {
         bufferedPosition: playbackState.bufferedPosition,
       );
 
-  static AudioItem _mediaItemToPlayerItem(MediaItem mediaItem) => AudioItem(
+  static AudioItem _mediaItemToAudioItem(MediaItem mediaItem) => AudioItem(
         id: mediaItem.id,
         artUri: mediaItem.artUri,
         title: mediaItem.artist,
@@ -99,10 +107,21 @@ abstract class AudioServiceEntrypoint {
         duration: mediaItem.duration,
       );
 
+  static MediaItem _audioItemToMediaItem(AudioItem audioItem) => MediaItem(
+        id: audioItem.id,
+        artUri: audioItem.artUri,
+        title: audioItem.artist,
+        album: audioItem.album,
+        artist: audioItem.artist,
+        duration: audioItem.duration,
+      );
+
   static AudioServiceProcessingState
-      _audioProcessingStateToPlayerServiceProcessingState(state) {
+      _audioProcessingStateToAudioServiceProcessingState(state) {
     switch (state) {
       case AudioProcessingState.connecting:
+      case AudioProcessingState.skippingToNext:
+      case AudioProcessingState.skippingToQueueItem:
         return AudioServiceProcessingState.waiting();
       case AudioProcessingState.ready:
         return AudioServiceProcessingState.ready();
@@ -113,10 +132,6 @@ abstract class AudioServiceEntrypoint {
       case AudioProcessingState.rewinding:
         return AudioServiceProcessingState.rewinding();
       case AudioProcessingState.skippingToPrevious:
-        return AudioServiceProcessingState.waiting();
-      case AudioProcessingState.skippingToNext:
-        return AudioServiceProcessingState.waiting();
-      case AudioProcessingState.skippingToQueueItem:
         return AudioServiceProcessingState.waiting();
       case AudioProcessingState.completed:
         return AudioServiceProcessingState.completed();
