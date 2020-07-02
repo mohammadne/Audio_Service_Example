@@ -40,10 +40,11 @@ class PlayerPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  StreamBuilder(
+                  StreamBuilder<IsolateTransfer>(
                     stream: AudioServiceEntrypoint.isolateEventStream,
                     builder: (_, snapshot) {
-                      return Text("custom event: ${snapshot.data}");
+                      IsolateTransfer isolateTransfer = snapshot.data;
+                      return Text("custom event: $isolateTransfer");
                     },
                   ),
                 ],

@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:hive/hive.dart';
 import 'package:just_audio_Service/model/audio/custom/isolate_transfer/isolate_transfer.dart';
+import 'package:just_audio_Service/model/audio/custom/items_state/items_state.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter/foundation.dart';
 import 'package:audio_service/audio_service.dart';
@@ -49,7 +50,8 @@ abstract class AudioServiceEntrypoint {
   static Stream<AudioServiceState> get playerServiceStream =>
       AudioService.playbackStateStream.map(_playbackStateToPlayerServiceState);
 
-  static Stream get isolateEventStream => AudioService.customEventStream;
+  static Stream<IsolateTransfer> get isolateEventStream =>
+      Stream.castFrom<dynamic, IsolateTransfer>(AudioService.customEventStream);
 
   // AudioItem
   static Stream<AudioItem> get audioItemStream =>

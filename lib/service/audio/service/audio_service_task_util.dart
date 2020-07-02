@@ -2,7 +2,10 @@ part of 'audio_service_entrypoint.dart';
 
 abstract class _AudioServiceIsolateTaskUtil {
   // Methods
-  
+  static sendIsolateEvent(IsolateTransfer isolateTransfer) =>
+      AudioServiceBackground.sendCustomEvent(
+        isolateTransfer,
+      );
 
   //State
   static PlaybackState get playbackState => AudioService.playbackState;

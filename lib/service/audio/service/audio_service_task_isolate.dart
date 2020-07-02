@@ -7,12 +7,12 @@ class AudioServiceTaskIsolate extends BackgroundAudioTask {
   @override
   Future<void> onStart(Map<String, dynamic> params) async {
     _player = JustAudio();
-    // AudioServiceBackground.sendCustomEvent(
-    //   IsolateTransfer(
-    //     itemsState: ItemsState.download,
-    //     playBackOrderState: PlayBackOrderState.shuffle,
-    //   ),
-    // );
+    _AudioServiceIsolateTaskUtil.sendIsolateEvent(
+      IsolateTransfer(
+        itemsState: ItemsState.download,
+        playBackOrderState: PlayBackOrderState.shuffle,
+      ),
+    );
     // await _hiveInitial();
     // _player.playerStateStream.listen((state) {
     //   state.when(
