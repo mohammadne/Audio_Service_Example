@@ -1,10 +1,11 @@
 import 'dart:math';
 
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio_Service/model/custom/player_item/player_item.dart';
 import 'package:just_audio_Service/service/audio/player_service.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../model/player_service/item/player_service_item.dart';
 import '../model/player_service/processing_state/player_service_processing_state.dart';
 import '../model/player_service/state/player_service_state.dart';
 import '../service/audio/player_service.dart';
@@ -21,13 +22,24 @@ class PlayerPage extends StatelessWidget {
             final processingState =
                 state?.processingState ?? PlayerServiceProcessingState.none();
             if (processingState == PlayerServiceProcessingState.none())
-              return Center(
-                child: RaisedButton(
-                  child: Text('Start background'),
-                  onPressed: PlayerService.start,
-                ),
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Center(
+                    child: RaisedButton(
+                      child: Text('Start background'),
+                      onPressed: PlayerService.start,
+                    ),
+                  ),
+                  StreamBuilder(
+                    stream: AudioService.customEventStream,
+                    builder: (context, snapshot) {
+                      return Text("custom event: ${snapshot.data}");
+                    },
+                  ),
+                ],
               );
-            return StreamBuilder<List<PlayerServiceItem>>(
+            return StreamBuilder<List<PlayerItem>>(
               stream: PlayerService.playerItemsStream,
               builder: (_, itemsSnap) {
                 final items = itemsSnap.data;
@@ -86,7 +98,7 @@ class PlayerPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      StreamBuilder<PlayerServiceItem>(
+                      StreamBuilder<PlayerItem>(
                         stream: PlayerService.playerItemStream,
                         builder: (_, item) => PositionIndicator(
                           state,
@@ -120,7 +132,7 @@ class PlayerPage extends StatelessWidget {
 class PositionIndicator extends StatelessWidget {
   const PositionIndicator(this.state, this.item, this.dragPositionSubject);
   final PlayerServiceState state;
-  final PlayerServiceItem item;
+  final PlayerItem item;
   final BehaviorSubject<double> dragPositionSubject;
 
   @override

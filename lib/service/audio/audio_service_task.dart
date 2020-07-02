@@ -1,76 +1,87 @@
 part of 'player_service.dart';
 
+abstract class AudioPlayerTaskUtil {
+  static MediaItem get mediaItem => AudioService.currentMediaItem;
+
+  static int get mediaItemIndex => queue.indexWhere(
+        (item) => item.id == mediaItem.id,
+      );
+
+  static int get queueLength => queue.length;
+
+  static List<MediaItem> get queue => AudioService.queue;
+}
+
 class AudioPlayerTask extends BackgroundAudioTask {
   PlayerBase _player = JustAudio();
 
   @override
   Future<void> onStart(Map<String, dynamic> params) async {
-    await _hiveInitial();
-    _player.playerStateStream.listen((state) {
-      state.when(
-        completed: () => _handlePlayerCompletion(),
-        playing: () => _setState(
-          isPlaying: true,
-          processingState: _player.isBuffering
-              ? AudioProcessingState.buffering
-              : AudioProcessingState.ready,
-        ),
-        paused: () => _setState(
-          isPlaying: false,
-          processingState: _player.isBuffering
-              ? AudioProcessingState.buffering
-              : AudioProcessingState.ready,
-        ),
-        stopped: () => _setState(
-          isPlaying: false,
-          processingState: AudioProcessingState.stopped,
-        ),
-        connecting: () => _setState(
-          isPlaying: false,
-          processingState: AudioProcessingState.connecting,
-        ),
-        none: () => _setState(
-          isPlaying: false,
-          processingState: AudioProcessingState.none,
-        ),
-      );
-    });
+    AudioServiceBackground.sendCustomEvent(PlayBackOrderState.repeatAll);
+    // await _hiveInitial();
+    // _player.playerStateStream.listen((state) {
+    //   state.when(
+    //     completed: () => _handlePlayerCompletion(),
+    //     playing: () => _setState(
+    //       isPlaying: true,
+    //       processingState: _player.isBuffering
+    //           ? AudioProcessingState.buffering
+    //           : AudioProcessingState.ready,
+    //     ),
+    //     paused: () => _setState(
+    //       isPlaying: false,
+    //       processingState: _player.isBuffering
+    //           ? AudioProcessingState.buffering
+    //           : AudioProcessingState.ready,
+    //     ),
+    //     stopped: () => _setState(
+    //       isPlaying: false,
+    //       processingState: AudioProcessingState.stopped,
+    //     ),
+    //     connecting: () => _setState(
+    //       isPlaying: false,
+    //       processingState: AudioProcessingState.connecting,
+    //     ),
+    //     none: () => _setState(
+    //       isPlaying: false,
+    //       processingState: AudioProcessingState.none,
+    //     ),
+    //   );
+    // });
   }
 
   _hiveInitial() async {
     final appDocDir = await path_provider.getApplicationDocumentsDirectory();
     Hive.init(appDocDir.path);
-    Hive.registerAdapter<PlayerServicePlayBackState>(
-      PlayerServicePlayBackStateAdapter(),
+    Hive.registerAdapter<PlayBackOrderState>(
+      PlayBackOrderStateAdapter(),
     );
-    final playBackBox = await Hive.openBox<PlayerServicePlayBackState>(
-      'player_service_play_back_state',
-    );
-    if (playBackBox.isEmpty)
-      await playBackBox.put(0, PlayerServicePlayBackState.order);
+    final playBackBox =
+        await Hive.openBox<PlayBackOrderState>('play_back_order_state');
+    if (playBackBox.isEmpty) await playBackBox.put(0, PlayBackOrderState.order);
   }
 
   _handlePlayerCompletion() async {
     switch (PlayerService.playBackState) {
-      case PlayerServicePlayBackState.order:
+      case PlayBackOrderState.order:
         if (PlayerService.isLastPlayerItem) {
           onPause();
         } else {
           _skip(1);
         }
         break;
-      case PlayerServicePlayBackState.repeatAll:
+      case PlayBackOrderState.repeatAll:
         if (PlayerService.isLastPlayerItem) {
           onSkipToQueueItem(PlayerService.playerItems.first.id);
         } else {
           _skip(1);
         }
         break;
-      case PlayerServicePlayBackState.repeatOne:
+      case PlayBackOrderState.repeatOne:
         await onStop();
         onPlay();
         break;
-      case PlayerServicePlayBackState.shuffle:
+      case PlayBackOrderState.shuffle:
         int random = Random().nextInt(PlayerService.playerItemsLength);
         onSkipToQueueItem(PlayerService.playerItems[random].id);
         break;
@@ -101,7 +112,7 @@ class AudioPlayerTask extends BackgroundAudioTask {
   @override
   void onSkipToNext() {
     switch (PlayerService.playBackState) {
-      case PlayerServicePlayBackState.shuffle:
+      case PlayBackOrderState.shuffle:
         int random = Random().nextInt(PlayerService.playerItemsLength);
         onSkipToQueueItem(PlayerService.playerItems[random].id);
         break;
@@ -117,7 +128,7 @@ class AudioPlayerTask extends BackgroundAudioTask {
   @override
   void onSkipToPrevious() {
     switch (PlayerService.playBackState) {
-      case PlayerServicePlayBackState.shuffle:
+      case PlayBackOrderState.shuffle:
         int random = Random().nextInt(PlayerService.playerItemsLength);
         onSkipToQueueItem(PlayerService.playerItems[random].id);
         break;

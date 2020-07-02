@@ -1,10 +1,9 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 
-part 'player_service_play_back_state.g.dart';
+part 'play_back_order_state.g.dart';
 
 @HiveType(typeId: 0)
-enum PlayerServicePlayBackState {
+enum PlayBackOrderState {
   @HiveField(0)
   order,
   @HiveField(1)

@@ -3,10 +3,10 @@ import 'dart:math';
 
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio_Service/model/custom/play_back_order_state/play_back_order_state.dart';
+import 'package:just_audio_Service/model/custom/player_item/player_item.dart';
 import 'package:just_audio_Service/model/player_service/processing_state/player_service_processing_state.dart';
-import 'package:just_audio_Service/model/player_service/play_back_state/player_service_play_back_state.dart';
 import 'package:just_audio_Service/model/player_service/state/player_service_state.dart';
-import 'package:just_audio_Service/model/player_service/item/player_service_item.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:rxdart/rxdart.dart';
 import 'package:hive/hive.dart';
@@ -37,9 +37,8 @@ abstract class PlayerService {
   static Future<void> seek(Duration position) => AudioService.seekTo(position);
   static Future<void> setSpeed(double speed) => AudioService.setSpeed(speed);
 
-  static PlayerServicePlayBackState get playBackState =>
-      Hive.box<PlayerServicePlayBackState>('player_service_play_back_state')
-          .get(0);
+  static PlayBackOrderState get playBackState =>
+      Hive.box<PlayBackOrderState>('play_back_order_state').get(0);
 
   static Stream<PlayerServiceState> get playerServiceStream =>
       AudioService.playbackStateStream.map(_playbackStateToPlayerServiceState);
@@ -52,26 +51,26 @@ abstract class PlayerService {
 
   static String get playerItemId => playerItem.id;
 
-  static PlayerServiceItem get playerItem =>
+  static PlayerItem get playerItem =>
       _mediaItemToPlayerItem(AudioService.currentMediaItem);
 
-  static Stream<PlayerServiceItem> get playerItemStream =>
+  static Stream<PlayerItem> get playerItemStream =>
       AudioService.currentMediaItemStream.map(_mediaItemToPlayerItem);
 
   // PlayerItems
 
   static int get playerItemsLength => playerItems.length;
 
-  static List<PlayerServiceItem> get playerItems =>
+  static List<PlayerItem> get playerItems =>
       _mediaItemsToPlayerItems(AudioService.queue);
 
-  static Stream<List<PlayerServiceItem>> get playerItemsStream =>
+  static Stream<List<PlayerItem>> get playerItemsStream =>
       AudioService.queueStream.map(_mediaItemsToPlayerItems);
 
   static bool get isFirstPlayerItem => playerItems.first == playerItem;
 
   static Stream<bool> get isFirstPlayerItemStream =>
-      Rx.combineLatest2<List<PlayerServiceItem>, PlayerServiceItem, bool>(
+      Rx.combineLatest2<List<PlayerItem>, PlayerItem, bool>(
         playerItemsStream,
         playerItemStream,
         (items, item) => item == items.first,
@@ -80,7 +79,7 @@ abstract class PlayerService {
   static bool get isLastPlayerItem => playerItems.first == playerItem;
 
   static Stream<bool> get isLastPlayerItemStream =>
-      Rx.combineLatest2<List<PlayerServiceItem>, PlayerServiceItem, bool>(
+      Rx.combineLatest2<List<PlayerItem>, PlayerItem, bool>(
         playerItemsStream,
         playerItemStream,
         (items, item) => item == items.last,
@@ -99,8 +98,8 @@ PlayerServiceState _playbackStateToPlayerServiceState(
       bufferedPosition: playbackState.bufferedPosition,
     );
 
-PlayerServiceItem _mediaItemToPlayerItem(MediaItem mediaItem) =>
-    PlayerServiceItem(
+PlayerItem _mediaItemToPlayerItem(MediaItem mediaItem) =>
+    PlayerItem(
         id: mediaItem.id,
         artUri: mediaItem.artUri,
         title: mediaItem.artist,
@@ -108,7 +107,7 @@ PlayerServiceItem _mediaItemToPlayerItem(MediaItem mediaItem) =>
         artist: mediaItem.artist,
         duration: mediaItem.duration);
 
-List<PlayerServiceItem> _mediaItemsToPlayerItems(List<MediaItem> mediaItems) =>
+List<PlayerItem> _mediaItemsToPlayerItems(List<MediaItem> mediaItems) =>
     mediaItems.map(_mediaItemToPlayerItem);
 
 PlayerServiceProcessingState
