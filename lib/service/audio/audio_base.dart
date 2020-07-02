@@ -1,4 +1,4 @@
-import 'package:just_audio_Service/model/player/state/player_state.dart';
+import 'package:just_audio_Service/model/audio/state/audio_state.dart';
 
 abstract class AudioBase {
   /// functions
@@ -12,7 +12,7 @@ abstract class AudioBase {
   Future setVolume(double volume);
 
   /// streams
-  Stream<PlayerState> get playerStateStream;
+  Stream<AudioState> get playerStateStream;
   Stream<Duration> get bufferedPositionStream;
   Stream<bool> get isBufferingStream;
   Stream<Duration> get positionStream;

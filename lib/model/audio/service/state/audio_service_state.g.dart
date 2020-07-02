@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'player_service_state.dart';
+part of 'audio_service_state.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -11,7 +11,7 @@ _$_PlayerServiceState _$_$_PlayerServiceStateFromJson(
   return _$_PlayerServiceState(
     processingState: json['processingState'] == null
         ? null
-        : PlayerServiceProcessingState.fromJson(
+        : AudioServiceProcessingState.fromJson(
             json['processingState'] as Map<String, dynamic>),
     playing: json['playing'] as bool,
     speed: (json['speed'] as num)?.toDouble(),

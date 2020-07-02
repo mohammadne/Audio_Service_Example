@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
 
-part of 'player_state.dart';
+part of 'audio_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
-PlayerState _$PlayerStateFromJson(Map<String, dynamic> json) {
+AudioState _$AudioStateFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType'] as String) {
     case 'none':
       return None.fromJson(json);
@@ -59,7 +59,7 @@ class _$PlayerStateTearOff {
 // ignore: unused_element
 const $PlayerState = _$PlayerStateTearOff();
 
-mixin _$PlayerState {
+mixin _$AudioState {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result none(),
@@ -103,16 +103,16 @@ mixin _$PlayerState {
 
 abstract class $PlayerStateCopyWith<$Res> {
   factory $PlayerStateCopyWith(
-          PlayerState value, $Res Function(PlayerState) then) =
+          AudioState value, $Res Function(AudioState) then) =
       _$PlayerStateCopyWithImpl<$Res>;
 }
 
 class _$PlayerStateCopyWithImpl<$Res> implements $PlayerStateCopyWith<$Res> {
   _$PlayerStateCopyWithImpl(this._value, this._then);
 
-  final PlayerState _value;
+  final AudioState _value;
   // ignore: unused_field
-  final $Res Function(PlayerState) _then;
+  final $Res Function(AudioState) _then;
 }
 
 abstract class $NoneCopyWith<$Res> {
@@ -228,7 +228,7 @@ class _$None implements None {
   }
 }
 
-abstract class None implements PlayerState {
+abstract class None implements AudioState {
   const factory None() = _$None;
 
   factory None.fromJson(Map<String, dynamic> json) = _$None.fromJson;
@@ -349,7 +349,7 @@ class _$Connecting implements Connecting {
   }
 }
 
-abstract class Connecting implements PlayerState {
+abstract class Connecting implements AudioState {
   const factory Connecting() = _$Connecting;
 
   factory Connecting.fromJson(Map<String, dynamic> json) =
@@ -470,7 +470,7 @@ class _$Playing implements Playing {
   }
 }
 
-abstract class Playing implements PlayerState {
+abstract class Playing implements AudioState {
   const factory Playing() = _$Playing;
 
   factory Playing.fromJson(Map<String, dynamic> json) = _$Playing.fromJson;
@@ -590,7 +590,7 @@ class _$Paused implements Paused {
   }
 }
 
-abstract class Paused implements PlayerState {
+abstract class Paused implements AudioState {
   const factory Paused() = _$Paused;
 
   factory Paused.fromJson(Map<String, dynamic> json) = _$Paused.fromJson;
@@ -710,7 +710,7 @@ class _$Completed implements Completed {
   }
 }
 
-abstract class Completed implements PlayerState {
+abstract class Completed implements AudioState {
   const factory Completed() = _$Completed;
 
   factory Completed.fromJson(Map<String, dynamic> json) = _$Completed.fromJson;
@@ -830,7 +830,7 @@ class _$Stopped implements Stopped {
   }
 }
 
-abstract class Stopped implements PlayerState {
+abstract class Stopped implements AudioState {
   const factory Stopped() = _$Stopped;
 
   factory Stopped.fromJson(Map<String, dynamic> json) = _$Stopped.fromJson;

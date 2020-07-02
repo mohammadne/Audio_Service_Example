@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
 
-part of 'player_service_processing_state.dart';
+part of 'audio_service_processing_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
-PlayerServiceProcessingState _$PlayerServiceProcessingStateFromJson(
+AudioServiceProcessingState _$AudioServiceProcessingStateFromJson(
     Map<String, dynamic> json) {
   switch (json['runtimeType'] as String) {
     case 'none':
@@ -78,7 +78,7 @@ class _$PlayerServiceProcessingStateTearOff {
 // ignore: unused_element
 const $PlayerServiceProcessingState = _$PlayerServiceProcessingStateTearOff();
 
-mixin _$PlayerServiceProcessingState {
+mixin _$AudioServiceProcessingState {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result none(),
@@ -134,8 +134,8 @@ mixin _$PlayerServiceProcessingState {
 
 abstract class $PlayerServiceProcessingStateCopyWith<$Res> {
   factory $PlayerServiceProcessingStateCopyWith(
-          PlayerServiceProcessingState value,
-          $Res Function(PlayerServiceProcessingState) then) =
+          AudioServiceProcessingState value,
+          $Res Function(AudioServiceProcessingState) then) =
       _$PlayerServiceProcessingStateCopyWithImpl<$Res>;
 }
 
@@ -143,9 +143,9 @@ class _$PlayerServiceProcessingStateCopyWithImpl<$Res>
     implements $PlayerServiceProcessingStateCopyWith<$Res> {
   _$PlayerServiceProcessingStateCopyWithImpl(this._value, this._then);
 
-  final PlayerServiceProcessingState _value;
+  final AudioServiceProcessingState _value;
   // ignore: unused_field
-  final $Res Function(PlayerServiceProcessingState) _then;
+  final $Res Function(AudioServiceProcessingState) _then;
 }
 
 abstract class _$NoneCopyWith<$Res> {
@@ -281,7 +281,7 @@ class _$_None implements _None {
   }
 }
 
-abstract class _None implements PlayerServiceProcessingState {
+abstract class _None implements AudioServiceProcessingState {
   const factory _None() = _$_None;
 
   factory _None.fromJson(Map<String, dynamic> json) = _$_None.fromJson;
@@ -420,7 +420,7 @@ class _$_Waiting implements _Waiting {
   }
 }
 
-abstract class _Waiting implements PlayerServiceProcessingState {
+abstract class _Waiting implements AudioServiceProcessingState {
   const factory _Waiting() = _$_Waiting;
 
   factory _Waiting.fromJson(Map<String, dynamic> json) = _$_Waiting.fromJson;
@@ -559,7 +559,7 @@ class _$_Ready implements _Ready {
   }
 }
 
-abstract class _Ready implements PlayerServiceProcessingState {
+abstract class _Ready implements AudioServiceProcessingState {
   const factory _Ready() = _$_Ready;
 
   factory _Ready.fromJson(Map<String, dynamic> json) = _$_Ready.fromJson;
@@ -699,7 +699,7 @@ class _$_Buffering implements _Buffering {
   }
 }
 
-abstract class _Buffering implements PlayerServiceProcessingState {
+abstract class _Buffering implements AudioServiceProcessingState {
   const factory _Buffering() = _$_Buffering;
 
   factory _Buffering.fromJson(Map<String, dynamic> json) =
@@ -841,7 +841,7 @@ class _$_FastForwarding implements _FastForwarding {
   }
 }
 
-abstract class _FastForwarding implements PlayerServiceProcessingState {
+abstract class _FastForwarding implements AudioServiceProcessingState {
   const factory _FastForwarding() = _$_FastForwarding;
 
   factory _FastForwarding.fromJson(Map<String, dynamic> json) =
@@ -982,7 +982,7 @@ class _$_Rewinding implements _Rewinding {
   }
 }
 
-abstract class _Rewinding implements PlayerServiceProcessingState {
+abstract class _Rewinding implements AudioServiceProcessingState {
   const factory _Rewinding() = _$_Rewinding;
 
   factory _Rewinding.fromJson(Map<String, dynamic> json) =
@@ -1123,7 +1123,7 @@ class _$_Completed implements _Completed {
   }
 }
 
-abstract class _Completed implements PlayerServiceProcessingState {
+abstract class _Completed implements AudioServiceProcessingState {
   const factory _Completed() = _$_Completed;
 
   factory _Completed.fromJson(Map<String, dynamic> json) =
@@ -1263,7 +1263,7 @@ class _$_Stopped implements _Stopped {
   }
 }
 
-abstract class _Stopped implements PlayerServiceProcessingState {
+abstract class _Stopped implements AudioServiceProcessingState {
   const factory _Stopped() = _$_Stopped;
 
   factory _Stopped.fromJson(Map<String, dynamic> json) = _$_Stopped.fromJson;
@@ -1402,7 +1402,7 @@ class _$_Error implements _Error {
   }
 }
 
-abstract class _Error implements PlayerServiceProcessingState {
+abstract class _Error implements AudioServiceProcessingState {
   const factory _Error() = _$_Error;
 
   factory _Error.fromJson(Map<String, dynamic> json) = _$_Error.fromJson;

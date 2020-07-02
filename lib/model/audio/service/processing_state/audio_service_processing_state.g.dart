@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'player_service_processing_state.dart';
+part of 'audio_service_processing_state.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

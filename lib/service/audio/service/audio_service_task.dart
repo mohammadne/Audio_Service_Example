@@ -1,4 +1,4 @@
-part of 'player_service.dart';
+part of 'audio_service_entrypoint.dart';
 
 class AudioServiceIsolateTask extends BackgroundAudioTask {
   AudioBase _player;
@@ -56,17 +56,17 @@ class AudioServiceIsolateTask extends BackgroundAudioTask {
   }
 
   _handlePlayerCompletion() async {
-    switch (AudioServiceUtil.playBackState) {
+    switch (AudioServiceEntrypoint.playBackState) {
       case PlayBackOrderState.order:
-        if (AudioServiceUtil.isLastPlayerItem) {
+        if (AudioServiceEntrypoint.isLastPlayerItem) {
           onPause();
         } else {
           _skip(1);
         }
         break;
       case PlayBackOrderState.repeatAll:
-        if (AudioServiceUtil.isLastPlayerItem) {
-          onSkipToQueueItem(AudioServiceUtil.playerItems.first.id);
+        if (AudioServiceEntrypoint.isLastPlayerItem) {
+          onSkipToQueueItem(AudioServiceEntrypoint.playerItems.first.id);
         } else {
           _skip(1);
         }
@@ -76,8 +76,8 @@ class AudioServiceIsolateTask extends BackgroundAudioTask {
         onPlay();
         break;
       case PlayBackOrderState.shuffle:
-        int random = Random().nextInt(AudioServiceUtil.playerItemsLength);
-        onSkipToQueueItem(AudioServiceUtil.playerItems[random].id);
+        int random = Random().nextInt(AudioServiceEntrypoint.playerItemsLength);
+        onSkipToQueueItem(AudioServiceEntrypoint.playerItems[random].id);
         break;
     }
   }
@@ -105,14 +105,14 @@ class AudioServiceIsolateTask extends BackgroundAudioTask {
 
   @override
   void onSkipToNext() {
-    switch (AudioServiceUtil.playBackState) {
+    switch (AudioServiceEntrypoint.playBackState) {
       case PlayBackOrderState.shuffle:
-        int random = Random().nextInt(AudioServiceUtil.playerItemsLength);
-        onSkipToQueueItem(AudioServiceUtil.playerItems[random].id);
+        int random = Random().nextInt(AudioServiceEntrypoint.playerItemsLength);
+        onSkipToQueueItem(AudioServiceEntrypoint.playerItems[random].id);
         break;
       default:
-        if (AudioServiceUtil.isLastPlayerItem) {
-          onSkipToQueueItem(AudioServiceUtil.playerItems.first.id);
+        if (AudioServiceEntrypoint.isLastPlayerItem) {
+          onSkipToQueueItem(AudioServiceEntrypoint.playerItems.first.id);
         } else {
           _skip(1);
         }
@@ -121,14 +121,14 @@ class AudioServiceIsolateTask extends BackgroundAudioTask {
 
   @override
   void onSkipToPrevious() {
-    switch (AudioServiceUtil.playBackState) {
+    switch (AudioServiceEntrypoint.playBackState) {
       case PlayBackOrderState.shuffle:
-        int random = Random().nextInt(AudioServiceUtil.playerItemsLength);
-        onSkipToQueueItem(AudioServiceUtil.playerItems[random].id);
+        int random = Random().nextInt(AudioServiceEntrypoint.playerItemsLength);
+        onSkipToQueueItem(AudioServiceEntrypoint.playerItems[random].id);
         break;
       default:
-        if (AudioServiceUtil.isFirstPlayerItem) {
-          onSkipToQueueItem(AudioServiceUtil.playerItems.last.id);
+        if (AudioServiceEntrypoint.isFirstPlayerItem) {
+          onSkipToQueueItem(AudioServiceEntrypoint.playerItems.last.id);
         } else {
           _skip(-1);
         }
@@ -139,7 +139,7 @@ class AudioServiceIsolateTask extends BackgroundAudioTask {
   void onSkipToQueueItem(String mediaId) {}
 
   Future<void> _skip(int offset) async {
-    final pos = AudioServiceUtil.playerItemIndex + offset;
+    final pos = AudioServiceEntrypoint.playerItemIndex + offset;
     await _player.stop();
     MediaItem mediaItem = AudioService.queue[pos];
     AudioServiceBackground.setMediaItem(mediaItem);
@@ -188,7 +188,7 @@ class AudioServiceIsolateTask extends BackgroundAudioTask {
 
   @override
   void onPlayFromMediaId(String mediaId) {
-    final currIndex = AudioServiceUtil.playerItemIndex;
+    final currIndex = AudioServiceEntrypoint.playerItemIndex;
     final reqIndex = AudioService.queue.indexWhere(
       (mediaItem) => mediaItem.id == mediaId,
     );

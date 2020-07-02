@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
 
-part of 'player_service_state.dart';
+part of 'audio_service_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
-PlayerServiceState _$PlayerServiceStateFromJson(Map<String, dynamic> json) {
+AudioServiceState _$AudioServiceStateFromJson(Map<String, dynamic> json) {
   return _PlayerServiceState.fromJson(json);
 }
 
@@ -16,7 +16,7 @@ class _$PlayerServiceStateTearOff {
   const _$PlayerServiceStateTearOff();
 
   _PlayerServiceState call(
-      {@required PlayerServiceProcessingState processingState,
+      {@required AudioServiceProcessingState processingState,
       @required bool playing,
       @required double speed,
       @required Duration position,
@@ -36,8 +36,8 @@ class _$PlayerServiceStateTearOff {
 // ignore: unused_element
 const $PlayerServiceState = _$PlayerServiceStateTearOff();
 
-mixin _$PlayerServiceState {
-  PlayerServiceProcessingState get processingState;
+mixin _$AudioServiceState {
+  AudioServiceProcessingState get processingState;
   bool get playing;
   double get speed;
   Duration get position;
@@ -45,15 +45,15 @@ mixin _$PlayerServiceState {
   Duration get bufferedPosition;
 
   Map<String, dynamic> toJson();
-  $PlayerServiceStateCopyWith<PlayerServiceState> get copyWith;
+  $PlayerServiceStateCopyWith<AudioServiceState> get copyWith;
 }
 
 abstract class $PlayerServiceStateCopyWith<$Res> {
   factory $PlayerServiceStateCopyWith(
-          PlayerServiceState value, $Res Function(PlayerServiceState) then) =
+          AudioServiceState value, $Res Function(AudioServiceState) then) =
       _$PlayerServiceStateCopyWithImpl<$Res>;
   $Res call(
-      {PlayerServiceProcessingState processingState,
+      {AudioServiceProcessingState processingState,
       bool playing,
       double speed,
       Duration position,
@@ -67,9 +67,9 @@ class _$PlayerServiceStateCopyWithImpl<$Res>
     implements $PlayerServiceStateCopyWith<$Res> {
   _$PlayerServiceStateCopyWithImpl(this._value, this._then);
 
-  final PlayerServiceState _value;
+  final AudioServiceState _value;
   // ignore: unused_field
-  final $Res Function(PlayerServiceState) _then;
+  final $Res Function(AudioServiceState) _then;
 
   @override
   $Res call({
@@ -83,7 +83,7 @@ class _$PlayerServiceStateCopyWithImpl<$Res>
     return _then(_value.copyWith(
       processingState: processingState == freezed
           ? _value.processingState
-          : processingState as PlayerServiceProcessingState,
+          : processingState as AudioServiceProcessingState,
       playing: playing == freezed ? _value.playing : playing as bool,
       speed: speed == freezed ? _value.speed : speed as double,
       position: position == freezed ? _value.position : position as Duration,
@@ -114,7 +114,7 @@ abstract class _$PlayerServiceStateCopyWith<$Res>
       __$PlayerServiceStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {PlayerServiceProcessingState processingState,
+      {AudioServiceProcessingState processingState,
       bool playing,
       double speed,
       Duration position,
@@ -147,7 +147,7 @@ class __$PlayerServiceStateCopyWithImpl<$Res>
     return _then(_PlayerServiceState(
       processingState: processingState == freezed
           ? _value.processingState
-          : processingState as PlayerServiceProcessingState,
+          : processingState as AudioServiceProcessingState,
       playing: playing == freezed ? _value.playing : playing as bool,
       speed: speed == freezed ? _value.speed : speed as double,
       position: position == freezed ? _value.position : position as Duration,
@@ -180,7 +180,7 @@ class _$_PlayerServiceState implements _PlayerServiceState {
       _$_$_PlayerServiceStateFromJson(json);
 
   @override
-  final PlayerServiceProcessingState processingState;
+  final AudioServiceProcessingState processingState;
   @override
   final bool playing;
   @override
@@ -240,9 +240,9 @@ class _$_PlayerServiceState implements _PlayerServiceState {
   }
 }
 
-abstract class _PlayerServiceState implements PlayerServiceState {
+abstract class _PlayerServiceState implements AudioServiceState {
   const factory _PlayerServiceState(
-      {@required PlayerServiceProcessingState processingState,
+      {@required AudioServiceProcessingState processingState,
       @required bool playing,
       @required double speed,
       @required Duration position,
@@ -253,7 +253,7 @@ abstract class _PlayerServiceState implements PlayerServiceState {
       _$_PlayerServiceState.fromJson;
 
   @override
-  PlayerServiceProcessingState get processingState;
+  AudioServiceProcessingState get processingState;
   @override
   bool get playing;
   @override

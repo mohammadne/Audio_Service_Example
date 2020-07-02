@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'player_item.dart';
+part of 'audio_item.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class PlayerItemAdapter extends TypeAdapter<PlayerItem> {
+class PlayerItemAdapter extends TypeAdapter<AudioItem> {
   @override
   final typeId = 1;
 
   @override
-  PlayerItem read(BinaryReader reader) {
+  AudioItem read(BinaryReader reader) {
     var numOfFields = reader.readByte();
     var fields = <int, dynamic>{
       for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return PlayerItem(
+    return AudioItem(
       id: fields[0] as String,
       album: fields[1] as String,
       artist: fields[2] as String,
@@ -27,7 +27,7 @@ class PlayerItemAdapter extends TypeAdapter<PlayerItem> {
   }
 
   @override
-  void write(BinaryWriter writer, PlayerItem obj) {
+  void write(BinaryWriter writer, AudioItem obj) {
     writer
       ..writeByte(6)
       ..writeByte(0)

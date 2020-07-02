@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-part 'player_item.g.dart';
+part 'audio_item.g.dart';
 
 @HiveType(typeId: 1)
-class PlayerItem {
-  PlayerItem({
+class AudioItem {
+  AudioItem({
     @required this.id,
     @required this.album,
     @required this.artist,

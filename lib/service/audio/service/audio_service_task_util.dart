@@ -1,4 +1,4 @@
-part of 'player_service.dart';
+part of 'audio_service_entrypoint.dart';
 
 abstract class AudioServiceIsolateTaskUtil {
   // Media Item
