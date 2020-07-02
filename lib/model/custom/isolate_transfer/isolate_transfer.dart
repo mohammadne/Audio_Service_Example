@@ -9,8 +9,8 @@ part 'isolate_transfer.g.dart';
 @freezed
 abstract class IsolateTransfer with _$IsolateTransfer {
   const factory IsolateTransfer({
-    @required PlayBackOrderState processingState,
-    @required ItemsState itemsState,
+    PlayBackOrderState playBackOrderState,
+    ItemsState itemsState,
   }) = _IsolateTransfer;
 
   factory IsolateTransfer.fromJson(Map<String, dynamic> json) =>

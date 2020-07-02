@@ -2,13 +2,16 @@ import 'dart:math';
 
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio_Service/model/custom/isolate_transfer/isolate_transfer.dart';
+import 'package:just_audio_Service/model/custom/items_state/items_state.dart';
+import 'package:just_audio_Service/model/custom/play_back_order_state/play_back_order_state.dart';
 import 'package:just_audio_Service/model/custom/player_item/player_item.dart';
-import 'package:just_audio_Service/service/audio/player_service.dart';
+import 'package:just_audio_Service/service/audio/service/player_service.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../model/player_service/processing_state/player_service_processing_state.dart';
 import '../model/player_service/state/player_service_state.dart';
-import '../service/audio/player_service.dart';
+import '../service/audio/service/player_service.dart';
 
 class PlayerPage extends StatelessWidget {
   @override
@@ -16,7 +19,7 @@ class PlayerPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: StreamBuilder<PlayerServiceState>(
-          stream: PlayerService.playerServiceStream,
+          stream: AudioServiceUtil.playerServiceStream,
           builder: (_, stateSnap) {
             final state = stateSnap.data;
             final processingState =
@@ -25,11 +28,21 @@ class PlayerPage extends StatelessWidget {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Center(
-                    child: RaisedButton(
-                      child: Text('Start background'),
-                      onPressed: PlayerService.start,
-                    ),
+                  RaisedButton(
+                    child: Text('Start background'),
+                    onPressed: AudioServiceUtil.start,
+                  ),
+                  RaisedButton(
+                    child: Text('Send test to back ground'),
+                    onPressed: () {
+                      AudioService.customAction(
+                        '',
+                        IsolateTransfer(
+                          itemsState: ItemsState.download,
+                          playBackOrderState: PlayBackOrderState.shuffle,
+                        ).toJson(),
+                      );
+                    },
                   ),
                   StreamBuilder(
                     stream: AudioService.customEventStream,
@@ -40,7 +53,7 @@ class PlayerPage extends StatelessWidget {
                 ],
               );
             return StreamBuilder<List<PlayerItem>>(
-              stream: PlayerService.playerItemsStream,
+              stream: AudioServiceUtil.playerItemsStream,
               builder: (_, itemsSnap) {
                 final items = itemsSnap.data;
                 if (items == null) {
@@ -56,22 +69,22 @@ class PlayerPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           StreamBuilder<bool>(
-                            stream: PlayerService.isFirstPlayerItemStream,
+                            stream: AudioServiceUtil.isFirstPlayerItemStream,
                             builder: (_, isFirst) => IconButton(
                               icon: Icon(Icons.skip_previous),
                               iconSize: 64.0,
                               onPressed: isFirst.data
                                   ? null
-                                  : PlayerService.skipToPrevious,
+                                  : AudioServiceUtil.skipToPrevious,
                             ),
                           ),
                           StreamBuilder<bool>(
-                            stream: PlayerService.isLastPlayerItemStream,
+                            stream: AudioServiceUtil.isLastPlayerItemStream,
                             builder: (_, isLast) => IconButton(
                               icon: Icon(Icons.skip_next),
                               iconSize: 64.0,
                               onPressed:
-                                  isLast.data ? null : PlayerService.skipToNext,
+                                  isLast.data ? null : AudioServiceUtil.skipToNext,
                             ),
                           ),
                         ],
@@ -83,23 +96,23 @@ class PlayerPage extends StatelessWidget {
                             IconButton(
                               icon: Icon(Icons.pause),
                               iconSize: 64.0,
-                              onPressed: PlayerService.pause,
+                              onPressed: AudioServiceUtil.pause,
                             )
                           else
                             IconButton(
                               icon: Icon(Icons.play_arrow),
                               iconSize: 64.0,
-                              onPressed: PlayerService.play,
+                              onPressed: AudioServiceUtil.play,
                             ),
                           IconButton(
                             icon: Icon(Icons.stop),
                             iconSize: 64.0,
-                            onPressed: PlayerService.stop,
+                            onPressed: AudioServiceUtil.stop,
                           ),
                         ],
                       ),
                       StreamBuilder<PlayerItem>(
-                        stream: PlayerService.playerItemStream,
+                        stream: AudioServiceUtil.playerItemStream,
                         builder: (_, item) => PositionIndicator(
                           state,
                           item.data,
@@ -158,7 +171,7 @@ class PositionIndicator extends StatelessWidget {
                   dragPositionSubject.add(value);
                 },
                 onChangeEnd: (value) {
-                  PlayerService.seek(Duration(milliseconds: value.toInt()));
+                  AudioServiceUtil.seek(Duration(milliseconds: value.toInt()));
                   // Due to a delay in platform channel communication, there is
                   // a brief moment after releasing the Slider thumb before the
                   // new position is broadcast from the platform side. This

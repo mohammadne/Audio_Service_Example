@@ -8,15 +8,16 @@ part of 'isolate_transfer.dart';
 
 _$_IsolateTransfer _$_$_IsolateTransferFromJson(Map<String, dynamic> json) {
   return _$_IsolateTransfer(
-    processingState: _$enumDecodeNullable(
-        _$PlayBackOrderStateEnumMap, json['processingState']),
+    playBackOrderState: _$enumDecodeNullable(
+        _$PlayBackOrderStateEnumMap, json['playBackOrderState']),
     itemsState: _$enumDecodeNullable(_$ItemsStateEnumMap, json['itemsState']),
   );
 }
 
 Map<String, dynamic> _$_$_IsolateTransferToJson(_$_IsolateTransfer instance) =>
     <String, dynamic>{
-      'processingState': _$PlayBackOrderStateEnumMap[instance.processingState],
+      'playBackOrderState':
+          _$PlayBackOrderStateEnumMap[instance.playBackOrderState],
       'itemsState': _$ItemsStateEnumMap[instance.itemsState],
     };
 

@@ -11,16 +11,17 @@ import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:rxdart/rxdart.dart';
 import 'package:hive/hive.dart';
 
-import 'player/just_audio.dart';
-import 'player/player_base.dart';
+import '../just_audio.dart';
+import '../audio_base.dart';
 
 part 'audio_service_task.dart';
+part 'audio_service_task_util.dart';
 
 void _audioPlayerTaskEntrypoint() async {
-  AudioServiceBackground.run(() => AudioPlayerTask());
+  AudioServiceBackground.run(() => AudioServiceIsolateTask());
 }
 
-abstract class PlayerService {
+abstract class AudioServiceUtil {
   static Future<bool> start() => AudioService.start(
         backgroundTaskEntrypoint: _audioPlayerTaskEntrypoint,
         androidNotificationChannelName: 'PlayerService',
@@ -98,14 +99,13 @@ PlayerServiceState _playbackStateToPlayerServiceState(
       bufferedPosition: playbackState.bufferedPosition,
     );
 
-PlayerItem _mediaItemToPlayerItem(MediaItem mediaItem) =>
-    PlayerItem(
-        id: mediaItem.id,
-        artUri: mediaItem.artUri,
-        title: mediaItem.artist,
-        album: mediaItem.album,
-        artist: mediaItem.artist,
-        duration: mediaItem.duration);
+PlayerItem _mediaItemToPlayerItem(MediaItem mediaItem) => PlayerItem(
+    id: mediaItem.id,
+    artUri: mediaItem.artUri,
+    title: mediaItem.artist,
+    album: mediaItem.album,
+    artist: mediaItem.artist,
+    duration: mediaItem.duration);
 
 List<PlayerItem> _mediaItemsToPlayerItems(List<MediaItem> mediaItems) =>
     mediaItems.map(_mediaItemToPlayerItem);

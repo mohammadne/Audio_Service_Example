@@ -1,6 +1,6 @@
 import 'package:just_audio_Service/model/player/state/player_state.dart';
 
-abstract class PlayerBase {
+abstract class AudioBase {
   /// functions
   Future<Duration> setUrl(String uri);
   Future play();

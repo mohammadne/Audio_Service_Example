@@ -16,10 +16,9 @@ class _$IsolateTransferTearOff {
   const _$IsolateTransferTearOff();
 
   _IsolateTransfer call(
-      {@required PlayBackOrderState processingState,
-      @required ItemsState itemsState}) {
+      {PlayBackOrderState playBackOrderState, ItemsState itemsState}) {
     return _IsolateTransfer(
-      processingState: processingState,
+      playBackOrderState: playBackOrderState,
       itemsState: itemsState,
     );
   }
@@ -29,7 +28,7 @@ class _$IsolateTransferTearOff {
 const $IsolateTransfer = _$IsolateTransferTearOff();
 
 mixin _$IsolateTransfer {
-  PlayBackOrderState get processingState;
+  PlayBackOrderState get playBackOrderState;
   ItemsState get itemsState;
 
   Map<String, dynamic> toJson();
@@ -40,7 +39,7 @@ abstract class $IsolateTransferCopyWith<$Res> {
   factory $IsolateTransferCopyWith(
           IsolateTransfer value, $Res Function(IsolateTransfer) then) =
       _$IsolateTransferCopyWithImpl<$Res>;
-  $Res call({PlayBackOrderState processingState, ItemsState itemsState});
+  $Res call({PlayBackOrderState playBackOrderState, ItemsState itemsState});
 }
 
 class _$IsolateTransferCopyWithImpl<$Res>
@@ -53,13 +52,13 @@ class _$IsolateTransferCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object processingState = freezed,
+    Object playBackOrderState = freezed,
     Object itemsState = freezed,
   }) {
     return _then(_value.copyWith(
-      processingState: processingState == freezed
-          ? _value.processingState
-          : processingState as PlayBackOrderState,
+      playBackOrderState: playBackOrderState == freezed
+          ? _value.playBackOrderState
+          : playBackOrderState as PlayBackOrderState,
       itemsState:
           itemsState == freezed ? _value.itemsState : itemsState as ItemsState,
     ));
@@ -72,7 +71,7 @@ abstract class _$IsolateTransferCopyWith<$Res>
           _IsolateTransfer value, $Res Function(_IsolateTransfer) then) =
       __$IsolateTransferCopyWithImpl<$Res>;
   @override
-  $Res call({PlayBackOrderState processingState, ItemsState itemsState});
+  $Res call({PlayBackOrderState playBackOrderState, ItemsState itemsState});
 }
 
 class __$IsolateTransferCopyWithImpl<$Res>
@@ -87,13 +86,13 @@ class __$IsolateTransferCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object processingState = freezed,
+    Object playBackOrderState = freezed,
     Object itemsState = freezed,
   }) {
     return _then(_IsolateTransfer(
-      processingState: processingState == freezed
-          ? _value.processingState
-          : processingState as PlayBackOrderState,
+      playBackOrderState: playBackOrderState == freezed
+          ? _value.playBackOrderState
+          : playBackOrderState as PlayBackOrderState,
       itemsState:
           itemsState == freezed ? _value.itemsState : itemsState as ItemsState,
     ));
@@ -104,22 +103,19 @@ class __$IsolateTransferCopyWithImpl<$Res>
 class _$_IsolateTransfer
     with DiagnosticableTreeMixin
     implements _IsolateTransfer {
-  const _$_IsolateTransfer(
-      {@required this.processingState, @required this.itemsState})
-      : assert(processingState != null),
-        assert(itemsState != null);
+  const _$_IsolateTransfer({this.playBackOrderState, this.itemsState});
 
   factory _$_IsolateTransfer.fromJson(Map<String, dynamic> json) =>
       _$_$_IsolateTransferFromJson(json);
 
   @override
-  final PlayBackOrderState processingState;
+  final PlayBackOrderState playBackOrderState;
   @override
   final ItemsState itemsState;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'IsolateTransfer(processingState: $processingState, itemsState: $itemsState)';
+    return 'IsolateTransfer(playBackOrderState: $playBackOrderState, itemsState: $itemsState)';
   }
 
   @override
@@ -127,7 +123,7 @@ class _$_IsolateTransfer
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'IsolateTransfer'))
-      ..add(DiagnosticsProperty('processingState', processingState))
+      ..add(DiagnosticsProperty('playBackOrderState', playBackOrderState))
       ..add(DiagnosticsProperty('itemsState', itemsState));
   }
 
@@ -135,9 +131,9 @@ class _$_IsolateTransfer
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _IsolateTransfer &&
-            (identical(other.processingState, processingState) ||
+            (identical(other.playBackOrderState, playBackOrderState) ||
                 const DeepCollectionEquality()
-                    .equals(other.processingState, processingState)) &&
+                    .equals(other.playBackOrderState, playBackOrderState)) &&
             (identical(other.itemsState, itemsState) ||
                 const DeepCollectionEquality()
                     .equals(other.itemsState, itemsState)));
@@ -146,7 +142,7 @@ class _$_IsolateTransfer
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(processingState) ^
+      const DeepCollectionEquality().hash(playBackOrderState) ^
       const DeepCollectionEquality().hash(itemsState);
 
   @override
@@ -161,14 +157,14 @@ class _$_IsolateTransfer
 
 abstract class _IsolateTransfer implements IsolateTransfer {
   const factory _IsolateTransfer(
-      {@required PlayBackOrderState processingState,
-      @required ItemsState itemsState}) = _$_IsolateTransfer;
+      {PlayBackOrderState playBackOrderState,
+      ItemsState itemsState}) = _$_IsolateTransfer;
 
   factory _IsolateTransfer.fromJson(Map<String, dynamic> json) =
       _$_IsolateTransfer.fromJson;
 
   @override
-  PlayBackOrderState get processingState;
+  PlayBackOrderState get playBackOrderState;
   @override
   ItemsState get itemsState;
   @override

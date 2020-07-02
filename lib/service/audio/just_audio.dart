@@ -1,9 +1,9 @@
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_Service/model/player/state/player_state.dart';
 
-import 'player_base.dart';
+import 'audio_base.dart';
 
-class JustAudio implements PlayerBase {
+class JustAudio implements AudioBase {
   JustAudio() : _audioPlayer = AudioPlayer();
   final AudioPlayer _audioPlayer;
 
