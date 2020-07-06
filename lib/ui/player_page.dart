@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio_Service/fake_api_bloc/fake_api_bloc.dart';
 import 'package:just_audio_Service/model/audio/custom/isolate_transfer/isolate_transfer.dart';
-import 'package:just_audio_Service/model/audio/custom/items_state/items_state.dart';
-import 'package:just_audio_Service/model/audio/custom/play_back_order_state/play_back_order_state.dart';
-import 'package:just_audio_Service/model/audio/custom/player_item/audio_item.dart';
+import 'package:just_audio_Service/model/audio/custom/audio_item/audio_item.dart';
 import 'package:just_audio_Service/model/audio/service/processing_state/audio_service_processing_state.dart';
 import 'package:just_audio_Service/model/audio/service/state/audio_service_state.dart';
 import 'package:just_audio_Service/service/audio/service/audio_service_entrypoint.dart';
@@ -147,15 +145,30 @@ class PlayerPage extends StatelessWidget {
                 );
               },
             ),
-            StreamBuilder<List<AudioItem>>(
-              stream: AudioServiceEntrypoint.audioItemsStream,
-              builder: (_, snap) {
-                final data = snap.data;
-                return ListView.builder(
-                  itemBuilder: (_, index) {
-                    return Text(data[index].id);
-                  },
-                );
+            BlocBuilder<FakeApiBloc, FakeApiState>(
+              builder: (_, state) {
+                if (state is FakeApiInitial) {
+                  return Center(child: Text('not loaded from api'));
+                } else if (state is FakeApiLoading) {
+                  return Center(child: CircularProgressIndicator());
+                } else {
+                  return Container(
+                    height: 200,
+                    child: StreamBuilder<List<AudioItem>>(
+                      stream: AudioServiceEntrypoint.audioItemsStream,
+                      builder: (_, snap) {
+                        final data = snap.data ?? [];
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: data.length,
+                          itemBuilder: (_, index) {
+                            return Text(data[index].id);
+                          },
+                        );
+                      },
+                    ),
+                  );
+                }
               },
             ),
           ],

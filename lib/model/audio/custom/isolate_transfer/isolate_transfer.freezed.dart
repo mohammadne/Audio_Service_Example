@@ -16,7 +16,7 @@ class _$IsolateTransferTearOff {
   const _$IsolateTransferTearOff();
 
   _IsolateTransfer call(
-      {PlayBackOrderState playBackOrderState, ItemsState itemsState}) {
+      {PlayBackOrderState playBackOrderState, AudioItemSource itemsState}) {
     return _IsolateTransfer(
       playBackOrderState: playBackOrderState,
       itemsState: itemsState,
@@ -29,7 +29,7 @@ const $IsolateTransfer = _$IsolateTransferTearOff();
 
 mixin _$IsolateTransfer {
   PlayBackOrderState get playBackOrderState;
-  ItemsState get itemsState;
+  AudioItemSource get itemsState;
 
   Map<String, dynamic> toJson();
   $IsolateTransferCopyWith<IsolateTransfer> get copyWith;
@@ -39,7 +39,8 @@ abstract class $IsolateTransferCopyWith<$Res> {
   factory $IsolateTransferCopyWith(
           IsolateTransfer value, $Res Function(IsolateTransfer) then) =
       _$IsolateTransferCopyWithImpl<$Res>;
-  $Res call({PlayBackOrderState playBackOrderState, ItemsState itemsState});
+  $Res call(
+      {PlayBackOrderState playBackOrderState, AudioItemSource itemsState});
 }
 
 class _$IsolateTransferCopyWithImpl<$Res>
@@ -59,8 +60,9 @@ class _$IsolateTransferCopyWithImpl<$Res>
       playBackOrderState: playBackOrderState == freezed
           ? _value.playBackOrderState
           : playBackOrderState as PlayBackOrderState,
-      itemsState:
-          itemsState == freezed ? _value.itemsState : itemsState as ItemsState,
+      itemsState: itemsState == freezed
+          ? _value.itemsState
+          : itemsState as AudioItemSource,
     ));
   }
 }
@@ -71,7 +73,8 @@ abstract class _$IsolateTransferCopyWith<$Res>
           _IsolateTransfer value, $Res Function(_IsolateTransfer) then) =
       __$IsolateTransferCopyWithImpl<$Res>;
   @override
-  $Res call({PlayBackOrderState playBackOrderState, ItemsState itemsState});
+  $Res call(
+      {PlayBackOrderState playBackOrderState, AudioItemSource itemsState});
 }
 
 class __$IsolateTransferCopyWithImpl<$Res>
@@ -93,8 +96,9 @@ class __$IsolateTransferCopyWithImpl<$Res>
       playBackOrderState: playBackOrderState == freezed
           ? _value.playBackOrderState
           : playBackOrderState as PlayBackOrderState,
-      itemsState:
-          itemsState == freezed ? _value.itemsState : itemsState as ItemsState,
+      itemsState: itemsState == freezed
+          ? _value.itemsState
+          : itemsState as AudioItemSource,
     ));
   }
 }
@@ -111,7 +115,7 @@ class _$_IsolateTransfer
   @override
   final PlayBackOrderState playBackOrderState;
   @override
-  final ItemsState itemsState;
+  final AudioItemSource itemsState;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -158,7 +162,7 @@ class _$_IsolateTransfer
 abstract class _IsolateTransfer implements IsolateTransfer {
   const factory _IsolateTransfer(
       {PlayBackOrderState playBackOrderState,
-      ItemsState itemsState}) = _$_IsolateTransfer;
+      AudioItemSource itemsState}) = _$_IsolateTransfer;
 
   factory _IsolateTransfer.fromJson(Map<String, dynamic> json) =
       _$_IsolateTransfer.fromJson;
@@ -166,7 +170,7 @@ abstract class _IsolateTransfer implements IsolateTransfer {
   @override
   PlayBackOrderState get playBackOrderState;
   @override
-  ItemsState get itemsState;
+  AudioItemSource get itemsState;
   @override
   _$IsolateTransferCopyWith<_IsolateTransfer> get copyWith;
 }

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:just_audio_Service/model/audio/custom/player_item/audio_item.dart';
+import 'package:just_audio_Service/model/audio/custom/audio_item/audio_item.dart';
 import 'package:just_audio_Service/service/audio/service/audio_service_entrypoint.dart';
 
 part 'fake_api_event.dart';
@@ -14,6 +14,8 @@ class FakeApiBloc extends Bloc<FakeApiEvent, FakeApiState> {
 
   @override
   Stream<FakeApiState> mapEventToState(FakeApiEvent event) async* {
+    yield FakeApiLoading();
+    await Future.delayed(Duration(seconds: 2));
     if (event is PlayPlayList1) {
       AudioServiceEntrypoint.setQueue(<AudioItem>[
         AudioItem(
@@ -57,5 +59,6 @@ class FakeApiBloc extends Bloc<FakeApiEvent, FakeApiState> {
         ),
       ]);
     }
+    yield FakeApiLoaded();
   }
 }

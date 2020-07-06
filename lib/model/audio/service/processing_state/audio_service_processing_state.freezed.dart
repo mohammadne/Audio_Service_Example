@@ -35,8 +35,8 @@ AudioServiceProcessingState _$AudioServiceProcessingStateFromJson(
   }
 }
 
-class _$PlayerServiceProcessingStateTearOff {
-  const _$PlayerServiceProcessingStateTearOff();
+class _$AudioServiceProcessingStateTearOff {
+  const _$AudioServiceProcessingStateTearOff();
 
   _None none() {
     return const _None();
@@ -76,7 +76,7 @@ class _$PlayerServiceProcessingStateTearOff {
 }
 
 // ignore: unused_element
-const $PlayerServiceProcessingState = _$PlayerServiceProcessingStateTearOff();
+const $AudioServiceProcessingState = _$AudioServiceProcessingStateTearOff();
 
 mixin _$AudioServiceProcessingState {
   @optionalTypeArgs
@@ -132,16 +132,16 @@ mixin _$AudioServiceProcessingState {
   Map<String, dynamic> toJson();
 }
 
-abstract class $PlayerServiceProcessingStateCopyWith<$Res> {
-  factory $PlayerServiceProcessingStateCopyWith(
+abstract class $AudioServiceProcessingStateCopyWith<$Res> {
+  factory $AudioServiceProcessingStateCopyWith(
           AudioServiceProcessingState value,
           $Res Function(AudioServiceProcessingState) then) =
-      _$PlayerServiceProcessingStateCopyWithImpl<$Res>;
+      _$AudioServiceProcessingStateCopyWithImpl<$Res>;
 }
 
-class _$PlayerServiceProcessingStateCopyWithImpl<$Res>
-    implements $PlayerServiceProcessingStateCopyWith<$Res> {
-  _$PlayerServiceProcessingStateCopyWithImpl(this._value, this._then);
+class _$AudioServiceProcessingStateCopyWithImpl<$Res>
+    implements $AudioServiceProcessingStateCopyWith<$Res> {
+  _$AudioServiceProcessingStateCopyWithImpl(this._value, this._then);
 
   final AudioServiceProcessingState _value;
   // ignore: unused_field
@@ -154,7 +154,7 @@ abstract class _$NoneCopyWith<$Res> {
 }
 
 class __$NoneCopyWithImpl<$Res>
-    extends _$PlayerServiceProcessingStateCopyWithImpl<$Res>
+    extends _$AudioServiceProcessingStateCopyWithImpl<$Res>
     implements _$NoneCopyWith<$Res> {
   __$NoneCopyWithImpl(_None _value, $Res Function(_None) _then)
       : super(_value, (v) => _then(v as _None));
@@ -172,7 +172,7 @@ class _$_None implements _None {
 
   @override
   String toString() {
-    return 'PlayerServiceProcessingState.none()';
+    return 'AudioServiceProcessingState.none()';
   }
 
   @override
@@ -293,7 +293,7 @@ abstract class _$WaitingCopyWith<$Res> {
 }
 
 class __$WaitingCopyWithImpl<$Res>
-    extends _$PlayerServiceProcessingStateCopyWithImpl<$Res>
+    extends _$AudioServiceProcessingStateCopyWithImpl<$Res>
     implements _$WaitingCopyWith<$Res> {
   __$WaitingCopyWithImpl(_Waiting _value, $Res Function(_Waiting) _then)
       : super(_value, (v) => _then(v as _Waiting));
@@ -311,7 +311,7 @@ class _$_Waiting implements _Waiting {
 
   @override
   String toString() {
-    return 'PlayerServiceProcessingState.waiting()';
+    return 'AudioServiceProcessingState.waiting()';
   }
 
   @override
@@ -432,7 +432,7 @@ abstract class _$ReadyCopyWith<$Res> {
 }
 
 class __$ReadyCopyWithImpl<$Res>
-    extends _$PlayerServiceProcessingStateCopyWithImpl<$Res>
+    extends _$AudioServiceProcessingStateCopyWithImpl<$Res>
     implements _$ReadyCopyWith<$Res> {
   __$ReadyCopyWithImpl(_Ready _value, $Res Function(_Ready) _then)
       : super(_value, (v) => _then(v as _Ready));
@@ -450,7 +450,7 @@ class _$_Ready implements _Ready {
 
   @override
   String toString() {
-    return 'PlayerServiceProcessingState.ready()';
+    return 'AudioServiceProcessingState.ready()';
   }
 
   @override
@@ -572,7 +572,7 @@ abstract class _$BufferingCopyWith<$Res> {
 }
 
 class __$BufferingCopyWithImpl<$Res>
-    extends _$PlayerServiceProcessingStateCopyWithImpl<$Res>
+    extends _$AudioServiceProcessingStateCopyWithImpl<$Res>
     implements _$BufferingCopyWith<$Res> {
   __$BufferingCopyWithImpl(_Buffering _value, $Res Function(_Buffering) _then)
       : super(_value, (v) => _then(v as _Buffering));
@@ -590,7 +590,7 @@ class _$_Buffering implements _Buffering {
 
   @override
   String toString() {
-    return 'PlayerServiceProcessingState.buffering()';
+    return 'AudioServiceProcessingState.buffering()';
   }
 
   @override
@@ -713,7 +713,7 @@ abstract class _$FastForwardingCopyWith<$Res> {
 }
 
 class __$FastForwardingCopyWithImpl<$Res>
-    extends _$PlayerServiceProcessingStateCopyWithImpl<$Res>
+    extends _$AudioServiceProcessingStateCopyWithImpl<$Res>
     implements _$FastForwardingCopyWith<$Res> {
   __$FastForwardingCopyWithImpl(
       _FastForwarding _value, $Res Function(_FastForwarding) _then)
@@ -732,7 +732,7 @@ class _$_FastForwarding implements _FastForwarding {
 
   @override
   String toString() {
-    return 'PlayerServiceProcessingState.fastForwarding()';
+    return 'AudioServiceProcessingState.fastForwarding()';
   }
 
   @override
@@ -855,7 +855,7 @@ abstract class _$RewindingCopyWith<$Res> {
 }
 
 class __$RewindingCopyWithImpl<$Res>
-    extends _$PlayerServiceProcessingStateCopyWithImpl<$Res>
+    extends _$AudioServiceProcessingStateCopyWithImpl<$Res>
     implements _$RewindingCopyWith<$Res> {
   __$RewindingCopyWithImpl(_Rewinding _value, $Res Function(_Rewinding) _then)
       : super(_value, (v) => _then(v as _Rewinding));
@@ -873,7 +873,7 @@ class _$_Rewinding implements _Rewinding {
 
   @override
   String toString() {
-    return 'PlayerServiceProcessingState.rewinding()';
+    return 'AudioServiceProcessingState.rewinding()';
   }
 
   @override
@@ -996,7 +996,7 @@ abstract class _$CompletedCopyWith<$Res> {
 }
 
 class __$CompletedCopyWithImpl<$Res>
-    extends _$PlayerServiceProcessingStateCopyWithImpl<$Res>
+    extends _$AudioServiceProcessingStateCopyWithImpl<$Res>
     implements _$CompletedCopyWith<$Res> {
   __$CompletedCopyWithImpl(_Completed _value, $Res Function(_Completed) _then)
       : super(_value, (v) => _then(v as _Completed));
@@ -1014,7 +1014,7 @@ class _$_Completed implements _Completed {
 
   @override
   String toString() {
-    return 'PlayerServiceProcessingState.completed()';
+    return 'AudioServiceProcessingState.completed()';
   }
 
   @override
@@ -1136,7 +1136,7 @@ abstract class _$StoppedCopyWith<$Res> {
 }
 
 class __$StoppedCopyWithImpl<$Res>
-    extends _$PlayerServiceProcessingStateCopyWithImpl<$Res>
+    extends _$AudioServiceProcessingStateCopyWithImpl<$Res>
     implements _$StoppedCopyWith<$Res> {
   __$StoppedCopyWithImpl(_Stopped _value, $Res Function(_Stopped) _then)
       : super(_value, (v) => _then(v as _Stopped));
@@ -1154,7 +1154,7 @@ class _$_Stopped implements _Stopped {
 
   @override
   String toString() {
-    return 'PlayerServiceProcessingState.stopped()';
+    return 'AudioServiceProcessingState.stopped()';
   }
 
   @override
@@ -1275,7 +1275,7 @@ abstract class _$ErrorCopyWith<$Res> {
 }
 
 class __$ErrorCopyWithImpl<$Res>
-    extends _$PlayerServiceProcessingStateCopyWithImpl<$Res>
+    extends _$AudioServiceProcessingStateCopyWithImpl<$Res>
     implements _$ErrorCopyWith<$Res> {
   __$ErrorCopyWithImpl(_Error _value, $Res Function(_Error) _then)
       : super(_value, (v) => _then(v as _Error));
@@ -1293,7 +1293,7 @@ class _$_Error implements _Error {
 
   @override
   String toString() {
-    return 'PlayerServiceProcessingState.error()';
+    return 'AudioServiceProcessingState.error()';
   }
 
   @override

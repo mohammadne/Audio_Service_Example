@@ -28,8 +28,8 @@ AudioState _$AudioStateFromJson(Map<String, dynamic> json) {
   }
 }
 
-class _$PlayerStateTearOff {
-  const _$PlayerStateTearOff();
+class _$AudioStateTearOff {
+  const _$AudioStateTearOff();
 
   None none() {
     return const None();
@@ -57,7 +57,7 @@ class _$PlayerStateTearOff {
 }
 
 // ignore: unused_element
-const $PlayerState = _$PlayerStateTearOff();
+const $AudioState = _$AudioStateTearOff();
 
 mixin _$AudioState {
   @optionalTypeArgs
@@ -101,14 +101,14 @@ mixin _$AudioState {
   Map<String, dynamic> toJson();
 }
 
-abstract class $PlayerStateCopyWith<$Res> {
-  factory $PlayerStateCopyWith(
+abstract class $AudioStateCopyWith<$Res> {
+  factory $AudioStateCopyWith(
           AudioState value, $Res Function(AudioState) then) =
-      _$PlayerStateCopyWithImpl<$Res>;
+      _$AudioStateCopyWithImpl<$Res>;
 }
 
-class _$PlayerStateCopyWithImpl<$Res> implements $PlayerStateCopyWith<$Res> {
-  _$PlayerStateCopyWithImpl(this._value, this._then);
+class _$AudioStateCopyWithImpl<$Res> implements $AudioStateCopyWith<$Res> {
+  _$AudioStateCopyWithImpl(this._value, this._then);
 
   final AudioState _value;
   // ignore: unused_field
@@ -120,7 +120,7 @@ abstract class $NoneCopyWith<$Res> {
       _$NoneCopyWithImpl<$Res>;
 }
 
-class _$NoneCopyWithImpl<$Res> extends _$PlayerStateCopyWithImpl<$Res>
+class _$NoneCopyWithImpl<$Res> extends _$AudioStateCopyWithImpl<$Res>
     implements $NoneCopyWith<$Res> {
   _$NoneCopyWithImpl(None _value, $Res Function(None) _then)
       : super(_value, (v) => _then(v as None));
@@ -137,7 +137,7 @@ class _$None implements None {
 
   @override
   String toString() {
-    return 'PlayerState.none()';
+    return 'AudioState.none()';
   }
 
   @override
@@ -240,7 +240,7 @@ abstract class $ConnectingCopyWith<$Res> {
       _$ConnectingCopyWithImpl<$Res>;
 }
 
-class _$ConnectingCopyWithImpl<$Res> extends _$PlayerStateCopyWithImpl<$Res>
+class _$ConnectingCopyWithImpl<$Res> extends _$AudioStateCopyWithImpl<$Res>
     implements $ConnectingCopyWith<$Res> {
   _$ConnectingCopyWithImpl(Connecting _value, $Res Function(Connecting) _then)
       : super(_value, (v) => _then(v as Connecting));
@@ -258,7 +258,7 @@ class _$Connecting implements Connecting {
 
   @override
   String toString() {
-    return 'PlayerState.connecting()';
+    return 'AudioState.connecting()';
   }
 
   @override
@@ -361,7 +361,7 @@ abstract class $PlayingCopyWith<$Res> {
       _$PlayingCopyWithImpl<$Res>;
 }
 
-class _$PlayingCopyWithImpl<$Res> extends _$PlayerStateCopyWithImpl<$Res>
+class _$PlayingCopyWithImpl<$Res> extends _$AudioStateCopyWithImpl<$Res>
     implements $PlayingCopyWith<$Res> {
   _$PlayingCopyWithImpl(Playing _value, $Res Function(Playing) _then)
       : super(_value, (v) => _then(v as Playing));
@@ -379,7 +379,7 @@ class _$Playing implements Playing {
 
   @override
   String toString() {
-    return 'PlayerState.playing()';
+    return 'AudioState.playing()';
   }
 
   @override
@@ -481,7 +481,7 @@ abstract class $PausedCopyWith<$Res> {
       _$PausedCopyWithImpl<$Res>;
 }
 
-class _$PausedCopyWithImpl<$Res> extends _$PlayerStateCopyWithImpl<$Res>
+class _$PausedCopyWithImpl<$Res> extends _$AudioStateCopyWithImpl<$Res>
     implements $PausedCopyWith<$Res> {
   _$PausedCopyWithImpl(Paused _value, $Res Function(Paused) _then)
       : super(_value, (v) => _then(v as Paused));
@@ -499,7 +499,7 @@ class _$Paused implements Paused {
 
   @override
   String toString() {
-    return 'PlayerState.paused()';
+    return 'AudioState.paused()';
   }
 
   @override
@@ -601,7 +601,7 @@ abstract class $CompletedCopyWith<$Res> {
       _$CompletedCopyWithImpl<$Res>;
 }
 
-class _$CompletedCopyWithImpl<$Res> extends _$PlayerStateCopyWithImpl<$Res>
+class _$CompletedCopyWithImpl<$Res> extends _$AudioStateCopyWithImpl<$Res>
     implements $CompletedCopyWith<$Res> {
   _$CompletedCopyWithImpl(Completed _value, $Res Function(Completed) _then)
       : super(_value, (v) => _then(v as Completed));
@@ -619,7 +619,7 @@ class _$Completed implements Completed {
 
   @override
   String toString() {
-    return 'PlayerState.completed()';
+    return 'AudioState.completed()';
   }
 
   @override
@@ -721,7 +721,7 @@ abstract class $StoppedCopyWith<$Res> {
       _$StoppedCopyWithImpl<$Res>;
 }
 
-class _$StoppedCopyWithImpl<$Res> extends _$PlayerStateCopyWithImpl<$Res>
+class _$StoppedCopyWithImpl<$Res> extends _$AudioStateCopyWithImpl<$Res>
     implements $StoppedCopyWith<$Res> {
   _$StoppedCopyWithImpl(Stopped _value, $Res Function(Stopped) _then)
       : super(_value, (v) => _then(v as Stopped));
@@ -739,7 +739,7 @@ class _$Stopped implements Stopped {
 
   @override
   String toString() {
-    return 'PlayerState.stopped()';
+    return 'AudioState.stopped()';
   }
 
   @override

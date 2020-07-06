@@ -10,7 +10,7 @@ part 'isolate_transfer.g.dart';
 abstract class IsolateTransfer with _$IsolateTransfer {
   const factory IsolateTransfer({
     PlayBackOrderState playBackOrderState,
-    ItemsState itemsState,
+    AudioItemSource itemsState,
   }) = _IsolateTransfer;
 
   factory IsolateTransfer.fromJson(Map<String, dynamic> json) =>

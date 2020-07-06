@@ -12,8 +12,8 @@ AudioServiceState _$AudioServiceStateFromJson(Map<String, dynamic> json) {
   return _PlayerServiceState.fromJson(json);
 }
 
-class _$PlayerServiceStateTearOff {
-  const _$PlayerServiceStateTearOff();
+class _$AudioServiceStateTearOff {
+  const _$AudioServiceStateTearOff();
 
   _PlayerServiceState call(
       {@required AudioServiceProcessingState processingState,
@@ -34,7 +34,7 @@ class _$PlayerServiceStateTearOff {
 }
 
 // ignore: unused_element
-const $PlayerServiceState = _$PlayerServiceStateTearOff();
+const $AudioServiceState = _$AudioServiceStateTearOff();
 
 mixin _$AudioServiceState {
   AudioServiceProcessingState get processingState;
@@ -45,13 +45,13 @@ mixin _$AudioServiceState {
   Duration get bufferedPosition;
 
   Map<String, dynamic> toJson();
-  $PlayerServiceStateCopyWith<AudioServiceState> get copyWith;
+  $AudioServiceStateCopyWith<AudioServiceState> get copyWith;
 }
 
-abstract class $PlayerServiceStateCopyWith<$Res> {
-  factory $PlayerServiceStateCopyWith(
+abstract class $AudioServiceStateCopyWith<$Res> {
+  factory $AudioServiceStateCopyWith(
           AudioServiceState value, $Res Function(AudioServiceState) then) =
-      _$PlayerServiceStateCopyWithImpl<$Res>;
+      _$AudioServiceStateCopyWithImpl<$Res>;
   $Res call(
       {AudioServiceProcessingState processingState,
       bool playing,
@@ -60,12 +60,12 @@ abstract class $PlayerServiceStateCopyWith<$Res> {
       Duration updateTime,
       Duration bufferedPosition});
 
-  $PlayerServiceProcessingStateCopyWith<$Res> get processingState;
+  $AudioServiceProcessingStateCopyWith<$Res> get processingState;
 }
 
-class _$PlayerServiceStateCopyWithImpl<$Res>
-    implements $PlayerServiceStateCopyWith<$Res> {
-  _$PlayerServiceStateCopyWithImpl(this._value, this._then);
+class _$AudioServiceStateCopyWithImpl<$Res>
+    implements $AudioServiceStateCopyWith<$Res> {
+  _$AudioServiceStateCopyWithImpl(this._value, this._then);
 
   final AudioServiceState _value;
   // ignore: unused_field
@@ -96,11 +96,11 @@ class _$PlayerServiceStateCopyWithImpl<$Res>
   }
 
   @override
-  $PlayerServiceProcessingStateCopyWith<$Res> get processingState {
+  $AudioServiceProcessingStateCopyWith<$Res> get processingState {
     if (_value.processingState == null) {
       return null;
     }
-    return $PlayerServiceProcessingStateCopyWith<$Res>(_value.processingState,
+    return $AudioServiceProcessingStateCopyWith<$Res>(_value.processingState,
         (value) {
       return _then(_value.copyWith(processingState: value));
     });
@@ -108,7 +108,7 @@ class _$PlayerServiceStateCopyWithImpl<$Res>
 }
 
 abstract class _$PlayerServiceStateCopyWith<$Res>
-    implements $PlayerServiceStateCopyWith<$Res> {
+    implements $AudioServiceStateCopyWith<$Res> {
   factory _$PlayerServiceStateCopyWith(
           _PlayerServiceState value, $Res Function(_PlayerServiceState) then) =
       __$PlayerServiceStateCopyWithImpl<$Res>;
@@ -122,11 +122,11 @@ abstract class _$PlayerServiceStateCopyWith<$Res>
       Duration bufferedPosition});
 
   @override
-  $PlayerServiceProcessingStateCopyWith<$Res> get processingState;
+  $AudioServiceProcessingStateCopyWith<$Res> get processingState;
 }
 
 class __$PlayerServiceStateCopyWithImpl<$Res>
-    extends _$PlayerServiceStateCopyWithImpl<$Res>
+    extends _$AudioServiceStateCopyWithImpl<$Res>
     implements _$PlayerServiceStateCopyWith<$Res> {
   __$PlayerServiceStateCopyWithImpl(
       _PlayerServiceState _value, $Res Function(_PlayerServiceState) _then)
@@ -194,7 +194,7 @@ class _$_PlayerServiceState implements _PlayerServiceState {
 
   @override
   String toString() {
-    return 'PlayerServiceState(processingState: $processingState, playing: $playing, speed: $speed, position: $position, updateTime: $updateTime, bufferedPosition: $bufferedPosition)';
+    return 'AudioServiceState(processingState: $processingState, playing: $playing, speed: $speed, position: $position, updateTime: $updateTime, bufferedPosition: $bufferedPosition)';
   }
 
   @override

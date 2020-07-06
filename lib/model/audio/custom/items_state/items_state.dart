@@ -3,13 +3,15 @@ import 'package:hive/hive.dart';
 part 'items_state.g.dart';
 
 @HiveType(typeId: 2)
-enum ItemsState {
+enum AudioItemSource {
   @HiveField(0)
-  normal,
+  Url,
   @HiveField(1)
-  download,
+  File,
   @HiveField(2)
-  favorite,
+  Asset,
   @HiveField(3)
-  playList,
+  HLS,
+  @HiveField(4)
+  DASH,
 }

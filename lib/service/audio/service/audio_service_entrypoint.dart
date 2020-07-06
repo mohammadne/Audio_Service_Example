@@ -3,13 +3,12 @@ import 'dart:math';
 
 import 'package:hive/hive.dart';
 import 'package:just_audio_Service/model/audio/custom/isolate_transfer/isolate_transfer.dart';
-import 'package:just_audio_Service/model/audio/custom/items_state/items_state.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter/foundation.dart';
 import 'package:audio_service/audio_service.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:just_audio_Service/model/audio/custom/play_back_order_state/play_back_order_state.dart';
-import 'package:just_audio_Service/model/audio/custom/player_item/audio_item.dart';
+import 'package:just_audio_Service/model/audio/custom/audio_item/audio_item.dart';
 import 'package:just_audio_Service/model/audio/service/processing_state/audio_service_processing_state.dart';
 import 'package:just_audio_Service/model/audio/service/state/audio_service_state.dart';
 
@@ -42,10 +41,12 @@ abstract class AudioServiceEntrypoint {
   static Future<void> setSpeed(double speed) => AudioService.setSpeed(speed);
 
   static Future<void> setQueue(List<AudioItem> audioItems) =>
-      AudioService.addQueueItems(
-        audioItems.map(
-          (AudioItem audioItem) => _audioItemToMediaItem(audioItem),
-        ),
+      AudioService.updateQueue(
+        audioItems
+            .map(
+              (AudioItem audioItem) => _audioItemToMediaItem(audioItem),
+            )
+            .toList(),
       );
 
   static Future<void> sendIsolateEvent(IsolateTransfer isolateTransfer) =>

@@ -10,7 +10,8 @@ _$_IsolateTransfer _$_$_IsolateTransferFromJson(Map<String, dynamic> json) {
   return _$_IsolateTransfer(
     playBackOrderState: _$enumDecodeNullable(
         _$PlayBackOrderStateEnumMap, json['playBackOrderState']),
-    itemsState: _$enumDecodeNullable(_$ItemsStateEnumMap, json['itemsState']),
+    itemsState:
+        _$enumDecodeNullable(_$AudioItemSourceEnumMap, json['itemsState']),
   );
 }
 
@@ -18,7 +19,7 @@ Map<String, dynamic> _$_$_IsolateTransferToJson(_$_IsolateTransfer instance) =>
     <String, dynamic>{
       'playBackOrderState':
           _$PlayBackOrderStateEnumMap[instance.playBackOrderState],
-      'itemsState': _$ItemsStateEnumMap[instance.itemsState],
+      'itemsState': _$AudioItemSourceEnumMap[instance.itemsState],
     };
 
 T _$enumDecode<T>(
@@ -60,9 +61,10 @@ const _$PlayBackOrderStateEnumMap = {
   PlayBackOrderState.shuffle: 'shuffle',
 };
 
-const _$ItemsStateEnumMap = {
-  ItemsState.normal: 'normal',
-  ItemsState.download: 'download',
-  ItemsState.favorite: 'favorite',
-  ItemsState.playList: 'playList',
+const _$AudioItemSourceEnumMap = {
+  AudioItemSource.Url: 'Url',
+  AudioItemSource.File: 'File',
+  AudioItemSource.Asset: 'Asset',
+  AudioItemSource.HLS: 'HLS',
+  AudioItemSource.DASH: 'DASH',
 };

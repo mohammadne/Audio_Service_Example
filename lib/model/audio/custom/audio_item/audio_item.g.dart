@@ -6,7 +6,7 @@ part of 'audio_item.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class PlayerItemAdapter extends TypeAdapter<AudioItem> {
+class AudioItemAdapter extends TypeAdapter<AudioItem> {
   @override
   final typeId = 1;
 

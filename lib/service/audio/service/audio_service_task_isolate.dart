@@ -142,12 +142,21 @@ class AudioServiceTaskIsolate extends BackgroundAudioTask {
 
   Future<void> _skip(int offset) async {
     final pos = _AudioServiceIsolateTaskUtil.mediaItemIndex + offset;
+    if (!(pos >= 0 && pos < _AudioServiceIsolateTaskUtil.queueLength)) return;
     await _player.stop();
     MediaItem mediaItem = AudioService.queue[pos];
     AudioServiceBackground.setMediaItem(mediaItem);
     await _player.setUrl(mediaItem.id);
     onPlay();
   }
+
+  @override
+  Future<void> onUpdateQueue(List<MediaItem> queue) async {
+    AudioServiceBackground.setQueue(queue);
+  }
+
+  @override
+  Future<void> onUpdateMediaItem(MediaItem mediaItem) async {}
 
   @override
   void onAddQueueItem(MediaItem mediaItem) {}

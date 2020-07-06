@@ -6,40 +6,45 @@ part of 'items_state.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ItemsStateAdapter extends TypeAdapter<ItemsState> {
+class AudioItemSourceAdapter extends TypeAdapter<AudioItemSource> {
   @override
   final typeId = 2;
 
   @override
-  ItemsState read(BinaryReader reader) {
+  AudioItemSource read(BinaryReader reader) {
     switch (reader.readByte()) {
       case 0:
-        return ItemsState.normal;
+        return AudioItemSource.Url;
       case 1:
-        return ItemsState.download;
+        return AudioItemSource.File;
       case 2:
-        return ItemsState.favorite;
+        return AudioItemSource.Asset;
       case 3:
-        return ItemsState.playList;
+        return AudioItemSource.HLS;
+      case 4:
+        return AudioItemSource.DASH;
       default:
         return null;
     }
   }
 
   @override
-  void write(BinaryWriter writer, ItemsState obj) {
+  void write(BinaryWriter writer, AudioItemSource obj) {
     switch (obj) {
-      case ItemsState.normal:
+      case AudioItemSource.Url:
         writer.writeByte(0);
         break;
-      case ItemsState.download:
+      case AudioItemSource.File:
         writer.writeByte(1);
         break;
-      case ItemsState.favorite:
+      case AudioItemSource.Asset:
         writer.writeByte(2);
         break;
-      case ItemsState.playList:
+      case AudioItemSource.HLS:
         writer.writeByte(3);
+        break;
+      case AudioItemSource.DASH:
+        writer.writeByte(4);
         break;
     }
   }

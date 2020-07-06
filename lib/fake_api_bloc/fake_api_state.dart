@@ -8,3 +8,13 @@ class FakeApiInitial extends FakeApiState {
   @override
   List<Object> get props => [];
 }
+
+class FakeApiLoading extends FakeApiState {
+  @override
+  List<Object> get props => [];
+}
+
+class FakeApiLoaded extends FakeApiState {
+  @override
+  List<Object> get props => [];
+}
