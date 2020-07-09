@@ -1,19 +1,54 @@
 part of 'audio_service_entrypoint.dart';
 
 class AudioServiceTaskIsolate extends BackgroundAudioTask {
-  PlayBackOrderState playBackState;
+  Duration _positionInterval = Duration(seconds: 2);
   AudioBase _player;
+
+  int _audioItemIndex;
+  List<AudioItem> _audioItems;
+
+  /// This position is used for init pos (Sec)
+  int _initPosition;
+
+  /// This field should be set from onCusttomAction
+  AudioItemSource _audioItemSource;
+
+  /// This field should be set from onCusttomAction AND sended from _sendIsolateEvent
+  PlayBackOrderState _playBackOrderState;
+
+  bool get _hasMediaItems => _audioItems.isEmpty;
+  int get _mediaItemsLength => _audioItems.length;
+  bool get _isFirstAudioItem => _audioItemIndex == 0;
+  bool get _isLastAudioItem => _audioItemIndex == _mediaItemsLength - 1;
+  int get _mediaItemIndex => _audioItems.indexWhere(
+        (item) => item.id == _audioItems[_audioItemIndex].id,
+      );
+
+  MediaItem _audioItemToMediaItem(AudioItem audioItem) => MediaItem(
+        id: audioItem.id,
+        artUri: audioItem.artUri,
+        title: audioItem.artist,
+        album: audioItem.album,
+        artist: audioItem.artist,
+        duration: audioItem.duration,
+      );
+
+  AudioItem _mediaItemToAudioItem(MediaItem mediaItem) => AudioItem(
+        id: mediaItem.id,
+        artUri: mediaItem.artUri,
+        title: mediaItem.artist,
+        album: mediaItem.album,
+        artist: mediaItem.artist,
+        duration: mediaItem.duration,
+      );
 
   @override
   Future<void> onStart(Map<String, dynamic> params) async {
-    await _hiveInitial();
     _player = JustAudio();
-    // _AudioServiceIsolateTaskUtil.sendIsolateEvent(
-    //   IsolateTransfer(
-    //     itemsState: ItemsState.download,
-    //     playBackOrderState: PlayBackOrderState.shuffle,
-    //   ),
-    // );
+    await _hiveInitial();
+    Stream<void>.periodic(_positionInterval, (_) {
+      Hive.box('position').put(0, _player.position.inSeconds);
+    });
     _player.playerStateStream.listen((state) {
       state.when(
         completed: () => _handlePlayerCompletion(),
@@ -43,31 +78,52 @@ class AudioServiceTaskIsolate extends BackgroundAudioTask {
         ),
       );
     });
+    await _handleInitOnStart();
   }
 
   _hiveInitial() async {
+    /// Initializing application dir
     final appDocDir = await path_provider.getApplicationDocumentsDirectory();
+
+    /// Hive initialization and registrations
     Hive.init(appDocDir.path);
-    Hive.registerAdapter<PlayBackOrderState>(
-      PlayBackOrderStateAdapter(),
-    );
-    final playBackBox =
+    Hive.registerAdapter<PlayBackOrderState>(PlayBackOrderStateAdapter());
+
+    /// AudioItemSource
+    final audioItemSourceBox =
+        await Hive.openBox<AudioItemSource>('audio_item_source');
+    _audioItemSource = audioItemSourceBox.get(0) ?? AudioItemSource.Url;
+
+    /// PlayBackorderState
+    final playBackOrderBox =
         await Hive.openBox<PlayBackOrderState>('play_back_order_state');
-    if (playBackBox.isEmpty) await playBackBox.put(0, PlayBackOrderState.order);
+    _playBackOrderState = playBackOrderBox.get(0) ?? PlayBackOrderState.order;
+
+    /// AudioItems
+    final audioItemsBox = await Hive.openBox<List<AudioItem>>('audio_items');
+    _audioItems = audioItemsBox.get(0) ?? [];
+
+    /// AudioItemIndex
+    final audioItemIndexBox = await Hive.openBox<int>('audio_item_index');
+    _audioItemIndex = audioItemIndexBox.get(0) ?? 0;
+
+    /// Position
+    final initPositionBox = await Hive.openBox<int>('position');
+    _initPosition = initPositionBox.get(0) ?? 0;
   }
 
   _handlePlayerCompletion() async {
-    switch (playBackState) {
+    switch (_playBackOrderState) {
       case PlayBackOrderState.order:
-        if (_AudioServiceIsolateTaskUtil.isLastPlayerItem) {
+        if (_isLastAudioItem) {
           onPause();
         } else {
           _skip(1);
         }
         break;
       case PlayBackOrderState.repeatAll:
-        if (_AudioServiceIsolateTaskUtil.isLastPlayerItem) {
-          onSkipToQueueItem(_AudioServiceIsolateTaskUtil.queue.first.id);
+        if (_isLastAudioItem) {
+          onSkipToQueueItem(_audioItems.first.id);
         } else {
           _skip(1);
         }
@@ -77,10 +133,33 @@ class AudioServiceTaskIsolate extends BackgroundAudioTask {
         onPlay();
         break;
       case PlayBackOrderState.shuffle:
-        int random = Random().nextInt(_AudioServiceIsolateTaskUtil.queueLength);
-        onSkipToQueueItem(_AudioServiceIsolateTaskUtil.queue[random].id);
+        int random = Random().nextInt(_mediaItemsLength);
+        onSkipToQueueItem(_audioItems[random].id);
         break;
     }
+  }
+
+  _handleInitOnStart() async {
+    if (_hasMediaItems) {
+      AudioServiceBackground.setQueue(
+        _audioItems
+            .map((AudioItem audioItem) => _audioItemToMediaItem(audioItem))
+            .toList(),
+      );
+    } else {}
+  }
+
+  void _sendIsolateEvent(AudioPortToMain audioPortToMain) =>
+      AudioServiceBackground.sendCustomEvent(audioPortToMain);
+
+  @override
+  Future onCustomAction(String name, arguments) async {
+    final args = new Map<String, dynamic>.from(arguments);
+    MainPortToAudio port = MainPortToAudio.fromJson(args);
+    _audioItemSource = port.audioItemSource ?? _audioItemSource;
+    Hive.box('audio_item_source').put(0, _audioItemSource);
+    _playBackOrderState = port.playBackOrderState ?? _playBackOrderState;
+    Hive.box('play_back_order_state').put(0, _playBackOrderState);
   }
 
   @override
@@ -107,14 +186,14 @@ class AudioServiceTaskIsolate extends BackgroundAudioTask {
 
   @override
   void onSkipToNext() {
-    switch (playBackState) {
+    switch (_playBackOrderState) {
       case PlayBackOrderState.shuffle:
-        int random = Random().nextInt(_AudioServiceIsolateTaskUtil.queueLength);
-        onSkipToQueueItem(_AudioServiceIsolateTaskUtil.queue[random].id);
+        int random = Random().nextInt(_mediaItemsLength);
+        onSkipToQueueItem(_audioItems[random].id);
         break;
       default:
-        if (_AudioServiceIsolateTaskUtil.isLastPlayerItem) {
-          onSkipToQueueItem(_AudioServiceIsolateTaskUtil.queue.first.id);
+        if (_isLastAudioItem) {
+          onSkipToQueueItem(_audioItems.first.id);
         } else {
           _skip(1);
         }
@@ -123,14 +202,14 @@ class AudioServiceTaskIsolate extends BackgroundAudioTask {
 
   @override
   void onSkipToPrevious() {
-    switch (playBackState) {
+    switch (_playBackOrderState) {
       case PlayBackOrderState.shuffle:
-        int random = Random().nextInt(_AudioServiceIsolateTaskUtil.queueLength);
-        onSkipToQueueItem(_AudioServiceIsolateTaskUtil.queue[random].id);
+        int random = Random().nextInt(_mediaItemsLength);
+        onSkipToQueueItem(_audioItems[random].id);
         break;
       default:
-        if (_AudioServiceIsolateTaskUtil.isFirstPlayerItem) {
-          onSkipToQueueItem(_AudioServiceIsolateTaskUtil.queue.last.id);
+        if (_isFirstAudioItem) {
+          onSkipToQueueItem(_audioItems.last.id);
         } else {
           _skip(-1);
         }
@@ -141,10 +220,11 @@ class AudioServiceTaskIsolate extends BackgroundAudioTask {
   void onSkipToQueueItem(String mediaId) {}
 
   Future<void> _skip(int offset) async {
-    final pos = _AudioServiceIsolateTaskUtil.mediaItemIndex + offset;
-    if (!(pos >= 0 && pos < _AudioServiceIsolateTaskUtil.queueLength)) return;
-    await _player.stop();
-    MediaItem mediaItem = AudioService.queue[pos];
+    final pos = _mediaItemIndex + offset;
+    if (!(pos >= 0 && pos < _mediaItemsLength)) return;
+    //TODO
+    // await _player.stop();
+    MediaItem mediaItem = _audioItemToMediaItem(_audioItems[pos]);
     AudioServiceBackground.setMediaItem(mediaItem);
     await _player.setUrl(mediaItem.id);
     onPlay();
@@ -153,6 +233,10 @@ class AudioServiceTaskIsolate extends BackgroundAudioTask {
   @override
   Future<void> onUpdateQueue(List<MediaItem> queue) async {
     AudioServiceBackground.setQueue(queue);
+    _audioItems = queue
+        .map((MediaItem mediaItem) => _mediaItemToAudioItem(mediaItem))
+        .toList();
+    _skip(0);
   }
 
   @override
@@ -199,7 +283,7 @@ class AudioServiceTaskIsolate extends BackgroundAudioTask {
 
   @override
   void onPlayFromMediaId(String mediaId) {
-    final currIndex = _AudioServiceIsolateTaskUtil.mediaItemIndex;
+    final currIndex = _mediaItemIndex;
     final reqIndex = AudioService.queue.indexWhere(
       (mediaItem) => mediaItem.id == mediaId,
     );
@@ -232,13 +316,6 @@ class AudioServiceTaskIsolate extends BackgroundAudioTask {
           onPlay();
         break;
     }
-  }
-
-  @override
-  Future onCustomAction(String name, arguments) async {
-    final args = new Map<String, dynamic>.from(arguments);
-    IsolateTransfer transfer = IsolateTransfer.fromJson(args);
-    print(transfer);
   }
 
   Future<void> _setState({

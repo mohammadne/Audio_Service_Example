@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:hive/hive.dart';
-import 'package:just_audio_Service/model/audio/custom/isolate_transfer/isolate_transfer.dart';
+import 'package:just_audio_Service/model/audio/custom/audio_port_to_main/audio_port_to_main.dart';
+import 'package:just_audio_Service/model/audio/custom/items_state/items_state.dart';
+import 'package:just_audio_Service/model/audio/custom/main_port_to_audio/main_port_to_audio.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter/foundation.dart';
 import 'package:audio_service/audio_service.dart';
@@ -16,7 +18,6 @@ import '../just_audio.dart';
 import '../audio_base.dart';
 
 part 'audio_service_task_isolate.dart';
-part 'audio_service_task_util.dart';
 
 void _audioServiceTaskEntrypoint() async {
   AudioServiceBackground.run(() => AudioServiceTaskIsolate());
@@ -40,27 +41,25 @@ abstract class AudioServiceEntrypoint {
   static Future<void> seek(Duration position) => AudioService.seekTo(position);
   static Future<void> setSpeed(double speed) => AudioService.setSpeed(speed);
 
-  static Future<void> setQueue(List<AudioItem> audioItems) =>
+  static Future<void> updateQueue(List<AudioItem> audioItems) =>
       AudioService.updateQueue(
         audioItems
-            .map(
-              (AudioItem audioItem) => _audioItemToMediaItem(audioItem),
-            )
+            .map((AudioItem audioItem) => _audioItemToMediaItem(audioItem))
             .toList(),
       );
 
-  static Future<void> sendIsolateEvent(IsolateTransfer isolateTransfer) =>
+  static Future<void> sendIsolateEvent(MainPortToAudio mainPortToAudio) =>
       AudioService.customAction(
         'customAction',
-        isolateTransfer.toJson(),
+        mainPortToAudio.toJson(),
       );
 
-  // State
+  // Streams
   static Stream<AudioServiceState> get playerServiceStream =>
       AudioService.playbackStateStream.map(_playbackStateToPlayerServiceState);
 
-  static Stream<IsolateTransfer> get isolateEventStream =>
-      Stream.castFrom<dynamic, IsolateTransfer>(AudioService.customEventStream);
+  static Stream<AudioPortToMain> get isolateEventStream =>
+      Stream.castFrom<dynamic, AudioPortToMain>(AudioService.customEventStream);
 
   // AudioItem
   static Stream<AudioItem> get audioItemStream =>

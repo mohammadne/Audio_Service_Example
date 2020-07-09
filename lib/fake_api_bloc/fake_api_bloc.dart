@@ -17,7 +17,7 @@ class FakeApiBloc extends Bloc<FakeApiEvent, FakeApiState> {
     yield FakeApiLoading();
     await Future.delayed(Duration(seconds: 2));
     if (event is PlayPlayList1) {
-      AudioServiceEntrypoint.setQueue(<AudioItem>[
+      AudioServiceEntrypoint.updateQueue(<AudioItem>[
         AudioItem(
           id: "https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3",
           album: "Science Friday",
@@ -38,7 +38,7 @@ class FakeApiBloc extends Bloc<FakeApiEvent, FakeApiState> {
         ),
       ]);
     } else if (event is PlayPlayList2) {
-      AudioServiceEntrypoint.setQueue(<AudioItem>[
+      AudioServiceEntrypoint.updateQueue(<AudioItem>[
         AudioItem(
           id: "https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3",
           album: "Science Friday",

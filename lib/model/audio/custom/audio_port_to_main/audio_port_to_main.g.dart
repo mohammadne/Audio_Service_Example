@@ -1,25 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'isolate_transfer.dart';
+part of 'audio_port_to_main.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_IsolateTransfer _$_$_IsolateTransferFromJson(Map<String, dynamic> json) {
-  return _$_IsolateTransfer(
+_$_AudioPortToMain _$_$_AudioPortToMainFromJson(Map<String, dynamic> json) {
+  return _$_AudioPortToMain(
     playBackOrderState: _$enumDecodeNullable(
         _$PlayBackOrderStateEnumMap, json['playBackOrderState']),
-    itemsState:
-        _$enumDecodeNullable(_$AudioItemSourceEnumMap, json['itemsState']),
   );
 }
 
-Map<String, dynamic> _$_$_IsolateTransferToJson(_$_IsolateTransfer instance) =>
+Map<String, dynamic> _$_$_AudioPortToMainToJson(_$_AudioPortToMain instance) =>
     <String, dynamic>{
       'playBackOrderState':
           _$PlayBackOrderStateEnumMap[instance.playBackOrderState],
-      'itemsState': _$AudioItemSourceEnumMap[instance.itemsState],
     };
 
 T _$enumDecode<T>(
@@ -59,12 +56,4 @@ const _$PlayBackOrderStateEnumMap = {
   PlayBackOrderState.repeatAll: 'repeatAll',
   PlayBackOrderState.repeatOne: 'repeatOne',
   PlayBackOrderState.shuffle: 'shuffle',
-};
-
-const _$AudioItemSourceEnumMap = {
-  AudioItemSource.Url: 'Url',
-  AudioItemSource.File: 'File',
-  AudioItemSource.Asset: 'Asset',
-  AudioItemSource.HLS: 'HLS',
-  AudioItemSource.DASH: 'DASH',
 };

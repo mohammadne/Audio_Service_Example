@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio_Service/fake_api_bloc/fake_api_bloc.dart';
-import 'package:just_audio_Service/model/audio/custom/isolate_transfer/isolate_transfer.dart';
 import 'package:just_audio_Service/model/audio/custom/audio_item/audio_item.dart';
+import 'package:just_audio_Service/model/audio/custom/audio_port_to_main/audio_port_to_main.dart';
 import 'package:just_audio_Service/model/audio/service/processing_state/audio_service_processing_state.dart';
 import 'package:just_audio_Service/model/audio/service/state/audio_service_state.dart';
 import 'package:just_audio_Service/service/audio/service/audio_service_entrypoint.dart';
@@ -52,10 +52,10 @@ class PlayerPage extends StatelessWidget {
                         child: Text('Start background'),
                         onPressed: AudioServiceEntrypoint.start,
                       ),
-                      StreamBuilder<IsolateTransfer>(
+                      StreamBuilder<AudioPortToMain>(
                         stream: AudioServiceEntrypoint.isolateEventStream,
                         builder: (_, snapshot) {
-                          IsolateTransfer isolateTransfer = snapshot.data;
+                          AudioPortToMain isolateTransfer = snapshot.data;
                           return Text("custom event: $isolateTransfer");
                         },
                       ),

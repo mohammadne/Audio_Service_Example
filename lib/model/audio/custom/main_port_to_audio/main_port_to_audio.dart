@@ -3,16 +3,16 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:just_audio_Service/model/audio/custom/items_state/items_state.dart';
 import 'package:just_audio_Service/model/audio/custom/play_back_order_state/play_back_order_state.dart';
 
-part 'isolate_transfer.freezed.dart';
-part 'isolate_transfer.g.dart';
+part 'main_port_to_audio.freezed.dart';
+part 'main_port_to_audio.g.dart';
 
 @freezed
-abstract class IsolateTransfer with _$IsolateTransfer {
-  const factory IsolateTransfer({
+abstract class MainPortToAudio with _$MainPortToAudio {
+  const factory MainPortToAudio({
     PlayBackOrderState playBackOrderState,
-    AudioItemSource itemsState,
-  }) = _IsolateTransfer;
+    AudioItemSource audioItemSource,
+  }) = _MainPortToAudio;
 
-  factory IsolateTransfer.fromJson(Map<String, dynamic> json) =>
-      _$IsolateTransferFromJson(json);
+  factory MainPortToAudio.fromJson(Map<String, dynamic> json) =>
+      _$MainPortToAudioFromJson(json);
 }
