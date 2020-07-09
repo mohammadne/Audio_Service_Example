@@ -78,6 +78,7 @@ class PlayerPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               StreamBuilder<bool>(
+                                initialData: true,
                                 stream: AudioServiceEntrypoint
                                     .isFirstAudioItemStream,
                                 builder: (_, isFirst) => IconButton(
@@ -89,6 +90,7 @@ class PlayerPage extends StatelessWidget {
                                 ),
                               ),
                               StreamBuilder<bool>(
+                                initialData: true,
                                 stream: AudioServiceEntrypoint
                                     .isLastAudioItemStream,
                                 builder: (_, isLast) => IconButton(
@@ -153,7 +155,7 @@ class PlayerPage extends StatelessWidget {
                   return Center(child: CircularProgressIndicator());
                 } else {
                   return Container(
-                    height: 200,
+                    height: 300,
                     child: StreamBuilder<List<AudioItem>>(
                       stream: AudioServiceEntrypoint.audioItemsStream,
                       builder: (_, snap) {
@@ -162,7 +164,15 @@ class PlayerPage extends StatelessWidget {
                           shrinkWrap: true,
                           itemCount: data.length,
                           itemBuilder: (_, index) {
-                            return Text(data[index].id);
+                            return InkWell(
+                              onTap: () => AudioServiceEntrypoint.playAudioItem(
+                                data[index].id,
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(16),
+                                child: Text(data[index].id),
+                              ),
+                            );
                           },
                         );
                       },

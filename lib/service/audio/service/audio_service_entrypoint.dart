@@ -34,6 +34,9 @@ abstract class AudioServiceEntrypoint {
       );
 
   static Future<void> play() => AudioService.play();
+  static Future<void> playAudioItem(String id) =>
+      AudioService.playFromMediaId(id);
+
   static Future<void> pause() => AudioService.pause();
   static Future<void> stop() => AudioService.stop();
   static Future<void> skipToNext() => AudioService.skipToNext();
@@ -81,8 +84,8 @@ abstract class AudioServiceEntrypoint {
 
   // AudioItems
   static Stream<List<AudioItem>> get audioItemsStream =>
-      AudioService.queueStream.map((List<MediaItem> mediaItems) =>
-          mediaItems.map(_mediaItemToAudioItem));
+      AudioService.queueStream
+          .map((mediaItems) => mediaItems.map(_mediaItemToAudioItem).toList());
 
   // Utils
   static AudioServiceState _playbackStateToPlayerServiceState(

@@ -20,9 +20,6 @@ class AudioServiceTaskIsolate extends BackgroundAudioTask {
   int get _mediaItemsLength => _audioItems.length;
   bool get _isFirstAudioItem => _audioItemIndex == 0;
   bool get _isLastAudioItem => _audioItemIndex == _mediaItemsLength - 1;
-  int get _mediaItemIndex => _audioItems.indexWhere(
-        (item) => item.id == _audioItems[_audioItemIndex].id,
-      );
 
   MediaItem _audioItemToMediaItem(AudioItem audioItem) => MediaItem(
         id: audioItem.id,
@@ -140,12 +137,11 @@ class AudioServiceTaskIsolate extends BackgroundAudioTask {
   }
 
   _handleInitOnStart() async {
+    AudioServiceBackground.setQueue(_audioItems
+        .map((AudioItem audioItem) => _audioItemToMediaItem(audioItem))
+        .toList());
+
     if (_hasMediaItems) {
-      AudioServiceBackground.setQueue(
-        _audioItems
-            .map((AudioItem audioItem) => _audioItemToMediaItem(audioItem))
-            .toList(),
-      );
     } else {}
   }
 
@@ -185,6 +181,11 @@ class AudioServiceTaskIsolate extends BackgroundAudioTask {
   }
 
   @override
+  void onSeekTo(Duration position) {
+    _player.seek(position);
+  }
+
+  @override
   void onSkipToNext() {
     switch (_playBackOrderState) {
       case PlayBackOrderState.shuffle:
@@ -220,8 +221,9 @@ class AudioServiceTaskIsolate extends BackgroundAudioTask {
   void onSkipToQueueItem(String mediaId) {}
 
   Future<void> _skip(int offset) async {
-    final pos = _mediaItemIndex + offset;
+    final pos = _audioItemIndex + offset;
     if (!(pos >= 0 && pos < _mediaItemsLength)) return;
+    _audioItemIndex = pos;
     //TODO
     // await _player.stop();
     MediaItem mediaItem = _audioItemToMediaItem(_audioItems[pos]);
@@ -283,17 +285,12 @@ class AudioServiceTaskIsolate extends BackgroundAudioTask {
 
   @override
   void onPlayFromMediaId(String mediaId) {
-    final currIndex = _mediaItemIndex;
     final reqIndex = AudioService.queue.indexWhere(
       (mediaItem) => mediaItem.id == mediaId,
     );
-    _skip(reqIndex - currIndex);
+    _skip(reqIndex - _audioItemIndex);
   }
-
-  @override
-  void onSeekTo(Duration position) {
-    _player.seek(position);
-  }
+  
 
   @override
   void onSetSpeed(double speed) {
