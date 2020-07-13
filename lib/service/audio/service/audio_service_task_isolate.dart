@@ -1,6 +1,7 @@
 part of 'audio_service_entrypoint.dart';
 
 class AudioServiceTaskIsolate extends BackgroundAudioTask {
+  /// This is the duration which specify how long it should save the position
   Duration _positionInterval = Duration(seconds: 2);
   AudioBase _player;
 
@@ -44,6 +45,7 @@ class AudioServiceTaskIsolate extends BackgroundAudioTask {
     _player = JustAudio();
     await _hiveInitial();
     Stream<void>.periodic(_positionInterval, (_) {
+      print('position is on $_player.position.inSeconds');
       Hive.box('position').put(0, _player.position.inSeconds);
     });
     _player.playerStateStream.listen((state) {
@@ -149,7 +151,7 @@ class AudioServiceTaskIsolate extends BackgroundAudioTask {
       AudioServiceBackground.sendCustomEvent(audioPortToMain);
 
   @override
-  Future onCustomAction(String name, arguments) async {
+  Future onCustomAction(_, arguments) async {
     final args = new Map<String, dynamic>.from(arguments);
     MainPortToAudio port = MainPortToAudio.fromJson(args);
     _audioItemSource = port.audioItemSource ?? _audioItemSource;
@@ -172,13 +174,11 @@ class AudioServiceTaskIsolate extends BackgroundAudioTask {
   Future<void> onStop() async {
     await _player.stop();
     await super.onStop();
+    await Hive.close();
   }
 
   @override
-  void onClose() {
-    onStop();
-    Hive.close();
-  }
+  void onClose() => onStop();
 
   @override
   void onSeekTo(Duration position) {
@@ -290,7 +290,6 @@ class AudioServiceTaskIsolate extends BackgroundAudioTask {
     );
     _skip(reqIndex - _audioItemIndex);
   }
-  
 
   @override
   void onSetSpeed(double speed) {
@@ -333,17 +332,17 @@ class AudioServiceTaskIsolate extends BackgroundAudioTask {
   List<MediaControl> _getControls(bool isPlaying) {
     if (isPlaying) {
       return [
-        stopControl,
         skipToPreviousControl,
         pauseControl,
         skipToNextControl,
+        stopControl,
       ];
     } else {
       return [
-        stopControl,
         skipToPreviousControl,
         playControl,
         skipToNextControl,
+        stopControl,
       ];
     }
   }

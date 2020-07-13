@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:just_audio_Service/model/audio/custom/audio_port_to_main/audio_port_to_main.dart';
 import 'package:just_audio_Service/model/audio/custom/items_state/items_state.dart';
@@ -18,6 +19,25 @@ import '../just_audio.dart';
 import '../audio_base.dart';
 
 part 'audio_service_task_isolate.dart';
+
+class AudioServiceEntryPointWidget extends StatefulWidget {
+  const AudioServiceEntryPointWidget({@required this.child});
+  final Widget child;
+
+  @override
+  _AudioServiceWidgetState createState() => _AudioServiceWidgetState();
+}
+
+class _AudioServiceWidgetState extends State<AudioServiceEntryPointWidget> {
+  @override
+  void initState() {
+    super.initState();
+    AudioServiceEntrypoint.start();
+  }
+
+  @override
+  Widget build(BuildContext context) => AudioServiceWidget(child: widget.child);
+}
 
 void _audioServiceTaskEntrypoint() async {
   AudioServiceBackground.run(() => AudioServiceTaskIsolate());

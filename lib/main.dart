@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio_Service/fake_api_bloc/fake_api_bloc.dart';
 
+import 'service/audio/service/audio_service_entrypoint.dart';
 import 'ui/player_page.dart';
 
 void main() => runApp(new MyApp());
@@ -10,7 +11,7 @@ void main() => runApp(new MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return AudioServiceWidget(
+    return AudioServiceEntryPointWidget(
       child: BlocProvider<FakeApiBloc>(
         create: (_) => FakeApiBloc(),
         child: MaterialApp(
